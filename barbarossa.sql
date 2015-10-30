@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- 主机: localhost
--- 生成日期: 2015 年 10 月 27 日 19:03
+-- 生成日期: 2015 年 10 月 30 日 17:29
 -- 服务器版本: 5.5.40
 -- PHP 版本: 5.3.29
 
@@ -76,14 +76,28 @@ CREATE TABLE IF NOT EXISTS `xmls_action_log` (
   KEY `action_ip_ix` (`action_ip`),
   KEY `action_id_ix` (`action_id`),
   KEY `user_id_ix` (`user_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED COMMENT='行为日志表' AUTO_INCREMENT=2 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED COMMENT='行为日志表' AUTO_INCREMENT=16 ;
 
 --
 -- 转存表中的数据 `xmls_action_log`
 --
 
 INSERT INTO `xmls_action_log` (`id`, `action_id`, `user_id`, `action_ip`, `model`, `record_id`, `remark`, `status`, `create_time`) VALUES
-(1, 1, 1, 2130706433, 'member', 1, 'admin在2015-10-27 19:01登录了后台', 1, 1445943703);
+(1, 1, 1, 2130706433, 'member', 1, 'admin在2015-10-27 19:01登录了后台', 1, 1445943703),
+(2, 10, 1, 2130706433, 'Menu', 122, '操作url：/index.php?s=/admin/menu/add.html', 1, 1446193380),
+(3, 10, 1, 2130706433, 'Menu', 123, '操作url：/index.php?s=/admin/menu/add.html', 1, 1446193825),
+(4, 10, 1, 2130706433, 'Menu', 124, '操作url：/index.php?s=/admin/menu/add.html', 1, 1446193888),
+(5, 10, 1, 2130706433, 'Menu', 125, '操作url：/index.php?s=/admin/menu/add.html', 1, 1446193936),
+(6, 10, 1, 2130706433, 'Menu', 126, '操作url：/index.php?s=/admin/menu/add.html', 1, 1446194134),
+(7, 10, 1, 2130706433, 'Menu', 127, '操作url：/index.php?s=/admin/menu/add.html', 1, 1446195059),
+(8, 10, 1, 2130706433, 'Menu', 128, '操作url：/index.php?s=/admin/menu/add.html', 1, 1446195142),
+(9, 10, 1, 2130706433, 'Menu', 129, '操作url：/index.php?s=/admin/menu/add.html', 1, 1446195193),
+(10, 10, 1, 2130706433, 'Menu', 130, '操作url：/index.php?s=/admin/menu/add.html', 1, 1446195253),
+(11, 10, 1, 2130706433, 'Menu', 131, '操作url：/index.php?s=/admin/menu/add.html', 1, 1446195305),
+(12, 10, 1, 2130706433, 'Menu', 132, '操作url：/index.php?s=/admin/menu/add.html', 1, 1446195348),
+(13, 10, 1, 2130706433, 'Menu', 133, '操作url：/index.php?s=/admin/menu/add.html', 1, 1446195401),
+(14, 10, 1, 2130706433, 'Menu', 134, '操作url：/index.php?s=/admin/menu/add.html', 1, 1446195447),
+(15, 10, 1, 2130706433, 'Menu', 135, '操作url：/index.php?s=/admin/menu/add.html', 1, 1446195511);
 
 -- --------------------------------------------------------
 
@@ -835,7 +849,7 @@ CREATE TABLE IF NOT EXISTS `xmls_menu` (
   `is_dev` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '是否仅开发者模式可见',
   PRIMARY KEY (`id`),
   KEY `pid` (`pid`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=122 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=136 ;
 
 --
 -- 转存表中的数据 `xmls_menu`
@@ -939,7 +953,7 @@ INSERT INTO `xmls_menu` (`id`, `title`, `pid`, `sort`, `url`, `hide`, `tip`, `gr
 (98, '编辑', 75, 0, 'Menu/edit', 0, '', '', 0),
 (104, '下载管理', 102, 0, 'Think/lists?model=download', 0, '', '', 0),
 (105, '配置管理', 102, 0, 'Think/lists?model=config', 0, '', '', 0),
-(106, '行为日志', 16, 0, 'Action/actionlog', 0, '', '行为管理', 0),
+(106, '用户行为日志', 122, 4, 'Action/actionlog', 0, '', 'CRM系统设置', 0),
 (108, '修改密码', 16, 0, 'User/updatePassword', 1, '', '', 0),
 (109, '修改昵称', 16, 0, 'User/updateNickname', 1, '', '', 0),
 (110, '查看行为日志', 106, 0, 'action/edit', 1, '', '', 0),
@@ -952,7 +966,21 @@ INSERT INTO `xmls_menu` (`id`, `title`, `pid`, `sort`, `url`, `hide`, `tip`, `gr
 (118, '文档排序', 3, 0, 'Article/sort', 1, '', '', 0),
 (119, '排序', 70, 0, 'Config/sort', 1, '', '', 0),
 (120, '排序', 75, 0, 'Menu/sort', 1, '', '', 0),
-(121, '排序', 76, 0, 'Channel/sort', 1, '', '', 0);
+(121, '排序', 76, 0, 'Channel/sort', 1, '', '', 0),
+(122, 'CRM', 0, 0, 'System/index', 0, '', '', 0),
+(123, '员工信息管理', 122, 1, 'System/employeeManage', 0, '', 'CRM系统设置', 0),
+(124, '企业部门管理', 122, 2, 'System/DepartmentManage', 0, '', 'CRM系统设置', 0),
+(125, '系统角色管理', 122, 3, 'System/roleManage', 0, '', 'CRM系统设置', 0),
+(126, '客户池设置', 122, 5, 'System/customPoolSetting', 0, '', 'CRM系统设置', 0),
+(127, '客户资料管理', 122, 1, 'Custom/customList', 0, '', '客户管理', 0),
+(128, '我的客户列表', 122, 2, 'Custom/myCustomList', 0, '', '客户管理', 0),
+(129, '联系记录管理', 122, 3, 'Custom/feedbackList', 0, '', '客户管理', 0),
+(130, '等待回访客户', 122, 4, 'Custom/waitLinkList', 0, '', '客户管理', 0),
+(131, '客户资料导入', 122, 5, 'Custom/excelUpload', 0, '', '客户管理', 0),
+(132, '共享客户列表', 122, 6, 'Custom/shareCustomList', 0, '', '客户管理', 0),
+(133, '公共客户管理', 122, 7, 'Custom/customPoolManage', 0, '', '客户管理', 0),
+(134, '客户类别管理', 122, 8, 'Custom/categoryManage', 0, '', '客户管理', 0),
+(135, '客户来源管理', 122, 9, 'Custom/sourceManage', 0, '', '客户管理', 0);
 
 -- --------------------------------------------------------
 
