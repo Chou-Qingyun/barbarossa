@@ -1,0 +1,84 @@
+<extend name="Public/base"/>
+
+<block name="body">
+<style>
+	table.gritable{
+		border: 1px;
+		width: 90%;
+		height: 188px;
+		font-family: "Microsoft Yahei",arial,sans-serif;
+		font-size: 16px;
+	}
+	table.gritable td{
+		padding-left: 16px;
+	
+	}
+	#c_title{
+		float:left;
+		font-family: "Microsoft Yahei",arial,sans-serif;
+		font-size:20px;
+		font-weight: 550;
+	}
+	.s_menu{
+		width: 88px;
+		height: 32px;
+		float: left;
+		text-align: center;	
+	}
+	.blk{
+		width: 100%;
+	}
+</style>
+	<volist name="_list" id="vo">
+	<div style="border:2px solid #dce0e1;">
+    <div>
+    	<div id="c_title">客户基本信息</div>
+    	<div style="float:right;margin-top:4px;"><a class="btn" href="{:U('Custom/customListUpdate?id='.$vo['id'])}" class="">编辑</a></div>
+    </div>
+    <table class="gritable" >
+    	<tr>
+    		<td>客户编号：{$vo.customer_number}</td>
+    		<td>客户名称：{$vo.customer_name}</td>
+    		<td>客户类别：{$vo.customer_type}</td>
+    	</tr>
+    	<tr>
+    		<td>主联系人：{$vo.contact_name}</td>
+    		<td>联系电话：{$vo.tel}</td>
+    		<td>QQ/旺旺：{$vo.QQ}</td>
+    	</tr>
+    	<tr>
+    		<td>电子邮件：{$vo.email}</td>
+    		<td>建档客服：{$vo.create_people}</td>
+    		<td>客服专员： {$vo.customer_service}</td>
+    	</tr>
+    	<tr>
+    		<td>客户来源：{$vo.customer_source}</td>
+    		<td colspan="2">详细地址：{$vo.province}{$vo.city}{$vo.country}{$vo.detail_address}</td>
+    	</tr>
+    	<tr>
+    		<td colspan="3">客户备注：{$vo.notes}</td>
+    	</tr>
+    </table>
+    </div>
+    <div class="blk" style="height: 50px;">
+		<iframe frameborder="0" src="{:U('Custom/nav?customer_number='.$vo['customer_number'])}" width="100%" height="50px" scrolling="no"></iframe>
+	</div>
+    <div class="blk" style="height: 40px;">
+    	<div style="float:right;margin-top:4px;">
+    		<a class="btn" href="{:U('Custom/feedbacklistadd?id='.$vo['id'])}" class="">添加记录</a>
+    	</div>
+    </div>
+    <div class="blk">
+    	<iframe frameborder="0" src="{:U('Custom/feedbacklistone?customer_number='.$vo['customer_number'])}" width="100%" height="500" name="under" scrolling="no"></iframe>
+    </div>
+    
+    
+    </volist>
+</block>
+
+<!-- <block name="script">
+    <script type="text/javascript">
+        //导航高亮
+        highlight_subnav('{:U('Custom/index')}');
+    </script>
+</block> -->

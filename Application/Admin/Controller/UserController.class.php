@@ -23,6 +23,9 @@ class UserController extends AdminController {
     public function index(){
         $nickname       =   I('nickname');
         $map['status']  =   array('egt',0);
+        
+        
+        
         if(is_numeric($nickname)){
             $map['uid|nickname']=   array(intval($nickname),array('like','%'.$nickname.'%'),'_multi'=>true);
         }else{

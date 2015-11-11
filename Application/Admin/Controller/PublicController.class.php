@@ -22,11 +22,11 @@ class PublicController extends \Think\Controller {
      */
     public function login($username = null, $password = null, $verify = null){
         if(IS_POST){
+        	//$verify = I('post.verify');
             /* 检测验证码 TODO: */
-            if(!check_verify($verify)){
+          	if(!check_verify($verify)){
                 $this->error('验证码输入错误！');
             }
-
             /* 调用UC登录接口登录 */
             $User = new UserApi;
             $uid = $User->login($username, $password);

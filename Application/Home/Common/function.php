@@ -19,6 +19,7 @@
  * @author 麦当苗儿 <zuojiazi@vip.qq.com>
  */
 function check_verify($code, $id = 1){
+	dump('in aaaa');die();
 	$verify = new \Think\Verify();
 	return $verify->check($code, $id);
 }

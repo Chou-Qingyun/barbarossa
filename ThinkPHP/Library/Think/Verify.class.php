@@ -67,7 +67,7 @@ class Verify {
      * @param string $code 用户验证码
      * @return bool 用户验证码是否正确
      */
-    public function check($code, $id = '') {
+    public function check($code, $id = '') { // id=1
         $key = $this->authcode($this->seKey);
         // 验证码不能为空
         $session = session($key);
@@ -152,8 +152,8 @@ class Verify {
         $this->useZh && imagettftext($this->_image, $this->fontSize, 0, ($this->imageW - $this->fontSize*$this->length*1.2)/3, $this->fontSize * 1.5, $this->_color, $this->fontttf, iconv("GB2312","UTF-8", join('', $code)));
         
         // 保存验证码
-        $key = $this->authcode($this->seKey);
-        $code = $this->authcode(strtoupper(implode('', $code)));
+        $key = $this->authcode($this->seKey); // d2d977c58444271d9c780187e93f80e5  固定不变
+        $code = $this->authcode(strtoupper(implode('', $code))); // $this->authcode（5位随机数字字母）
         $session = array();
         if($id) {
             $session[$id]['verify_code'] = $code; // 把校验码保存到session
@@ -173,6 +173,8 @@ class Verify {
         // 输出图像
         imagepng($this->_image);
         imagedestroy($this->_image);
+        dump('aa');
+        dump($code);
     }
 
     /** 

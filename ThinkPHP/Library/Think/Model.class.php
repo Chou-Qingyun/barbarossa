@@ -88,7 +88,6 @@ class Model {
         }elseif(!isset($this->tablePrefix)){
             $this->tablePrefix = C('DB_PREFIX');
         }
-
         // 数据库初始化操作
         // 获取数据库操作对象
         // 当前模型有独立的数据库连接信息
@@ -1275,6 +1274,7 @@ class Model {
     public function getModelName() {
         if(empty($this->name)){
             $name = substr(get_class($this),0,-5);
+            
             if ( $pos = strrpos($name,'\\') ) {//有命名空间
                 $this->name = substr($name,$pos+1);
             }else{

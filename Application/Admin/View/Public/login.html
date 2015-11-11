@@ -59,7 +59,7 @@
         }).on("blur","input",function(){
             $(this).closest('.item').removeClass('focus');
         });
-
+    	
     	//表单提交
     	$(document)
 	    	.ajaxStart(function(){
@@ -68,7 +68,6 @@
 	    	.ajaxStop(function(){
 	    		$("button:submit").removeClass("log-in").attr("disabled", false);
 	    	});
-
     	$("form").submit(function(){
     		var self = $(this);
     		$.post(self.attr("action"), self.serialize(), success, "json");

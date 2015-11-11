@@ -430,13 +430,19 @@ class AdminController extends Controller {
         if( isset($REQUEST['r']) ){
             $listRows = (int)$REQUEST['r'];
         }else{
-            $listRows = C('LIST_ROWS') > 0 ? C('LIST_ROWS') : 10;
+         
+        	$listRows = C('LIST_ROWS') > 0 ? C('LIST_ROWS') : 10;
+           
         }
+//         var_dump($total);
+//         var_dump($REQUEST);
         $page = new \Think\Page($total, $listRows, $REQUEST);
+        
         if($total>$listRows){
             $page->setConfig('theme','%FIRST% %UP_PAGE% %LINK_PAGE% %DOWN_PAGE% %END% %HEADER%');
         }
         $p =$page->show();
+        
         $this->assign('_page', $p? $p: '');
         $this->assign('_total',$total);
         $options['limit'] = $page->firstRow.','.$page->listRows;
