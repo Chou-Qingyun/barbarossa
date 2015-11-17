@@ -1,3 +1,5 @@
+<extend name="Public/custom"/>
+
 <block name="body">
 <style>
 	table.record_t{
@@ -6,21 +8,33 @@
 		font-size: 16px;
 		text-align: center;
 	}
+	table.record_t td{
+		height: 32px;
+	}
 	
 	 .tr_bk{
 	 	font-weight: bold;
 	 	background: #DFDFDF;
 	 }
+	 a {
+	 	color: #2d7200;
+	 	text-decoration: none;
+	 }
 </style>
 
+    <div class="blk" style="height: 40px;">
+    	<div style="float:right;margin-top:4px;">
+    		<a class="btn" href="{:U('Custom/feedbacklistadd?customer_number='.$customer_number)}" target="_top">添加记录</a>
+    	</div>
+    </div>
     <table class="record_t">
 	    <tr class="tr_bk">
-	    	<td width="200px">联系时间&客服</td>
+	    	<td width="16%">联系时间&客服</td>
 	    	<td>联系内容</td>
-	    	<td width="200px">类型&联系人</td>
-	    	<td width="200px">联系方式&号码</td>
-	    	<td width="120px">预约时间</td>
-	    	<td width="100px">操作</td>
+	    	<td width="15%">类型&联系人</td>
+	    	<td width="16%">联系方式&号码</td>
+	    	<td width="16%">预约时间</td>
+	    	<td width="10%">操作</td>
 	    </tr>
     <notempty name="_feed">
     	<volist name="_feed" id="vo">
@@ -37,8 +51,8 @@
 	    		</td>
 	    		<td>{$vo.appoint_time|date="Y-m-d",###}<br>{$vo.appoint_time|date="H:i:s",###}</td>
 	    		<td>
-	    			<a href="">编辑</a>&nbsp;&nbsp;
-	    			<a href="">删除</a>
+	    			<a href="{:U('Custom/feedbackListEdit?id='.$vo['id'])}" target="_top">编辑</a>&nbsp;&nbsp;
+	    			<a href="{:U('Custom/feedbackListDelete?id='.$vo['id'])}" class="ajax-get" >删除</a>
 	    		</td>
 	    	</tr>
 	    </volist>

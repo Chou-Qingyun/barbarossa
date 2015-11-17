@@ -371,4 +371,3 @@ function get_action_type($type, $all = false){
 	}
 	return $list[$type];
 }
-

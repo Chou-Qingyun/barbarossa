@@ -1,0 +1,81 @@
+<extend name="Public/custom"/>
+
+<block name="body">
+<style>
+	table.record_t{
+		width: 100%;
+		font-family: "Microsoft Yahei",arial,sans-serif;
+		font-size: 16px;
+		text-align: center;
+	}
+	table.record_t td{
+		height: 32px;
+	}
+	
+	 .tr_bk{
+	 	font-weight: bold;
+	 	background: #DFDFDF;
+	 }
+	 a {
+	 	color: #2d7200;
+	 	text-decoration: none;
+	 }
+</style>
+
+    <div class="blk" style="height: 40px;">
+    	<div style="float:right;margin-top:4px;">
+    		<a class="btn" href="{:U('Custom/myCustomDocument?customer_number='.$customer_number)}" target="_top">添加联系人</a>
+    	</div>
+    </div>
+    <table class="record_t">
+	    <tr class="tr_bk">
+	    	<td width="14%">联系人</td>
+	    	<td width="12%">部门</td>
+	    	<td width="12%">职位</td>
+	    	<td >联系电话</td>
+	    	<td width="12%">QQ/旺旺</td>
+	    	<td width="12%">邮件</td>
+	    	<td width="12%">出生日期</td>
+	    	<td width="12%">操作</td>
+	    </tr>
+    <notempty name="_feed">
+    	<volist name="_feed" id="vo">
+	    	<tr class="tr_style">
+	    		<td>{$vo.last_time|date="Y-m-d H:i:s",###}<br>
+	    			{$vo.customer_service}
+	    		</td>
+	    		<td>{$vo.contact_content}</td>
+	    		<td>{$vo.contact_type}<br>
+	    			{$vo.contact_name}
+	    		</td>
+	    		<td>{$vo.contact_way}<br>
+	    			{$vo.txttel}
+	    		</td>
+	    		<td>{$vo.appoint_time|date="Y-m-d",###}<br>{$vo.appoint_time|date="H:i:s",###}</td>
+	    		<td>
+	    			<a href="{:U('Custom/feedbackListEdit?id='.$vo['id'])}" target="_top">编辑</a>&nbsp;&nbsp;
+	    			<a href="{:U('Custom/feedbackListDelete?id='.$vo['id'])}" class="ajax-get" >删除</a>
+	    		</td>
+	    	</tr>
+	    </volist>
+    <else/>
+			<td colspan="8" class="text-center"> aOh! 暂时还没有内容! </td>
+	</notempty>
+    	
+    </table>
+    
+    <div class="page">
+        {$_page}
+    </div>
+</block>
+
+<block name="script">
+	<script>
+		var obj = document.getElementsByClassName('tr_style');
+		for(var i=0; i<obj.length; i++){
+			if(i % 2 == 0){
+				obj[i].style.background="#FFF";
+			}	
+		}
+	</script>
+</block>

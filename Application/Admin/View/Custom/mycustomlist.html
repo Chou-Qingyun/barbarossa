@@ -7,7 +7,7 @@
 	<!-- 标题栏 -->
 	<div id="mtitle">	
 		<div class="main-title" style="float:left;margin-right:10px;">
-			<a href="{:U('Custom/myCustomList')}"><h2>{$user}的客户</h2></a>
+			<a href="{:U('Custom/myCustomList')}"><h2>{:get_username()}的客户</h2></a>
 		</div>
 		<div class="main-title" style="float:left;margin-right:10px;">
 			<a href="{:U('Custom/myCustomListSelf')}"><h2>我的领用</h2></a>
@@ -35,20 +35,20 @@
         <!-- 高级搜索 -->
 		<div class="search-form fr cf">
 			<div class="sleft">
-				<input type="text" name="search_content" style="width:300px;" class="search-input"  placeholder="请输入客户名称/手机/联系人/地址/客服专员">
+				<input type="text" name="search_content" value="{$sarr['search_content']}" style="width:300px;" class="search-input"  placeholder="请输入客户名称/手机/联系人/地址/客服专员">
 				<select class="search-input"  name="customer_type">
 					<option value="">请选择客户类别</option>
 					<volist name="type" id="ty">
-					<option value="{$ty.type_name}">{$ty.type_name}</option>
+					<option value="{$ty.type_name}" {$ty['type_name'] == $sarr['customer_type']? 'selected':''}>{$ty.type_name}</option>
 					</volist>
 				</select>
 				<select class="search-input" name="customer_source">
 					<option value="">请选择客户来源</option>
 					<volist name="source" id="sc">
-					<option value="{$sc.source_name}">{$sc.source_name}</option>
+					<option value="{$sc.source_name}" {$sc['source_name'] == $sarr['customer_source'] ? 'selected': ''}>{$sc.source_name}</option>
 					</volist>
 				</select>
-				<a class="sch-btn" href="javascript:;" id="search" url="{:U('Custom/customListSearch')}"><i class="btn-search"></i></a>
+				<a class="sch-btn" href="javascript:;" id="search" url="{:U('Custom/mycustomListSearch')}"><i class="btn-search"></i></a>
 			</div>
 		</div>
     </div>
@@ -76,14 +76,22 @@
 		<tr>
             <td><input class="ids" type="checkbox" name="id[]" value="{$vo.id}"/></td>
 			<!-- <td>{$vo.id} </td> -->
-			<td>{$vo.customer_name}</td>
+			<td><a href="{:U('Custom/customListDetail?id='.$vo['id'])}">{$vo.customer_name}</td>
 			<td>{$vo.contact_name}</td>
 			<td><span>{$vo.customer_type}</span></td>
 			<td>{$vo.customer_source}</td>
 			<td>{$vo.create_people}/{$vo.create_time|date="Y-m-d",###}</td>
 			<td>{$vo.customer_service}</td>
-			<td>{$vo['last_time']? $vo['last_time'] : "未联系" }</td>
-			<td>{$vo['appoint_time'] ? $vo['appoint_time'] : "未预约"}</td>
+			<if condition="$vo.last_time eq 0">
+				<td>未联系</td>
+			<else />
+				<td>{$vo.last_time|date="Y-m-d H:i:s",###}</td>
+			</if>
+			<if condition="$vo.appoint_time eq 0">
+				<td>未预约</td>
+			<else />
+				<td>{$vo['appoint_time']|date="Y-m-d H:i:s",###}</td>
+			</if>
 			<td>
 				<a href="{:U('Custom/customListUpdate?id='.$vo['id'])}" class="">编辑</a>
 			&nbsp;	

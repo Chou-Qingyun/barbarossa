@@ -59,11 +59,14 @@ class CustomController extends AdminController {
 		($id == 0) && $this->error('参数出错');
 		if(IS_POST){
 			$customData = D('MyCustomerData');
-			$map['id'] = I('id');
+			// dump($id);die();
+			$map['id'] = $id;
+			// dump('post.');
 			if (!$customData->create()) {
 				$this->error($customData->getError());
 			}else{
 				if ($customData->where($map)->save()) {
+					// echo $customData->getLastSql();
 					$this->success('客户资料更新成功',U('Custom/customList'));
 				}else{
 					$this->error('更新失败，请重新操作');
@@ -165,9 +168,135 @@ class CustomController extends AdminController {
 	}
 	
 	//客户资料导出Excel
-	public function customListOutexcel(){
+	public function customListOutexcel($id=0){
+		date_default_timezone_set('Europe/London');
+		if (PHP_SAPI == 'cli')
+			die('This example should only be run from a Web Browser');
+			/** Include PHPExcel */
+			vendor('PHPExcel.PHPExcel');
+			// Create new PHPExcel object
+			$objPHPExcel = new \PHPExcel();
+			
+			$objPHPExcel->setActiveSheetIndex(0)
+			->setCellValue('A1', '客户序列')
+			->setCellValue('B1', '客户编码')
+			->setCellValue('C1', '客户名称')
+			->setCellValue('D1', '联系人')
+			->setCellValue('E1', '性别')
+			->setCellValue('F1', '职位')
+			->setCellValue('G1', '出生日期')
+			->setCellValue('H1', '固定电话')
+			->setCellValue('I1', '联系方式')
+			->setCellValue('J1', '办公电话')
+			->setCellValue('K1', '传真')
+			->setCellValue('L1', '邮箱')
+			->setCellValue('M1', 'QQ/旺旺')
+			->setCellValue('N1', '地址')
+			->setCellValue('O1', '客户来源')
+			->setCellValue('P1', '客户类别')
+			->setCellValue('Q1', '所属行业')
+			->setCellValue('R1', '网站地址')
+			->setCellValue('S1', '合同始日')
+			->setCellValue('T1', '合同止日')
+			->setCellValue('U1', '备注')
+			->setCellValue('V1', '建档人')
+			->setCellValue('W1', '建档时间')
+			->setCellValue('X1', '客服专员')
+			->setCellValue('Y1', '最近一次联系时间')
+			->setCellValue('Z1', '预约时间');
+			// add mysql data, UTF-8
+			//var_dump($_POST);die();
+			if($id==0){
+				$customerData = $this->lists('MyCustomerData','','id');
+// 				dump($customerData);
+			}else{
+				$map['id'] = array('in', $id);
+				$customerData = $this->lists('MyCustomerData',$map,'id');
+// 				dump($customerData);
+			}
+// 			die();
+			$i = 2;
+			foreach($customerData as $v) {
+				date_default_timezone_set("Asia/Shanghai");
+				$objPHPExcel->setActiveSheetIndex(0)
+				->setCellValue('A'.$i, $v["id"])
+				->setCellValue('B'.$i, $v["customer_number"])
+				->setCellValue('C'.$i, $v["customer_name"])
+				->setCellValue('D'.$i, $v["contact_name"])
+				->setCellValue('E'.$i, $v["gender"])
+				->setCellValue('F'.$i, $v["position"])
+				->setCellValue('G'.$i, date('Y-m-d H:i:s',$v["birthday"]))
+				->setCellValue('H'.$i, $v["phone"])
+				->setCellValue('I'.$i, $v["tel"])
+				->setCellValue('J'.$i, $v["office_number"])
+				->setCellValue('K'.$i, $v["fax_number"])
+				->setCellValue('L'.$i, $v["email"])
+				->setCellValue('M'.$i, $v["QQ"])
+				->setCellValue('N'.$i, $v["province"].$v["city"].$v["country"].$v["detail_address"])
+				->setCellValue('O'.$i, $v["customer_source"])
+				->setCellValue('P'.$i, $v["customer_type"])
+				->setCellValue('Q'.$i, $v["trade"])
+				->setCellValue('R'.$i, $v["website"])
+				->setCellValue('S'.$i, date('Y-m-d H:i:s',$v["contract_start"]))
+				->setCellValue('T'.$i, date('Y-m-d H:i:s',$v["contract_end"]))
+				->setCellValue('U'.$i, $v["notes"])
+				->setCellValue('V'.$i, $v["create_people"])
+				->setCellValue('W'.$i, date('Y-m-d H:i:s',$v["create_time"]))
+				->setCellValue('X'.$i, $v["customer_service"])
+				->setCellValue('Y'.$i, date('Y-m-d H:i:s',$v["last_time"]))
+				->setCellValue('Z'.$i, date('Y-m-d H:i:s',$v["appoint_time"]));
+				$i++;
+			}
 		
+			//设置单元格宽度   例：
+			$objPHPExcel->getActiveSheet()->getColumnDimension('A')->setWidth(10);
+			$objPHPExcel->getActiveSheet()->getColumnDimension('B')->setWidth(20);
+			$objPHPExcel->getActiveSheet()->getColumnDimension('C')->setWidth(20);
+			$objPHPExcel->getActiveSheet()->getColumnDimension('D')->setWidth(10);
+			$objPHPExcel->getActiveSheet()->getColumnDimension('E')->setWidth(5);
+			$objPHPExcel->getActiveSheet()->getColumnDimension('F')->setWidth(10);
+			$objPHPExcel->getActiveSheet()->getColumnDimension('G')->setWidth(20);
+			$objPHPExcel->getActiveSheet()->getColumnDimension('H')->setWidth(15);
+			$objPHPExcel->getActiveSheet()->getColumnDimension('I')->setWidth(15);
+			$objPHPExcel->getActiveSheet()->getColumnDimension('J')->setWidth(15);
+			$objPHPExcel->getActiveSheet()->getColumnDimension('K')->setWidth(15);
+			$objPHPExcel->getActiveSheet()->getColumnDimension('L')->setWidth(20);
+			$objPHPExcel->getActiveSheet()->getColumnDimension('M')->setWidth(20);
+			$objPHPExcel->getActiveSheet()->getColumnDimension('N')->setWidth(50);
+			$objPHPExcel->getActiveSheet()->getColumnDimension('O')->setWidth(15);
+			$objPHPExcel->getActiveSheet()->getColumnDimension('P')->setWidth(20);
+			$objPHPExcel->getActiveSheet()->getColumnDimension('Q')->setWidth(25);
+			$objPHPExcel->getActiveSheet()->getColumnDimension('R')->setWidth(20);
+			$objPHPExcel->getActiveSheet()->getColumnDimension('S')->setWidth(20);
+			$objPHPExcel->getActiveSheet()->getColumnDimension('T')->setWidth(20);
+			$objPHPExcel->getActiveSheet()->getColumnDimension('U')->setWidth(30);
+			$objPHPExcel->getActiveSheet()->getColumnDimension('V')->setWidth(10);
+			$objPHPExcel->getActiveSheet()->getColumnDimension('W')->setWidth(20);
+			$objPHPExcel->getActiveSheet()->getColumnDimension('X')->setWidth(10);
+			$objPHPExcel->getActiveSheet()->getColumnDimension('Y')->setWidth(20);
+			$objPHPExcel->getActiveSheet()->getColumnDimension('Z')->setWidth(20);
+			// Rename worksheet
+			$objPHPExcel->getActiveSheet()->setTitle('客户资料列表');
+			// Set active sheet index to the first sheet, so Excel opens this as the first sheet
+			$objPHPExcel->setActiveSheetIndex(0);
+			// Redirect output to a client’s web browser (Excel5)
+			$fileName = get_username().date('_ymdHis').'_data';
+			header('Content-Type: application/vnd.ms-excel');
+			header('Content-Disposition: attachment;filename='.$fileName.'.xls');
+			header('Cache-Control: max-age=0');
+			// If you're serving to IE 9, then the following may be needed
+			header('Cache-Control: max-age=1');
+			// If you're serving to IE over SSL, then the following may be needed
+			header ('Expires: Mon, 26 Jul 1997 05:00:00 GMT'); // Date in the past
+			header ('Last-Modified: '.gmdate('D, d M Y H:i:s').' GMT'); // always modified
+			header ('Cache-Control: cache, must-revalidate'); // HTTP/1.1
+			header ('Pragma: public'); // HTTP/1.0
+			$objWriter = \PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
+			$objWriter->save('php://output');
+			exit;
 	}
+	
+	
 	
 	public function customListDelete($id=0){
 		$id = $this->filterId($id);
@@ -183,10 +312,11 @@ class CustomController extends AdminController {
 	/*搜索方法*/
 	public function Search($condition=null,$url=null){
 		$arr = I('get.','htmlspecialchars');
+		$search_arr = $arr;
 		/* dump($condition);
 		dump($arr); */
 		if(empty($arr)){
-			$this->redirect('customList');
+			$this->redirect($url);
 		}else{
 			if (array_key_exists('search_content', $arr)) {
 				$map['customer_name'] = array('like','%'.$arr['search_content'].'%');
@@ -201,11 +331,7 @@ class CustomController extends AdminController {
 				if(count($arr)>1){
 					unset($arr['search_content']);
 					foreach ($arr as $key => $value){
-						if(empty($value)){
-							unset($arr[$key]);
-						}else{
-							$where[$key] = $value;
-						}
+						$where[$key] = $value;
 					}
 					if(count($where)>1){
 						$where['_logic'] = 'AND';
@@ -218,17 +344,13 @@ class CustomController extends AdminController {
 				
 			}else{
 				foreach ($arr as $key => $value){
-					if (empty($value)){
-						unset($arr[$key]);
-					}else{
 						$where[$key] = $value;
-					}
 				}
 				if(count($where)>1){
 					$where['_logic'] = 'AND';
 				}
 			}
-// 			dump($where);die();
+// 			dump($where);
 			if(!empty($condition)){
 				$key = key($condition);
 				$value = current($condition);
@@ -241,6 +363,8 @@ class CustomController extends AdminController {
 			$source = $this->lists('MyCustomerSource');
 // 			echo $customData->getLastSql();
 			/*dump($list);die(); */
+// 			dump($arr);
+			$this->assign('sarr',$search_arr);
 			$this->assign('_list',$list);
 			$this->assign('type',$type);
 			$this->assign('source',$source);
@@ -268,16 +392,16 @@ class CustomController extends AdminController {
 		$type = $this->lists('MyCustomerType');
 		$source = $this->lists('MyCustomerSource');
 // 		dump($list);die();
-		$this->assign('user',get_username());
 		$this->assign('type',$type);
 		$this->assign('source',$source);
 		$this->assign('_list',$list);
-		$this->display(mycustomlist);
+		$this->display();
 	}
 	
 	/* 我的领用 */
 	public function myCustomListSelf(){
 		$list = $this->lists('MyCustomerReceive','','receive_id');
+		$this->assign('user',get_username());
 		$this->assign('_list',$list);
 		$this->display();
 		
@@ -316,7 +440,73 @@ class CustomController extends AdminController {
 	
 	/* 联系记录管理 */
 	public function feedbackList(){
+		$list = $this->lists('MyCustomerRecord');
+		$start_time = date('Y-m-d H:i:s',time());
+		$end = time() + 3600*24*30;
+		$end_time = date('Y-m-d H:i:s', $end );
+// 		$list = null;
+		$this->assign('start_time',$start_time);
+		$this->assign('end_time',$end_time);
+		$this->assign('_list',$list);
+// 		dump($list);
+		$this->display();
+	}
+	
+	/*联系记录搜索*/
+	public function feedbackListSearch(){
+		$searchArr = I('get.');
+		$arr = $searchArr;
+// 		dump($searchArr);
+		if(empty($searchArr)){
+			$this->redirect('feedbacklist');
+		}else{
+			if(array_key_exists('search_content', $searchArr)){
+				$map['customer_name'] = array('like','%'.$searchArr['search_content'].'%');
+				$map['txttel'] = array('like','%'.$searchArr['search_content'].'%');
+				$map['contact_name'] = array('like','%'.$searchArr['search_content'].'%');
+				$map['contact_content'] = array('like','%'.$searchArr['search_content'].'%');
+				$map['_logic'] = 'OR';
+				unset($searchArr['search_content']);
+			}
+				
+			if(array_key_exists('time_start', $searchArr)){
+				$where['last_time'] = array('between',strtotime(trim($searchArr['time_start'])).",".strtotime(trim($searchArr['time_end'])));
+				unset($searchArr['time_start'],$searchArr['time_end']);
+			}
+			foreach ($searchArr as $key => $value){
+				$where[$key] = $value;
+			}
+			if(isset($map)){
+				$where['_complex'] = $map;
+			}
+			$where['_logic'] = 'AND';	
+		}
+// 		$feedbacklist = M('MyCustomerRecord');
+		$list = $this->lists('MyCustomerRecord',$where);
+// 		echo $feedbacklist->getLastSql();
+// 		dump($arr);
+		$this->assign('searched',$arr);
+		$this->assign('_list',$list);
+		$this->display('feedbacklistsearch');
 		
+	}
+	
+	
+	/*查看联系记录*/
+	public function feedbackListCat($id){
+		$id = $this->filterId($id);
+		$map['id'] = array('in',$id);
+		$onelist = $this->lists('MyCustomerRecord',$map);
+		$customerRecord = M('MyCustomerRecord');
+		$where['customer_number'] = $customerRecord->where($map)->getField('customer_number');
+// 		dump($onelist);
+//  	dump($where);
+		$customerData = M('MyCustomerData');
+		$customer_type = $customerData->where($where)->getField('customer_type');
+// 		dump($customer_type);
+		$this->assign('customer_type',$customer_type);
+		$this->assign('_onelist',$onelist);
+		$this->display();
 	}
 	
 	/*添加联系记录*/
@@ -327,14 +517,15 @@ class CustomController extends AdminController {
 				$this->error($customerRecord->getError());
 			}else{
 				if($customerRecord->add()){
-					$map['id'] = I('customer_id');
+					$map['customer_number'] = I('customer_number');
 					$data['last_time'] = strtotime(trim(I('last_time')));
 					$data['appoint_time'] = strtotime(trim(I('appoint_time')));
 					if(!empty($data)){
 						$customerData = M('MyCustomerData');
 						$customerData->where($map)->save($data);
+						$customer_id = $customerData->where($map)->getField('id');
 					}
-					$this->success('联系记录添加成功',U('customListDetail?id='.I('customer_id')));
+					$this->success('联系记录添加成功',U('customListDetail?id='. $customer_id));
 				}else{
 					$this->error('添加失败，请重新操作');
 				}
@@ -342,16 +533,168 @@ class CustomController extends AdminController {
 			
 			
 		}else{
-			$id = I('id',0);
-			$map['id'] = $id;
+			$map['customer_number'] = I('customer_number');
 			$list = $this->lists('MyCustomerData',$map);
 			$type = $this->lists('MyCustomerType');
 			$this->meta_title = '添加联系记录';
-			$this->assign('customer_id',$id);
 			$this->assign('type',$type);
 			$this->assign('_list',$list);
 			$this->display();
 		}
+	}
+	
+	/*联系记录编辑*/
+	public function feedbackListEdit($id=0){
+		if (IS_POST) {
+			$customerRecord = D('MyCustomerRecord');
+			if(!$customerRecord->create()){
+				$this->error($customerRecord->getError());
+			}else{
+				if($customerRecord->save()){
+					$customerData = M('MyCustomerData');
+					$data['last_time'] = time();
+					$data['appoint_time'] = strtotime(trim(I('appoint_time')));
+					$condition['customer_number'] = I('customer_number');
+					$id = $customerData->where($condition)->getField('id');
+					if(!empty($data)){
+						$customerData->where($condition)->save($data);
+					}
+					$this->success('联系记录编辑成功',U('customListDetail?id='.$id));
+				}else{
+					$this->error('编辑失败，请重新操作');
+				}
+			}
+				
+				
+		}else{
+			$id = I('id',0);
+			$map['id'] = $id;
+			$list = $this->lists('MyCustomerRecord',$map);
+			$where['customer_number'] = $list[0]['customer_number'];
+			$customer = $this->lists('MyCustomerData',$where);
+			$type = $customer[0]['customer_type'];
+			$this->meta_title = '编辑联系记录';
+			$this->assign('id',$id);
+			$this->assign('type',$type);
+// 			dump($list);
+			$this->assign('_list',$list);
+			$this->display();
+		}
+	}
+	
+	/*联系记录删除*/
+	public function feedbackListDelete($id=0){
+		$id = $this->filterId($id);
+		$map['id'] = array('in',$id);
+		$this->delete('MyCustomerRecord',$map);
+	}
+	
+	/*联系记录导出*/
+	public function feedbackListOutexcel(){
+// 		dump(I('get.'));
+		$searchArr = I('get.');
+		if(array_key_exists('search_content', $searchArr)){
+			$map['customer_name'] = array('like','%'.$searchArr['search_content'].'%');
+			$map['txttel'] = array('like','%'.$searchArr['search_content'].'%');
+			$map['contact_name'] = array('like','%'.$searchArr['search_content'].'%');
+			$map['contact_content'] = array('like','%'.$searchArr['search_content'].'%');
+			$map['_logic'] = 'OR';
+			unset($searchArr['search_content']);
+		}
+		
+		if(array_key_exists('time_start', $searchArr)){
+			$where['last_time'] = array('between',strtotime(trim($searchArr['time_start'])).",".strtotime(trim($searchArr['time_end'])));
+			unset($searchArr['time_start'],$searchArr['time_end']);
+		}
+		foreach ($searchArr as $key => $value){
+			$where[$key] = $value;
+		}
+		if(isset($map)){
+			$where['_complex'] = $map;
+		}
+		$where['_logic'] = 'AND';
+// 		dump($where);
+		$feedbackListData = $this->lists('MyCustomerRecord',$where,'id');
+		/* dump($feedbackListData);
+		die(); */
+		if(empty($feedbackListData)){
+			$this->error('没有可导出的数据');
+		}
+		
+		date_default_timezone_set('Europe/London');
+		if (PHP_SAPI == 'cli')
+			die('This example should only be run from a Web Browser');
+			/** Include PHPExcel */
+			vendor('PHPExcel.PHPExcel');
+			// Create new PHPExcel object
+			$objPHPExcel = new \PHPExcel();
+				
+			$objPHPExcel->setActiveSheetIndex(0)
+			->setCellValue('A1', '记录序列')
+			->setCellValue('B1', '客户编码')
+			->setCellValue('C1', '客户名称')
+			->setCellValue('D1', '联系人')
+			->setCellValue('E1', '联系方法')
+			->setCellValue('F1', '联系方式')
+			->setCellValue('G1', '联系内容')
+			->setCellValue('H1', '联系时间')
+			->setCellValue('I1', '联系类型')
+			->setCellValue('J1', '预约时间')
+			->setCellValue('K1', '下次目标')
+			->setCellValue('L1', '联系客服');
+			// add mysql data, UTF-8
+			//var_dump($_POST);die();
+			$i = 2;
+			foreach($feedbackListData as $v) {
+				date_default_timezone_set("Asia/Shanghai");
+				$objPHPExcel->setActiveSheetIndex(0)
+				->setCellValue('A'.$i, $v["id"])
+				->setCellValue('B'.$i, $v["customer_number"])
+				->setCellValue('C'.$i, $v["customer_name"])
+				->setCellValue('D'.$i, $v["contact_name"])
+				->setCellValue('E'.$i, $v["contact_way"])
+				->setCellValue('F'.$i, $v["txttel"])
+				->setCellValue('G'.$i, $v["contact_content"])
+				->setCellValue('H'.$i, date('Y-m-d H:i:s',$v["last_time"]))
+				->setCellValue('I'.$i, $v["contact_type"])
+				->setCellValue('J'.$i, date('Y-m-d H:i:s',$v["appoint_time"]))
+				->setCellValue('K'.$i, $v["next_content"])
+				->setCellValue('L'.$i, $v["customer_service"]);
+				$i++;
+			}
+		
+			//设置单元格宽度   例：
+			$objPHPExcel->getActiveSheet()->getColumnDimension('A')->setWidth(10);
+			$objPHPExcel->getActiveSheet()->getColumnDimension('B')->setWidth(20);
+			$objPHPExcel->getActiveSheet()->getColumnDimension('C')->setWidth(20);
+			$objPHPExcel->getActiveSheet()->getColumnDimension('D')->setWidth(10);
+			$objPHPExcel->getActiveSheet()->getColumnDimension('E')->setWidth(10);
+			$objPHPExcel->getActiveSheet()->getColumnDimension('F')->setWidth(20);
+			$objPHPExcel->getActiveSheet()->getColumnDimension('G')->setWidth(50);
+			$objPHPExcel->getActiveSheet()->getColumnDimension('H')->setWidth(20);
+			$objPHPExcel->getActiveSheet()->getColumnDimension('I')->setWidth(15);
+			$objPHPExcel->getActiveSheet()->getColumnDimension('J')->setWidth(20);
+			$objPHPExcel->getActiveSheet()->getColumnDimension('K')->setWidth(50);
+			$objPHPExcel->getActiveSheet()->getColumnDimension('L')->setWidth(15);
+			// Rename worksheet
+			$objPHPExcel->getActiveSheet()->setTitle('联系记录列表');
+			// Set active sheet index to the first sheet, so Excel opens this as the first sheet
+			$objPHPExcel->setActiveSheetIndex(0);
+			// Redirect output to a client’s web browser (Excel5)
+			$fileName = get_username().date('_YmdHis').'_record';
+			header('Content-Type: application/vnd.ms-excel');
+			header('Content-Disposition: attachment;filename='.$fileName.'.xls');
+			header('Cache-Control: max-age=0');
+			// If you're serving to IE 9, then the following may be needed
+			header('Cache-Control: max-age=1');
+			// If you're serving to IE over SSL, then the following may be needed
+			header ('Expires: Mon, 26 Jul 1997 05:00:00 GMT'); // Date in the past
+			header ('Last-Modified: '.gmdate('D, d M Y H:i:s').' GMT'); // always modified
+			header ('Cache-Control: cache, must-revalidate'); // HTTP/1.1
+			header ('Pragma: public'); // HTTP/1.0
+			$objWriter = \PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
+			$objWriter->save('php://output');
+			exit;
 	}
 	
 	/*在客户信息详细显示导航模块*/
@@ -359,6 +702,21 @@ class CustomController extends AdminController {
 		empty($customer_number) && $this->error('客户编码错误');
 // 		dump($customer_number);
 		$this->assign('customer_number',$customer_number);
+		$this->display();
+	}
+	
+	/*合作文档*/
+	public function myCustomDocument(){
+		$this->display();
+	}
+
+	/*添加文档*/
+	public function myCustomDocumentAdd(){
+		$this->display();
+	}
+	
+	/*联系人*/
+	public function myCustomContactPerson(){
 		$this->display();
 	}
 	
@@ -372,6 +730,7 @@ class CustomController extends AdminController {
 // 		dump($map);
 		
 		$feed = $this->lists('MyCustomerRecord',$map);
+		$this->assign('customer_number',$customer_number);
 // 		dump($feed);
 		$this->assign('_feed',$feed);
 		$this->display();
@@ -380,16 +739,41 @@ class CustomController extends AdminController {
 	
 	/* 等待回访客户列表 */
 	public function waitLinkList(){
+		$map['customer_service'] = get_username();
+// 		dump($user);
+		$list_record = array();
+		$list = $this->lists('MyCustomerData',$map);
+		foreach ($list as $key => $value){
+// 			echo date('Y-m-d H:i:s',$value['appoint_time']).'  ';
+			$appoint_time = $value['appoint_time'] + 0;
+			if($appoint_time - time() > 7*24*3600 || $appoint_time == 0){
+				unset($list[$key]);
+			}
+		}
+		foreach ($list as $key => $value){
+// 			dump($value);
+			$arr[$key]['customer_name'] = $value['customer_name'];
+			$arr[$key]['appoint_time'] = $value['appoint_time'];
+		}
+// 		dump($arr);
+		foreach ($arr as $value){
+			$listre = $this->lists('MyCustomerRecord',$value);
+			array_unshift($list_record, $listre[0]);
+		}
+// 		dump($list_record);
+		$this->assign('_list',$list_record);
+		$this->display(); 
 		
 	}
 	
-	/* 客户资料导入 */
-	public function excelUpload(){
-		
+	/*客户资料导入*/
+	public function customListImport(){
+		$this->display();
 	}
 	
 	/* 共享客户列表 */
 	public function shareCustomList(){
+		$this->display();
 		
 	}
 	

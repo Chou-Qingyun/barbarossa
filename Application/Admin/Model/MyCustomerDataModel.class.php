@@ -10,16 +10,16 @@ class MyCustomerDataModel extends Model{
 			array('customer_name', '2,16', '客户名称长度为2-16个字符', self::EXISTS_VALIDATE, 'length'),
 			array('contact_name','2,10','联系人名称长度为2-10个字符',self::EXISTS_VALIDATE,'length'),
 			array('email','email','邮箱格式不合法'),
-			array('tel','/^[1][358][0-9]{9}$/','请输入正确的手机号码',0,'regex'),
+			array('tel','/^[1][358][0-9]{9}$/','请输入正确的手机号码'),
 	);
 
 	protected $_auto = array(
-			array('customer_number','createNum',3,'callback'),
+			array('customer_number','createNum',self::MODEL_INSERT,'callback'),
 			array('birthday','unixTime',3,'callback'),
 			array('contract_start','unixTime',3,'callback'),
 			array('contract_end','unixTime',3,'callback'),
 			array('create_time','unixTime',3,'callback'),
-			array('customer_service','setCustomerservice',3,'callback'),
+			array('customer_service','setCustomerservice',self::MODEL_BOTH,'callback'),
 			array('last_time', 0, self::MODEL_INSERT),
 			array('appoint_time', 0, self::MODEL_INSERT),
 			array('status', 0, self::MODEL_INSERT),

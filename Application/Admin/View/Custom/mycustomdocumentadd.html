@@ -1,0 +1,74 @@
+<extend name="Public/base"/>
+
+<block name="body">
+<style>
+	table.gritable{
+		border: 1px;
+		width: 60%;
+		height: 188px;
+		font-family: "Microsoft Yahei",arial,sans-serif;
+		font-size: 16px;
+	}
+	table.gritable td{
+		padding: 10px;
+	
+	}
+
+            tr .dty{
+                    width: 80px;
+            }
+</style>
+    <div class="main-title">
+        <h2>新增合同文档</h2>
+    </div>
+    <form action="{:U('Custom/feedbackListAdd')}" method="post" class="form-horizontal" enctype="multipart/form-data">
+    <table class="gritable" >
+    	<tr>
+    		<input type="hidden" name="customer_number" value="{$vo.customer_number}">
+    		<td class="dty">文档名称：</td>
+    		<td><input type="text" class="text" name="document_name"  ></td>
+    	</tr>
+    	<tr>
+    		<td class="dty">文档类别：</td>
+    		<td>
+                            <select name="document_type" style="width:230px;height:29px;" class="text">
+                                <option value="合同文档">合同文档</option>
+                                <option value="其他文档">其他文档</option>
+                            </select>
+    		</td>
+    	</tr>
+    	<tr>
+    		<td class="dty">文档描述：</td>
+                        <td><textarea name="document_content" rows="4" cols="40"></textarea></td>
+    	</tr>
+    	<tr>
+    		<td class="dty">相关附件：</td>
+                        <td><input type="submit" value="上传">|个文件已经上传|</td>
+    	</tr>
+    </table>
+        <div class="form-item">
+        <!-- 有ajax     -->
+        	<button class="btn submit-btn ajax-post" id="submit" type="submit" target-form="form-horizontal">保存</button>
+            <button class="btn btn-return" onclick="javascript:history.back(-1);return false;">取消</button>
+        </div>
+    </form>
+</block>
+
+<block name="script">
+<script src="__STATIC__/select.js"></script>
+<script type="text/javascript" defer>
+    function change(){
+    	var sel = document.getElementById('contact_way');
+    	var way = ['手机','固定电话','QQ','微信'];
+    	var way_name = '手机';
+    	for(var i=0,len=way.length; i<len; i++){
+    		if(way[i] == sel.value){
+    			way_name = way[i];
+    		}
+    	}
+    	document.getElementById('way_name').innerHTML = way_name;
+    }
+
+</script>
+</block>
+

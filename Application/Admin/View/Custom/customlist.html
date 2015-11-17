@@ -14,8 +14,8 @@
             <a class="btn" href="javascript:;" id="changeC" url="{:U('Custom/customListChangeCategory')}" >批量修改客户类别</a>
             <a class="btn" href="javascript:;" id="changeS" url="{:U('Custom/customListChangeSource')}" >批量修改客户来源</a>
             <!-- <a class="btn"  href="javascript:;" id="change" url="{:U('Custom/customListChangeSource')}">批量修改客户来源</a> -->
-            <button class="btn ajax-post confirm" url="{:U('Custom/customListDelete')}" target-form="ids">客户指派</button>
-            <button class="btn ajax-post confirm" url="{:U('Custom/customListDelete')}" target-form="ids">导出Excel</button>
+            <button class="btn ajax-post confirm" url="{:U('Custom/custom')}" target-form="ids">客户指派</button>
+            <a class="btn" href="javascript:;" id="expE" url="{:U('Custom/customListOutexcel')}">导出Excel</a>
         </div>
 
 
@@ -23,17 +23,17 @@
         <!-- 高级搜索 -->
 		<div class="search-form fr cf">
 			<div class="sleft">
-				<input type="text" name="search_content" style="width:300px;" class="search-input"  placeholder="请输入客户名称/手机/联系人/地址/客服专员">
+				<input type="text" name="search_content" value="{$sarr['search_content']}" style="width:300px;" class="search-input"  placeholder="请输入客户名称/手机/联系人/地址/客服专员">
 				<select class="search-input"  name="customer_type">
 					<option value="">请选择客户类别</option>
 					<volist name="type" id="ty">
-					<option value="{$ty.type_name}">{$ty.type_name}</option>
+					<option value="{$ty.type_name}" {$ty['type_name'] == $sarr['customer_type'] ? 'selected':''}>{$ty.type_name}</option>
 					</volist>
 				</select>
 				<select class="search-input" name="customer_source">
 					<option value="">请选择客户来源</option>
 					<volist name="source" id="sc">
-					<option value="{$sc.source_name}">{$sc.source_name}</option>
+					<option value="{$sc.source_name}" {$sc['source_name'] == $sarr['customer_source'] ? 'selected':''}>{$sc.source_name}</option>
 					</volist>
 				</select>
 				<a class="sch-btn" href="javascript:;" id="search" url="{:U('Custom/customListSearch')}"><i class="btn-search"></i></a>
@@ -142,6 +142,12 @@
 		var url = $(this).attr('url');
 		piliang(url);
 	});
+	//批量导出客户资料的EXCEL
+	$("#expE").click(function(){
+		var url = $(this).attr('url');
+		piliang(url);
+	})
+	
 
 	function piliang(url) {
 		var quer = document.getElementsByClassName('ids');
@@ -153,9 +159,6 @@
 				}else{
 					url += '?id=' + quer[i].value ;
 				}
-			}else{
-				alert('请选择要修改的数据');
-				return false;
 			}
         		}
 		window.location.href = url;
