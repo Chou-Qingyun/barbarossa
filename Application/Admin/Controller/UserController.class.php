@@ -214,9 +214,15 @@ class UserController extends AdminController {
             $User   =   new UserApi;
             $uid    =   $User->register($username, $password, $email);
             if(0 < $uid){ //注册成功
-                $user = array('uid' => $uid, 'nickname' => $username, 'status' => 1);
-                if(!M('Member')->add($user)){
-                    $this->error('用户添加失败！');
+                //$user = array('uid' => $uid, 'nickname' => $username, 'status' => 1);
+                $M = D('Member');
+                $M->create();
+                if(!$M->add()){
+                	if(APP_DEBUG===true){
+                		$this->error($M->getDbError());
+                	}else{
+                    	$this->error('用户添加失败！');
+                	}
                 } else {
                     $this->success('用户添加成功！',U('index'));
                 }
@@ -224,6 +230,8 @@ class UserController extends AdminController {
                 $this->error($this->showRegError($uid));
             }
         } else {
+        	$this->departments = M('MyDepartment')->where(array('status'=>1))->select();
+        	$this->auth_groups = M('AuthGroup')->where(array('status'=>1))->select();
             $this->meta_title = '新增用户';
             $this->display();
         }

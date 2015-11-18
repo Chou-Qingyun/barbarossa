@@ -20,8 +20,20 @@ class MemberModel extends Model {
     protected $_validate = array(
         array('nickname', '1,16', '昵称长度为1-16个字符', self::EXISTS_VALIDATE, 'length'),
         array('nickname', '', '昵称被占用', self::EXISTS_VALIDATE, 'unique'), //用户名被占用
+    	array('realname','require','真实名字不能为空'),
+    	array('mobile','require','请填写手机号码'),
+    	array('title','require','职称不能为空'),
+    	array('custom_limit','require','客户总容量不能为空'),
     );
-
+	
+    protected $_auto = array(
+    	array('status','1'),
+    	array('nickname','getUserNickName',1,'callback'),
+    );
+    
+    protected function getUserNickName(){
+    	return I('post.username');
+    }
     public function lists($status = 1, $order = 'uid DESC', $field = true){
         $map = array('status' => $status);
         return $this->field($field)->where($map)->order($order)->select();

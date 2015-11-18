@@ -1,0 +1,52 @@
+<extend name="Public/base" />
+
+<block name="body">
+	<!-- 标题栏 -->
+	<div class="main-title">
+		<h2>部门列表</h2>
+	</div>
+	<div class="cf">
+		<div class="fl">
+            <a class="btn" href="{:U('System/departmentManageAdd')}">新 增</a>
+        </div>
+    </div>
+    <!-- 数据列表 -->
+    <div class="data-table table-striped">
+	<table class="">
+    <thead>
+        <tr>
+		<th class="">ID</th>
+		<th class="">部门名称</th>
+		<th class="">描述</th>
+		<th class="">操作人</th>
+		<th class="">创建时间</th>
+		<th class="">更新时间</th>
+		<th class="">操作</th>
+		</tr>
+    </thead>
+    <tbody>
+		<notempty name="_list">
+		<volist name="_list" id="vo">
+		<tr>
+			<td>{$vo.id} </td>
+			<td>{$vo.department}</td>
+			<td>{$vo.description}</td>
+			<td>{:get_nickname($vo["who_add"])}</td>
+			<td>{$vo.create_time|time_format}</td>
+			<td>{$vo.update_time|time_format}</td>
+			<td>
+				<a href="{:U('System/departmentManageEdit',array('id'=>$vo['id']))}">编辑</a>
+				<a class="confirm ajax-get" href="{:U('System/departmentManageDelete',array('id'=>$vo['id']))}">删除</a>
+			</td>
+		</tr>
+		</volist>
+		<else/>
+		<td colspan="9" class="text-center"> aOh! 暂时还没有内容! </td>
+		</notempty>
+	</tbody>
+    </table>
+	</div>
+    <div class="page">
+        {$_page}
+    </div>
+</block>

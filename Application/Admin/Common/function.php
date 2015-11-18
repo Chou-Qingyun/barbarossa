@@ -371,3 +371,23 @@ function get_action_type($type, $all = false){
 	}
 	return $list[$type];
 }
+
+/**
+ * 获取部门名称
+ * @param integer $id 部门ID
+ * @author jingjin <1220388772@qq.com>
+ */
+function get_department($id){
+	$department = M('MyDepartment')->where(array('id'=>$id))->getField('department');
+	return $department;
+}
+
+/**
+ * 获取用户组
+ * @param integer $id 用户组ID
+ * @author jingjin <1220388772@qq.com>
+ */
+function get_auth_group($id){
+	$auth_group = M('AuthGroup')->where(array('id'=>$id))->getField('title');
+	return $auth_group;
+}
