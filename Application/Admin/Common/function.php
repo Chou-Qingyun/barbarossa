@@ -381,4 +381,12 @@ function myFilename($name){
 	return time() . '_' . substr_replace($name, '', -4);
 }
 
-
+function analysisPath($path){
+	$arr = array();
+	$onepath = explode('|', $path);
+	foreach ($onepath as $value){
+		$arr[$value] = substr($value, strpos($value,'_')+1);
+	}
+	print_r($arr);
+	return $arr;
+}

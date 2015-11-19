@@ -42,9 +42,9 @@
 	    	<tr class="tr_style">
 	    		<td>{$vo.document_name}</td>
 	    		<td>{$vo.document_type}</td>
-	    		<volist name="">
-	    			<td>{$vo.document_path}</td>
-	    		</volist>
+	    		<!-- <volist name="$vo.document_path" id="ab"> -->
+	    			<td>{$vo.document_path|analysis=###}</td>
+	    		<!-- </volist> -->
 	    		<td>{$vo.document_explain}</td>
 	    		<td>{$vo.add_person}</td>
 	    		<td>{$vo.add_time|date="Y-m-d H:i:s",###}</td>
