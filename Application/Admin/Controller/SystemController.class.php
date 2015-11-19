@@ -92,22 +92,48 @@ class SystemController extends AdminController {
 	/* 客户池设置 */
 	public function customPoolSetting(){
 		if(IS_POST){
-			dump(I('post.id'));die();
 			$pool = D('MyCustomerPool');
 			if($pool->create()){
-				if($pool->save()){
-					$this->success('添加成功');
+				if($pool->count()){
+					if($pool->save()){
+						$this->success('更新成功');
+					}else{
+						$this->error('更新失败');
+					}
 				}else{
-					$this->error('添加失败');
+					if($pool->add()){
+						$this->success('添加成功');
+					}else{
+						$this->error('添加失败');
+					}
 				}
 			}else{
 				$this->error($pool->getError());
 			}
 		}else{
 			$map['status'] = array('eq',0);
-			$this->customer_type = M('MyCustomerType')->where($map)->select();
+			$customer_types = M('MyCustomerType')->where($map)->select();
+			$customer_pool = M('MyCustomerPool')->where(array('id'=>1))->find();
+			$scope_arr = explode(',', $customer_pool['recycle_scope']);
+			$types = array();
+			foreach($customer_types as $v){
+				if(in_array($v['id'],$scope_arr)){
+					$v['on'] = 1;
+				}
+				$types[] = $v;
+			}
+			$this->is_open = $customer_pool['is_open'];
+			$this->assign('recycle_period',$customer_pool['recycle_period']);
+			$this->assign('types',$types);
 			$this->meta_title = '客户池设置';
 			$this->display();
 		}
+	}
+	
+	public function test(){
+		$this->display();
+	}
+	public function add(){
+		dump($_POST);
 	}
 }
