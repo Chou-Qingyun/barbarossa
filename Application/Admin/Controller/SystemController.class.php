@@ -49,9 +49,9 @@ class SystemController extends AdminController {
 			$D = D('MyDepartment');
 			if($D->create()){
 				if($D->save()){
-					$this->success('添加成功',U('System/departmentManage'));
+					$this->success('编辑成功',U('System/departmentManage'));
 				}else{
-					$this->error('添加失败');
+					$this->error('编辑失败');
 				}
 			}else{
 				if(APP_DEBUG){
