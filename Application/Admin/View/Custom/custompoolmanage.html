@@ -16,17 +16,17 @@
         <!-- 高级搜索 -->
 		<div class="search-form fr cf">
 			<div class="sleft">
-				<input type="text" name="search_content" style="width:300px;" class="search-input"  placeholder="请输入客户名称/手机/联系人/地址/客服专员">
+				<input type="text" name="search_content" value="{$sarr['search_content']}" style="width:300px;" class="search-input"  placeholder="请输入客户名称/手机/联系人/地址/客服专员">
 				<select class="search-input"  name="customer_type">
 					<option value="">请选择客户类别</option>
 					<volist name="type" id="ty">
-					<option value="{$ty.type_name}">{$ty.type_name}</option>
+					<option value="{$ty.type_name}" {$ty['type_name'] == $sarr['customer_type'] ? 'selected':''}>{$ty.type_name}</option>
 					</volist>
 				</select>
 				<select class="search-input" name="customer_source">
 					<option value="">请选择客户来源</option>
 					<volist name="source" id="sc">
-					<option value="{$sc.source_name}">{$sc.source_name}</option>
+					<option value="{$sc.source_name}" {$sc['source_name'] == $sarr['customer_source'] ? 'selected':''}>{$sc.source_name}</option>
 					</volist>
 				</select>
 				<a class="sch-btn" href="javascript:;" id="search" url="{:U('Custom/customPoolManageSearch')}"><i class="btn-search"></i></a>
@@ -57,7 +57,7 @@
 			<!-- <td>{$vo.id} </td> -->
 			<td>{$vo.customer_name}</td>
 			<td>{$vo.contact_name}</td>
-			<td><span>{$vo.}</span></td>
+			<td><span>{$vo.tel}</span></td>
 			<td>{$vo.customer_type}</td>
 			<td>{$vo.create_people}</td>
 			<td>{$vo.create_time|date="Y-m-d",###}</td>

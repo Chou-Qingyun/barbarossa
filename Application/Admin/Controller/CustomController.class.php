@@ -411,7 +411,18 @@ class CustomController extends AdminController {
 	
 	/*即将回收*/
 	public function myCustomListRec(){
-		$this->assign('user',get_username());
+		$sql = "select id,(". time() ."-last_time) as subtime,(". time() ."-create_time) as subcreate,last_time as ltime from " .C('DB_PREFIX'). "my_customer_data group by id having (subtime>3600*7*30 and subtime<".time().") or (subcreate>3600*7*30 and ltime=0)";
+		$customerData = M('MyCustomerData');
+		$item = $customerData->query($sql);
+		// 		dump($item);
+		foreach ($item as $vo){
+			$arr[] = $vo['id'];
+		}
+		$where['id'] = array('in',implode(',', $arr));
+		$where['customer_service'] = get_username();
+		$list = $this->lists('MyCustomerData',$where,'id');
+// 		dump($list);
+		$this->assign('_list',$list);
 		$this->display();
 		
 	}
@@ -554,11 +565,13 @@ class CustomController extends AdminController {
 				if($customerRecord->save()){
 					$customerData = M('MyCustomerData');
 					$data['last_time'] = time();
+					$data['last_time'] = strtotime(trim(I('last_time')));
 					$data['appoint_time'] = strtotime(trim(I('appoint_time')));
 					$condition['customer_number'] = I('customer_number');
 					$id = $customerData->where($condition)->getField('id');
 					if(!empty($data)){
 						$customerData->where($condition)->save($data);
+						
 					}
 					$this->success('联系记录编辑成功',U('customListDetail?id='.$id));
 				}else{
@@ -711,10 +724,15 @@ class CustomController extends AdminController {
 		$customer_number = I('customer_number');
 		$map['customer_number'] = $customer_number;
 		$list = $this->lists('MyContractDocument',$map);
+		foreach ($list as &$value){
+			$value['document_path'] = analysisPath($value['document_path']);
+		}
+// 		dump($list);
 		$this->assign('customer_number',$customer_number);
 		$this->assign('_list',$list);
 		$this->display();
 	}
+	
 
 	/*添加文档*/
 	public function myCustomDocumentAdd(){
@@ -746,6 +764,18 @@ class CustomController extends AdminController {
 			$this->assign('customer_name',$customer_name);
 			$this->display();
 		}
+		
+	}
+	
+	/*删除文档*/
+	public function myCustomDocumentDelete($id=0){
+		$id = $this->filterId($id);
+		$map['id'] = array('in',$id);
+		$this->delete('MyContractDocument',$map);
+	}
+	
+	/*编辑文档*/
+	public function myCustomDocumentEdit(){
 		
 	}
 	
@@ -905,12 +935,42 @@ class CustomController extends AdminController {
 	
 	/* 公共客户管理 */
 	public function customPoolManage(){
+		//将联系时间超过30天或者建档后还未联系且建档时间超过30天的客户都设置为公共客户
+		/*$list = $this->lists('MyCustomerData');
+		 $no = array();
+		foreach ($list as $key => $value){
+			$subtime = time() - $value['last_time'];
+			$subcreate =  time() - $value['create_time'];
+			$day = time();
+			if((30*24*3600 < $subtime && $subtime <$day )||($value['last_time'] == 0 && $subcreate > 30*24*3600)){
+				$no[] = $value['id'];
+				dump($value['last_time'] == 0);
+				dump($subtime > 30*24*3600);
+				dump($subcreate > 30*24*3600);
+				echo '<br>';
+			}
+		}
+		dump($no); 
+		$where['id'] = array('in',implode(',',$no));
+		dump($where);*/
+		$customerData = M('MyCustomerData');
+		$sql = "select id,(". time() ."-last_time) as subtime,(". time() ."-create_time) as subcreate,last_time as ltime from " .C('DB_PREFIX'). "my_customer_data group by id having (subtime>3600*24*30 and subtime<".time().") or (subcreate>3600*24*30 and ltime=0)";
+// 		echo $sql;
+		$item = $customerData->query($sql);
+// 		dump($item);
+		foreach ($item as $vo){
+			$arr[] = $vo['id'];
+		}
+		$where['id'] = array('in',implode(',', $arr));
+// 		dump($where);
 		$map['customer_service'] = '公共客户';
+		$customerData->where($where)->save($map);
 		$list = $this->lists('MyCustomerData',$map,'id');
 		$type= $this->lists('MyCustomerType');
 		$source = $this->lists('MyCustomerSource');
 		$this->assign('type',$type);
 		$this->assign('source',$source);
+// 		dump($list);
 		$this->assign('_list',$list);
 		$this->display();
 	}
@@ -929,6 +989,7 @@ class CustomController extends AdminController {
 		}
 		
 		$data['customer_service'] = get_username();
+		$data['last_time'] = time();
 		$this->editRow('MyCustomerData', $data, $where);
 		
 	}
