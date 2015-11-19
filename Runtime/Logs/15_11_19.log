@@ -1,0 +1,275 @@
+[ 2015-11-19T21:15:37+08:00 ] 127.0.0.1 /index.php/Admin/User/index.html
+SQL: SHOW COLUMNS FROM `xmls_menu` [ RunTime:0.003000s ]
+SQL: SELECT * FROM `xmls_menu` WHERE ( `pid` = 0 ) AND ( `hide` = 0 ) ORDER BY sort asc  [ RunTime:0.000000s ]
+SQL: SELECT `id` FROM `xmls_menu` WHERE ( url like '%User/index%' ) LIMIT 1   [ RunTime:0.000000s ]
+SQL: SHOW COLUMNS FROM `xmls_menu` [ RunTime:0.002000s ]
+SQL: SELECT `id`,`pid`,`title` FROM `xmls_menu` WHERE ( id=16 ) LIMIT 1   [ RunTime:0.000000s ]
+SQL: SELECT `id`,`pid`,`title` FROM `xmls_menu` WHERE ( id=122 ) LIMIT 1   [ RunTime:0.000000s ]
+SQL: SELECT DISTINCT  `group` FROM `xmls_menu` WHERE ( pid = 122 )  [ RunTime:0.000000s ]
+SQL: SELECT `id`,`url` FROM `xmls_menu` WHERE ( `pid` = 122 ) AND ( `hide` = 0 )  [ RunTime:0.000000s ]
+SQL: SELECT `id`,`pid`,`title`,`url`,`tip` FROM `xmls_menu` WHERE ( `group` = 'CRM系统设置' ) AND ( `pid` = 122 ) AND ( `hide` = 0 ) ORDER BY sort asc  [ RunTime:0.001000s ]
+SQL: SELECT `id`,`pid`,`title`,`url`,`tip` FROM `xmls_menu` WHERE ( `group` = '客户管理' ) AND ( `pid` = 122 ) AND ( `hide` = 0 ) ORDER BY sort asc  [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `xmls_member` [ RunTime:0.003000s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `xmls_member` WHERE ( `status` >= 0 ) AND ( `nickname` LIKE '%%' ) LIMIT 1   [ RunTime:0.000000s ]
+SQL: SELECT `uid`,`nickname`,`realname`,`sex`,`birthday`,`qq`,`department_id`,`auth_group_id`,`telephone`,`mobile`,`title`,`email`,`custom_limit`,`score`,`login`,`reg_ip`,`reg_time`,`last_login_ip`,`last_login_time`,`status` FROM `xmls_member` WHERE ( `status` >= 0 ) AND ( `nickname` LIKE '%%' ) ORDER BY uid desc LIMIT 0,10   [ RunTime:0.001000s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplace [ RunTime:0.000000s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000000s ]
+SQL: SHOW COLUMNS FROM `xmls_my_department` [ RunTime:0.003001s ]
+SQL: SELECT `department` FROM `xmls_my_department` WHERE ( `id` = 2 ) LIMIT 1   [ RunTime:0.000000s ]
+SQL: SHOW COLUMNS FROM `xmls_auth_group` [ RunTime:0.002000s ]
+SQL: SELECT `title` FROM `xmls_auth_group` WHERE ( `id` = 1 ) LIMIT 1   [ RunTime:0.000000s ]
+SQL: SELECT `department` FROM `xmls_my_department` WHERE ( `id` = 2 ) LIMIT 1   [ RunTime:0.000000s ]
+SQL: SELECT `title` FROM `xmls_auth_group` WHERE ( `id` = 2 ) LIMIT 1   [ RunTime:0.000000s ]
+SQL: SELECT `department` FROM `xmls_my_department` WHERE ( `id` = 2 ) LIMIT 1   [ RunTime:0.000000s ]
+SQL: SELECT `title` FROM `xmls_auth_group` WHERE ( `id` = 2 ) LIMIT 1   [ RunTime:0.000000s ]
+SQL: SELECT `department` FROM `xmls_my_department` WHERE ( `id` = 0 ) LIMIT 1   [ RunTime:0.000000s ]
+SQL: SELECT `title` FROM `xmls_auth_group` WHERE ( `id` = 0 ) LIMIT 1   [ RunTime:0.000000s ]
+INFO: Run Behavior\ParseTemplate [ RunTime:0.029002s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.029002s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCache [ RunTime:0.001000s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTrace [ RunTime:0.000000s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000000s ]
+
+[ 2015-11-19T21:15:38+08:00 ] 127.0.0.1 /index.php/Admin/System/departmentManage.html
+SQL: SHOW COLUMNS FROM `xmls_menu` [ RunTime:0.003001s ]
+SQL: SELECT * FROM `xmls_menu` WHERE ( `pid` = 0 ) AND ( `hide` = 0 ) ORDER BY sort asc  [ RunTime:0.001000s ]
+SQL: SELECT `id` FROM `xmls_menu` WHERE ( url like '%System/departmentmanage%' ) LIMIT 1   [ RunTime:0.000000s ]
+SQL: SHOW COLUMNS FROM `xmls_menu` [ RunTime:0.002000s ]
+SQL: SELECT `id`,`pid`,`title` FROM `xmls_menu` WHERE ( id=137 ) LIMIT 1   [ RunTime:0.000000s ]
+SQL: SELECT `id`,`pid`,`title` FROM `xmls_menu` WHERE ( id=124 ) LIMIT 1   [ RunTime:0.000000s ]
+SQL: SELECT `id`,`pid`,`title` FROM `xmls_menu` WHERE ( id=122 ) LIMIT 1   [ RunTime:0.001000s ]
+SQL: SELECT DISTINCT  `group` FROM `xmls_menu` WHERE ( pid = 122 )  [ RunTime:0.000000s ]
+SQL: SELECT `id`,`url` FROM `xmls_menu` WHERE ( `pid` = 122 ) AND ( `hide` = 0 )  [ RunTime:0.001000s ]
+SQL: SELECT `id`,`pid`,`title`,`url`,`tip` FROM `xmls_menu` WHERE ( `group` = 'CRM系统设置' ) AND ( `pid` = 122 ) AND ( `hide` = 0 ) ORDER BY sort asc  [ RunTime:0.000000s ]
+SQL: SELECT `id`,`pid`,`title`,`url`,`tip` FROM `xmls_menu` WHERE ( `group` = '客户管理' ) AND ( `pid` = 122 ) AND ( `hide` = 0 ) ORDER BY sort asc  [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `xmls_my_department` [ RunTime:0.002000s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `xmls_my_department` WHERE ( `status` >= 0 ) LIMIT 1   [ RunTime:0.000000s ]
+SQL: SELECT `id`,`department`,`description`,`who_add`,`create_time`,`update_time`,`status` FROM `xmls_my_department` WHERE ( `status` >= 0 ) ORDER BY id desc LIMIT 0,10   [ RunTime:0.000000s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplace [ RunTime:0.000000s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000000s ]
+SQL: SHOW COLUMNS FROM `xmls_member` [ RunTime:0.002000s ]
+SQL: SELECT `nickname` FROM `xmls_member` WHERE ( `uid` = 1 ) LIMIT 1   [ RunTime:0.000000s ]
+INFO: Run Behavior\ParseTemplate [ RunTime:0.685039s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.685039s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCache [ RunTime:0.000000s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.000000s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTrace [ RunTime:0.001000s ]
+INFO: [ app_end ] --END-- [ RunTime:0.001000s ]
+
+[ 2015-11-19T21:15:38+08:00 ] 127.0.0.1 /index.php/Admin/AuthManager/index.html
+SQL: SHOW COLUMNS FROM `xmls_menu` [ RunTime:0.002000s ]
+SQL: SELECT * FROM `xmls_menu` WHERE ( `pid` = 0 ) AND ( `hide` = 0 ) ORDER BY sort asc  [ RunTime:0.000000s ]
+SQL: SELECT `id` FROM `xmls_menu` WHERE ( url like '%AuthManager/index%' ) LIMIT 1   [ RunTime:0.000000s ]
+SQL: SHOW COLUMNS FROM `xmls_menu` [ RunTime:0.001000s ]
+SQL: SELECT `id`,`pid`,`title` FROM `xmls_menu` WHERE ( id=27 ) LIMIT 1   [ RunTime:0.000000s ]
+SQL: SELECT `id`,`pid`,`title` FROM `xmls_menu` WHERE ( id=122 ) LIMIT 1   [ RunTime:0.000000s ]
+SQL: SELECT DISTINCT  `group` FROM `xmls_menu` WHERE ( pid = 122 )  [ RunTime:0.000000s ]
+SQL: SELECT `id`,`url` FROM `xmls_menu` WHERE ( `pid` = 122 ) AND ( `hide` = 0 )  [ RunTime:0.000000s ]
+SQL: SELECT `id`,`pid`,`title`,`url`,`tip` FROM `xmls_menu` WHERE ( `group` = 'CRM系统设置' ) AND ( `pid` = 122 ) AND ( `hide` = 0 ) ORDER BY sort asc  [ RunTime:0.000000s ]
+SQL: SELECT `id`,`pid`,`title`,`url`,`tip` FROM `xmls_menu` WHERE ( `group` = '客户管理' ) AND ( `pid` = 122 ) AND ( `hide` = 0 ) ORDER BY sort asc  [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `xmls_auth_group` [ RunTime:0.001000s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `xmls_auth_group` WHERE ( `status` >= 0 ) AND ( `module` = 'admin' ) LIMIT 1   [ RunTime:0.000000s ]
+SQL: SELECT `id`,`module`,`type`,`title`,`description`,`status`,`rules` FROM `xmls_auth_group` WHERE ( `status` >= 0 ) AND ( `module` = 'admin' ) ORDER BY id asc LIMIT 0,10   [ RunTime:0.000000s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplace [ RunTime:0.001000s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.001000s ]
+INFO: Run Behavior\ParseTemplate [ RunTime:0.026001s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.026001s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCache [ RunTime:0.000000s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.000000s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTrace [ RunTime:0.000000s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000000s ]
+
+[ 2015-11-19T21:15:39+08:00 ] 127.0.0.1 /index.php/Admin/Action/actionlog.html
+SQL: SHOW COLUMNS FROM `xmls_menu` [ RunTime:0.004000s ]
+SQL: SELECT * FROM `xmls_menu` WHERE ( `pid` = 0 ) AND ( `hide` = 0 ) ORDER BY sort asc  [ RunTime:0.001000s ]
+SQL: SELECT `id` FROM `xmls_menu` WHERE ( url like '%Action/actionlog%' ) LIMIT 1   [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `xmls_menu` [ RunTime:0.004001s ]
+SQL: SELECT `id`,`pid`,`title` FROM `xmls_menu` WHERE ( id=106 ) LIMIT 1   [ RunTime:0.001000s ]
+SQL: SELECT `id`,`pid`,`title` FROM `xmls_menu` WHERE ( id=122 ) LIMIT 1   [ RunTime:0.000000s ]
+SQL: SELECT DISTINCT  `group` FROM `xmls_menu` WHERE ( pid = 122 )  [ RunTime:0.000000s ]
+SQL: SELECT `id`,`url` FROM `xmls_menu` WHERE ( `pid` = 122 ) AND ( `hide` = 0 )  [ RunTime:0.000000s ]
+SQL: SELECT `id`,`pid`,`title`,`url`,`tip` FROM `xmls_menu` WHERE ( `group` = 'CRM系统设置' ) AND ( `pid` = 122 ) AND ( `hide` = 0 ) ORDER BY sort asc  [ RunTime:0.000000s ]
+SQL: SELECT `id`,`pid`,`title`,`url`,`tip` FROM `xmls_menu` WHERE ( `group` = '客户管理' ) AND ( `pid` = 122 ) AND ( `hide` = 0 ) ORDER BY sort asc  [ RunTime:0.000000s ]
+SQL: SHOW COLUMNS FROM `xmls_action_log` [ RunTime:0.003000s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `xmls_action_log` WHERE ( `status` > -1 ) LIMIT 1   [ RunTime:0.000000s ]
+SQL: SELECT `id`,`action_id`,`user_id`,`action_ip`,`model`,`record_id`,`remark`,`status`,`create_time` FROM `xmls_action_log` WHERE ( `status` > -1 ) ORDER BY id desc LIMIT 0,10   [ RunTime:0.000000s ]
+SQL: SHOW COLUMNS FROM `xmls_model` [ RunTime:0.003001s ]
+SQL: SELECT `id` FROM `xmls_model` WHERE ( `name` = 'Menu' ) LIMIT 1   [ RunTime:0.000000s ]
+SQL: SELECT `id` FROM `xmls_model` WHERE ( `name` = 'member' ) LIMIT 1   [ RunTime:0.000000s ]
+SQL: SELECT `id` FROM `xmls_model` WHERE ( `name` = 'Menu' ) LIMIT 1   [ RunTime:0.000000s ]
+SQL: SELECT `id` FROM `xmls_model` WHERE ( `name` = 'member' ) LIMIT 1   [ RunTime:0.000000s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplace [ RunTime:0.000000s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000000s ]
+SQL: SHOW COLUMNS FROM `xmls_action` [ RunTime:0.003000s ]
+SQL: SELECT `id`,`name`,`title`,`remark`,`rule`,`log`,`type`,`status`,`update_time` FROM `xmls_action` WHERE ( `status` > -1 ) AND ( `id` = 10 ) LIMIT 1   [ RunTime:0.000000s ]
+SQL: SELECT `id`,`name`,`title`,`remark`,`rule`,`log`,`type`,`status`,`update_time` FROM `xmls_action` WHERE ( `status` > -1 ) AND ( `id` = 1 ) LIMIT 1   [ RunTime:0.000000s ]
+SQL: SELECT `id`,`name`,`title`,`remark`,`rule`,`log`,`type`,`status`,`update_time` FROM `xmls_action` WHERE ( `status` > -1 ) AND ( `id` = 10 ) LIMIT 1   [ RunTime:0.000000s ]
+SQL: SELECT `id`,`name`,`title`,`remark`,`rule`,`log`,`type`,`status`,`update_time` FROM `xmls_action` WHERE ( `status` > -1 ) AND ( `id` = 1 ) LIMIT 1   [ RunTime:0.000000s ]
+INFO: Run Behavior\ParseTemplate [ RunTime:0.021001s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.021001s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCache [ RunTime:0.000000s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.000000s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTrace [ RunTime:0.000000s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000000s ]
+
+[ 2015-11-19T21:15:41+08:00 ] 127.0.0.1 /index.php/Admin/Custom/customList.html
+SQL: SHOW COLUMNS FROM `xmls_menu` [ RunTime:0.002000s ]
+SQL: SELECT * FROM `xmls_menu` WHERE ( `pid` = 0 ) AND ( `hide` = 0 ) ORDER BY sort asc  [ RunTime:0.000000s ]
+SQL: SELECT `id` FROM `xmls_menu` WHERE ( url like '%Custom/customlist%' ) LIMIT 1   [ RunTime:0.000000s ]
+SQL: SHOW COLUMNS FROM `xmls_menu` [ RunTime:0.002001s ]
+SQL: SELECT `id`,`pid`,`title` FROM `xmls_menu` WHERE ( id=127 ) LIMIT 1   [ RunTime:0.000000s ]
+SQL: SELECT `id`,`pid`,`title` FROM `xmls_menu` WHERE ( id=122 ) LIMIT 1   [ RunTime:0.000000s ]
+SQL: SELECT DISTINCT  `group` FROM `xmls_menu` WHERE ( pid = 122 )  [ RunTime:0.000000s ]
+SQL: SELECT `id`,`url` FROM `xmls_menu` WHERE ( `pid` = 122 ) AND ( `hide` = 0 )  [ RunTime:0.000000s ]
+SQL: SELECT `id`,`pid`,`title`,`url`,`tip` FROM `xmls_menu` WHERE ( `group` = 'CRM系统设置' ) AND ( `pid` = 122 ) AND ( `hide` = 0 ) ORDER BY sort asc  [ RunTime:0.000000s ]
+SQL: SELECT `id`,`pid`,`title`,`url`,`tip` FROM `xmls_menu` WHERE ( `group` = '客户管理' ) AND ( `pid` = 122 ) AND ( `hide` = 0 ) ORDER BY sort asc  [ RunTime:0.000000s ]
+SQL: SHOW COLUMNS FROM `xmls_my_customer_type` [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `xmls_my_customer_source` [ RunTime:0.002000s ]
+SQL: SELECT * FROM `xmls_my_customer_type` WHERE ( status=0 )  [ RunTime:0.000000s ]
+SQL: SELECT * FROM `xmls_my_customer_source` WHERE ( status=0 )  [ RunTime:0.000000s ]
+SQL: SHOW COLUMNS FROM `xmls_my_customer_data` [ RunTime:0.002000s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `xmls_my_customer_data` WHERE ( `status` >= 0 ) LIMIT 1   [ RunTime:0.000000s ]
+SQL: SELECT `id`,`customer_number`,`customer_name`,`contact_name`,`gender`,`position`,`birthday`,`phone`,`tel`,`office_phone`,`fax_number`,`email`,`QQ`,`province`,`city`,`country`,`detail_address`,`customer_source`,`customer_type`,`trade`,`website`,`contract_start`,`contract_end`,`notes`,`create_people`,`create_time`,`customer_service`,`last_time`,`appoint_time`,`status` FROM `xmls_my_customer_data` WHERE ( `status` >= 0 ) ORDER BY id LIMIT 0,10   [ RunTime:0.000000s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplace [ RunTime:0.000000s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000000s ]
+NOTIC: [8] Undefined variable: sarr E:\WWW\barbarossa\Runtime\Cache\Admin\efb7810dec0ae9d4abc68c06f6dd66f0.php 第 110 行.
+NOTIC: [8] Undefined variable: sarr E:\WWW\barbarossa\Runtime\Cache\Admin\efb7810dec0ae9d4abc68c06f6dd66f0.php 第 113 行.
+NOTIC: [8] Undefined variable: sarr E:\WWW\barbarossa\Runtime\Cache\Admin\efb7810dec0ae9d4abc68c06f6dd66f0.php 第 113 行.
+NOTIC: [8] Undefined variable: sarr E:\WWW\barbarossa\Runtime\Cache\Admin\efb7810dec0ae9d4abc68c06f6dd66f0.php 第 113 行.
+NOTIC: [8] Undefined variable: sarr E:\WWW\barbarossa\Runtime\Cache\Admin\efb7810dec0ae9d4abc68c06f6dd66f0.php 第 113 行.
+NOTIC: [8] Undefined variable: sarr E:\WWW\barbarossa\Runtime\Cache\Admin\efb7810dec0ae9d4abc68c06f6dd66f0.php 第 113 行.
+NOTIC: [8] Undefined variable: sarr E:\WWW\barbarossa\Runtime\Cache\Admin\efb7810dec0ae9d4abc68c06f6dd66f0.php 第 117 行.
+NOTIC: [8] Undefined variable: sarr E:\WWW\barbarossa\Runtime\Cache\Admin\efb7810dec0ae9d4abc68c06f6dd66f0.php 第 117 行.
+NOTIC: [8] Undefined variable: sarr E:\WWW\barbarossa\Runtime\Cache\Admin\efb7810dec0ae9d4abc68c06f6dd66f0.php 第 117 行.
+INFO: Run Behavior\ParseTemplate [ RunTime:0.014001s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.014001s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCache [ RunTime:0.000000s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.000000s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTrace [ RunTime:0.000000s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000000s ]
+
+[ 2015-11-19T21:15:43+08:00 ] 127.0.0.1 /index.php/Admin/Custom/myCustomList.html
+SQL: SHOW COLUMNS FROM `xmls_menu` [ RunTime:0.002000s ]
+SQL: SELECT * FROM `xmls_menu` WHERE ( `pid` = 0 ) AND ( `hide` = 0 ) ORDER BY sort asc  [ RunTime:0.000000s ]
+SQL: SELECT `id` FROM `xmls_menu` WHERE ( url like '%Custom/mycustomlist%' ) LIMIT 1   [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `xmls_menu` [ RunTime:0.002001s ]
+SQL: SELECT `id`,`pid`,`title` FROM `xmls_menu` WHERE ( id=128 ) LIMIT 1   [ RunTime:0.000000s ]
+SQL: SELECT `id`,`pid`,`title` FROM `xmls_menu` WHERE ( id=122 ) LIMIT 1   [ RunTime:0.000000s ]
+SQL: SELECT DISTINCT  `group` FROM `xmls_menu` WHERE ( pid = 122 )  [ RunTime:0.000000s ]
+SQL: SELECT `id`,`url` FROM `xmls_menu` WHERE ( `pid` = 122 ) AND ( `hide` = 0 )  [ RunTime:0.001000s ]
+SQL: SELECT `id`,`pid`,`title`,`url`,`tip` FROM `xmls_menu` WHERE ( `group` = 'CRM系统设置' ) AND ( `pid` = 122 ) AND ( `hide` = 0 ) ORDER BY sort asc  [ RunTime:0.000000s ]
+SQL: SELECT `id`,`pid`,`title`,`url`,`tip` FROM `xmls_menu` WHERE ( `group` = '客户管理' ) AND ( `pid` = 122 ) AND ( `hide` = 0 ) ORDER BY sort asc  [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `xmls_my_customer_data` [ RunTime:0.002000s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `xmls_my_customer_data` WHERE ( `status` >= 0 ) AND ( `customer_service` = 'admin' ) LIMIT 1   [ RunTime:0.000000s ]
+SQL: SELECT `id`,`customer_number`,`customer_name`,`contact_name`,`gender`,`position`,`birthday`,`phone`,`tel`,`office_phone`,`fax_number`,`email`,`QQ`,`province`,`city`,`country`,`detail_address`,`customer_source`,`customer_type`,`trade`,`website`,`contract_start`,`contract_end`,`notes`,`create_people`,`create_time`,`customer_service`,`last_time`,`appoint_time`,`status` FROM `xmls_my_customer_data` WHERE ( `status` >= 0 ) AND ( `customer_service` = 'admin' ) ORDER BY id LIMIT 0,10   [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `xmls_my_customer_type` [ RunTime:0.001000s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `xmls_my_customer_type` WHERE ( `status` >= 0 ) LIMIT 1   [ RunTime:0.000000s ]
+SQL: SELECT `id`,`type_name`,`type_description`,`operator`,`create_time`,`is_default`,`status` FROM `xmls_my_customer_type` WHERE ( `status` >= 0 ) ORDER BY id desc LIMIT 0,10   [ RunTime:0.000000s ]
+SQL: SHOW COLUMNS FROM `xmls_my_customer_source` [ RunTime:0.001000s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `xmls_my_customer_source` WHERE ( `status` >= 0 ) LIMIT 1   [ RunTime:0.000000s ]
+SQL: SELECT `id`,`source_name`,`operator`,`add_time`,`is_default`,`status` FROM `xmls_my_customer_source` WHERE ( `status` >= 0 ) ORDER BY id desc LIMIT 0,10   [ RunTime:0.000000s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplace [ RunTime:0.000000s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000000s ]
+NOTIC: [8] Undefined variable: meta_title E:\WWW\barbarossa\Runtime\Cache\Admin\685e6c91d6a82ec8f5abdd9b1e1aae30.php 第 5 行.
+NOTIC: [8] Undefined variable: sarr E:\WWW\barbarossa\Runtime\Cache\Admin\685e6c91d6a82ec8f5abdd9b1e1aae30.php 第 122 行.
+NOTIC: [8] Undefined variable: sarr E:\WWW\barbarossa\Runtime\Cache\Admin\685e6c91d6a82ec8f5abdd9b1e1aae30.php 第 125 行.
+NOTIC: [8] Undefined variable: sarr E:\WWW\barbarossa\Runtime\Cache\Admin\685e6c91d6a82ec8f5abdd9b1e1aae30.php 第 125 行.
+NOTIC: [8] Undefined variable: sarr E:\WWW\barbarossa\Runtime\Cache\Admin\685e6c91d6a82ec8f5abdd9b1e1aae30.php 第 125 行.
+NOTIC: [8] Undefined variable: sarr E:\WWW\barbarossa\Runtime\Cache\Admin\685e6c91d6a82ec8f5abdd9b1e1aae30.php 第 125 行.
+NOTIC: [8] Undefined variable: sarr E:\WWW\barbarossa\Runtime\Cache\Admin\685e6c91d6a82ec8f5abdd9b1e1aae30.php 第 125 行.
+NOTIC: [8] Undefined variable: sarr E:\WWW\barbarossa\Runtime\Cache\Admin\685e6c91d6a82ec8f5abdd9b1e1aae30.php 第 129 行.
+NOTIC: [8] Undefined variable: sarr E:\WWW\barbarossa\Runtime\Cache\Admin\685e6c91d6a82ec8f5abdd9b1e1aae30.php 第 129 行.
+NOTIC: [8] Undefined variable: sarr E:\WWW\barbarossa\Runtime\Cache\Admin\685e6c91d6a82ec8f5abdd9b1e1aae30.php 第 129 行.
+INFO: Run Behavior\ParseTemplate [ RunTime:0.013001s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.013001s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCache [ RunTime:0.000000s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.000000s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTrace [ RunTime:0.000000s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000000s ]
+
+[ 2015-11-19T21:15:44+08:00 ] 127.0.0.1 /index.php/Admin/Custom/feedbackList.html
+SQL: SHOW COLUMNS FROM `xmls_menu` [ RunTime:0.002000s ]
+SQL: SELECT * FROM `xmls_menu` WHERE ( `pid` = 0 ) AND ( `hide` = 0 ) ORDER BY sort asc  [ RunTime:0.001000s ]
+SQL: SELECT `id` FROM `xmls_menu` WHERE ( url like '%Custom/feedbacklist%' ) LIMIT 1   [ RunTime:0.000000s ]
+SQL: SHOW COLUMNS FROM `xmls_menu` [ RunTime:0.001000s ]
+SQL: SELECT `id`,`pid`,`title` FROM `xmls_menu` WHERE ( id=129 ) LIMIT 1   [ RunTime:0.000000s ]
+SQL: SELECT `id`,`pid`,`title` FROM `xmls_menu` WHERE ( id=122 ) LIMIT 1   [ RunTime:0.000000s ]
+SQL: SELECT DISTINCT  `group` FROM `xmls_menu` WHERE ( pid = 122 )  [ RunTime:0.000000s ]
+SQL: SELECT `id`,`url` FROM `xmls_menu` WHERE ( `pid` = 122 ) AND ( `hide` = 0 )  [ RunTime:0.000000s ]
+SQL: SELECT `id`,`pid`,`title`,`url`,`tip` FROM `xmls_menu` WHERE ( `group` = 'CRM系统设置' ) AND ( `pid` = 122 ) AND ( `hide` = 0 ) ORDER BY sort asc  [ RunTime:0.001000s ]
+SQL: SELECT `id`,`pid`,`title`,`url`,`tip` FROM `xmls_menu` WHERE ( `group` = '客户管理' ) AND ( `pid` = 122 ) AND ( `hide` = 0 ) ORDER BY sort asc  [ RunTime:0.000000s ]
+SQL: SHOW COLUMNS FROM `xmls_my_customer_record` [ RunTime:0.002000s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `xmls_my_customer_record` WHERE ( `status` >= 0 ) LIMIT 1   [ RunTime:0.000000s ]
+SQL: SELECT `id`,`customer_number`,`customer_name`,`contact_name`,`contact_way`,`txttel`,`contact_content`,`last_time`,`contact_type`,`appoint_time`,`next_content`,`customer_service`,`status` FROM `xmls_my_customer_record` WHERE ( `status` >= 0 ) ORDER BY id desc LIMIT 0,10   [ RunTime:0.000000s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplace [ RunTime:0.000000s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000000s ]
+NOTIC: [8] Undefined variable: meta_title E:\WWW\barbarossa\Runtime\Cache\Admin\ebe1e471e518672f75a7a237b5f188e3.php 第 5 行.
+NOTIC: [8] Undefined variable: type E:\WWW\barbarossa\Runtime\Cache\Admin\ebe1e471e518672f75a7a237b5f188e3.php 第 121 行.
+INFO: Run Behavior\ParseTemplate [ RunTime:0.012001s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.012001s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCache [ RunTime:0.000000s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.000000s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTrace [ RunTime:0.000000s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000000s ]
+
+[ 2015-11-19T21:16:03+08:00 ] 127.0.0.1 /index.php/Admin/Custom/waitLinkList.html
+SQL: SHOW COLUMNS FROM `xmls_menu` [ RunTime:0.003000s ]
+SQL: SELECT * FROM `xmls_menu` WHERE ( `pid` = 0 ) AND ( `hide` = 0 ) ORDER BY sort asc  [ RunTime:0.000000s ]
+SQL: SELECT `id` FROM `xmls_menu` WHERE ( url like '%Custom/waitlinklist%' ) LIMIT 1   [ RunTime:0.000000s ]
+SQL: SHOW COLUMNS FROM `xmls_menu` [ RunTime:0.003000s ]
+SQL: SELECT `id`,`pid`,`title` FROM `xmls_menu` WHERE ( id=130 ) LIMIT 1   [ RunTime:0.001000s ]
+SQL: SELECT `id`,`pid`,`title` FROM `xmls_menu` WHERE ( id=122 ) LIMIT 1   [ RunTime:0.001000s ]
+SQL: SELECT DISTINCT  `group` FROM `xmls_menu` WHERE ( pid = 122 )  [ RunTime:0.001000s ]
+SQL: SELECT `id`,`url` FROM `xmls_menu` WHERE ( `pid` = 122 ) AND ( `hide` = 0 )  [ RunTime:0.001000s ]
+SQL: SELECT `id`,`pid`,`title`,`url`,`tip` FROM `xmls_menu` WHERE ( `group` = 'CRM系统设置' ) AND ( `pid` = 122 ) AND ( `hide` = 0 ) ORDER BY sort asc  [ RunTime:0.001000s ]
+SQL: SELECT `id`,`pid`,`title`,`url`,`tip` FROM `xmls_menu` WHERE ( `group` = '客户管理' ) AND ( `pid` = 122 ) AND ( `hide` = 0 ) ORDER BY sort asc  [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `xmls_my_customer_data` [ RunTime:0.004001s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `xmls_my_customer_data` WHERE ( `status` >= 0 ) AND ( `customer_service` = 'admin' ) LIMIT 1   [ RunTime:0.000000s ]
+SQL: SELECT `id`,`customer_number`,`customer_name`,`contact_name`,`gender`,`position`,`birthday`,`phone`,`tel`,`office_phone`,`fax_number`,`email`,`QQ`,`province`,`city`,`country`,`detail_address`,`customer_source`,`customer_type`,`trade`,`website`,`contract_start`,`contract_end`,`notes`,`create_people`,`create_time`,`customer_service`,`last_time`,`appoint_time`,`status` FROM `xmls_my_customer_data` WHERE ( `status` >= 0 ) AND ( `customer_service` = 'admin' ) ORDER BY id desc LIMIT 0,10   [ RunTime:0.000000s ]
+NOTIC: [8] Undefined variable: arr E:\WWW\barbarossa\Application\Admin\Controller\CustomController.class.php 第 826 行.
+NOTIC: [2] Invalid argument supplied for foreach() E:\WWW\barbarossa\Application\Admin\Controller\CustomController.class.php 第 826 行.
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplace [ RunTime:0.000000s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000000s ]
+NOTIC: [8] Undefined variable: meta_title E:\WWW\barbarossa\Runtime\Cache\Admin\ecf4d2a40e7dc8698eb7f6f713acb027.php 第 5 行.
+NOTIC: [8] Undefined variable: start_time E:\WWW\barbarossa\Runtime\Cache\Admin\ecf4d2a40e7dc8698eb7f6f713acb027.php 第 99 行.
+NOTIC: [8] Undefined variable: end_time E:\WWW\barbarossa\Runtime\Cache\Admin\ecf4d2a40e7dc8698eb7f6f713acb027.php 第 103 行.
+INFO: Run Behavior\ParseTemplate [ RunTime:0.019001s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.019001s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCache [ RunTime:0.000000s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.000000s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTrace [ RunTime:0.000000s ]
+INFO: [ app_end ] --END-- [ RunTime:0.001000s ]
+
