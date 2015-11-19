@@ -371,3 +371,14 @@ function get_action_type($type, $all = false){
 	}
 	return $list[$type];
 }
+
+/*路径转义*/
+function J($str){
+	return str_replace('./', '', str_replace('//', '/', $str));
+}
+
+function myFilename($name){
+	return time() . '_' . substr_replace($name, '', -4);
+}
+
+

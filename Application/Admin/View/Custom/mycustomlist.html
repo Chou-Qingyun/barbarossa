@@ -165,9 +165,6 @@
 				}else{
 					url += '?id=' + quer[i].value ;
 				}
-			}else{
-				alert('请选择要修改的数据');
-				return false;
 			}
         		}
 		window.location.href = url;
@@ -190,8 +187,7 @@
 	divst[last].className = "changebg";
 	
     //导航高亮
-    highlight_subnav('{:U('User/sourceManage')}');
-    var target_form = $(this).attr('target-form');
+    highlight_subnav('{:U('Custom/myCustomList')}');
     
     
 	</script>

@@ -2,6 +2,7 @@
 
 namespace Admin\Controller;
 
+use Think\Upload;
 class CustomController extends AdminController {
 	public function index(){
 		
@@ -302,6 +303,11 @@ class CustomController extends AdminController {
 		$id = $this->filterId($id);
 		$map['id'] = array('in',$id);
 		$this->delete('MyCustomerData',$map);
+	}
+	
+	/*客户资料导入*/
+	public function customListImport(){
+		
 	}
 	
 	/*客户资料搜索结果*/
@@ -707,12 +713,78 @@ class CustomController extends AdminController {
 	
 	/*合作文档*/
 	public function myCustomDocument(){
+		$customer_number = I('customer_number');
+		$map['customer_number'] = $customer_number;
+		$list = $this->lists('MyContractDocument',$map);
+		$this->assign('customer_number',$customer_number);
+		$this->assign('_list',$list);
 		$this->display();
 	}
 
 	/*添加文档*/
 	public function myCustomDocumentAdd(){
-		$this->display();
+		if(IS_POST){
+// 			dump(I('post.'));
+		$map['customer_number'] = I('customer_number');
+		$customer = $this->lists('MyCustomerData',$map);
+		$id = $customer[0]['id'];
+		$customDocumentContract = D('MyContractDocument');
+			if(!$customDocumentContract->create()){
+				$this->error($customDocumentContract->getError());
+			}else{
+				if($customDocumentContract->add()){
+					$this->success('合同添加成功',U('customListDetail?id='.$id));
+				}else{
+					$this->error('合同添加失败');
+				}
+			}						
+			
+		}else{
+			$customer_number = I('customer_number');
+			$map['customer_number'] = $customer_number;
+// 			dump($map);
+			$customer = $this->lists('MyCustomerData',$map);
+// 			dump($customer);
+			$customer_name = $customer[0]['customer_name'];
+// 			dump($customer_name);
+			$this->assign('customer_number',$customer_number);
+			$this->assign('customer_name',$customer_name);
+			$this->display();
+		}
+		
+	}
+	
+	/*文档上传*/
+	public function myCustomDocumentUpload(){
+		$upload = new \Think\Upload();// 实例化上传类
+		$upload->maxSize  = 3145728 ;// 设置附件上传大小
+		$upload->allowExts  = array('jpg', 'gif', 'png', 'jpeg');// 设置附件上传类型
+		$savepath='./Attachment/';
+		$upload->saveName = array('myFilename','__FILE__');
+		if (!file_exists($savepath)){
+			mkdir($savepath);
+		}
+		$upload->savePath =  $savepath;// 设置附件上传目录
+		$info = $upload->upload();
+		if(!$info) {// 上传错误提示错误信息		
+			$this->error($upload->getErrorMsg());
+		}else{// 上传成功 获取上传文件信息
+			//$info =  $upload->upload();
+			foreach ($info as &$file){
+				$spath = $file['savepath'].'/'.$file['savename'];
+			}
+		}
+		print_r(J(__ROOT__.'/Uploads/'. $spath));
+	}
+
+	/*页面上删除展示文档*/
+	public function myCustomDocumentUploadDelete(){
+		$src=str_replace(__ROOT__.'/', '', str_replace('//', '/', $_GET['src']));
+		if (file_exists($src)){
+			unlink($src);
+		}
+		print_r($_GET['src']);
+		exit();
 	}
 	
 	/*联系人*/
@@ -827,7 +899,7 @@ class CustomController extends AdminController {
 			$this->success('导入成功！');
 		}else
 		{
-			$this->error("请选择上传的文件");
+			$this->error("请选择上传的文件",U('Custom/customListImport'));
 		}
 	}
 	

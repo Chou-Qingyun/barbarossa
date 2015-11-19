@@ -1,51 +1,88 @@
 <extend name="Public/base"/>
 
 <block name="body">
-<style>
-	table.gritable{
-		border: 1px;
-		width: 60%;
-		height: 188px;
-		font-family: "Microsoft Yahei",arial,sans-serif;
-		font-size: 16px;
-	}
-	table.gritable td{
-		padding: 10px;
-	
-	}
+<script type="text/javascript">
+	var path='__MODULE__';
+	var url='__URL__';
+</script>
+<!-- <script type="text/javascript" src="__JS__/jquery1.js"></script> -->
+<script type="text/javascript" src="__JS__/swfupload.js"></script>
+<script type="text/javascript" src="__JS__/handlers.js"></script>
+<link href="__CSS__/default.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript">
+		var swfu;
+		window.onload = function () {
+			swfu = new SWFUpload({
+				upload_url: "{:U('Custom/myCustomDocumentUpload')}",
+				post_params: {"PHPSESSID": "<?php echo session_id()."*";?>"},
+				file_size_limit : "2 MB",
+				file_types : "*.jpg;*.png;*.gif;*.bmp",
+				file_types_description : "JPG Images",
+				file_upload_limit : "100",
+				file_queue_error_handler : fileQueueError,
+				file_dialog_complete_handler : fileDialogComplete,
+				upload_progress_handler : uploadProgress,
+				upload_error_handler : uploadError,
+				upload_success_handler : uploadSuccess,
+				upload_complete_handler : uploadComplete,
+				button_image_url : "__IMG__/upload.png",
+				button_placeholder_id : "spanButtonPlaceholder",
+				button_width: 113,
+				button_height: 33,
+				button_text : '',
+				button_text_style : '.spanButtonPlaceholder { font-family: Helvetica, Arial, sans-serif; font-size: 14pt;} ',
+				button_text_top_padding: 0,
+				button_text_left_padding: 0,
+				button_window_mode: SWFUpload.WINDOW_MODE.TRANSPARENT,
+				button_cursor: SWFUpload.CURSOR.HAND,			
+				flash_url : "__JS__/swfupload.swf",
+				custom_settings : {
+					upload_target : "divFileProgressContainer"
+				},				
+				debug: false
+			});
+		};
+	</script>
 
-            tr .dty{
-                    width: 80px;
-            }
-</style>
     <div class="main-title">
         <h2>新增合同文档</h2>
     </div>
-    <form action="{:U('Custom/feedbackListAdd')}" method="post" class="form-horizontal" enctype="multipart/form-data">
-    <table class="gritable" >
-    	<tr>
-    		<input type="hidden" name="customer_number" value="{$vo.customer_number}">
-    		<td class="dty">文档名称：</td>
-    		<td><input type="text" class="text" name="document_name"  ></td>
-    	</tr>
-    	<tr>
-    		<td class="dty">文档类别：</td>
-    		<td>
-                            <select name="document_type" style="width:230px;height:29px;" class="text">
-                                <option value="合同文档">合同文档</option>
-                                <option value="其他文档">其他文档</option>
-                            </select>
-    		</td>
-    	</tr>
-    	<tr>
-    		<td class="dty">文档描述：</td>
-                        <td><textarea name="document_content" rows="4" cols="40"></textarea></td>
-    	</tr>
-    	<tr>
-    		<td class="dty">相关附件：</td>
-                        <td><input type="submit" value="上传">|个文件已经上传|</td>
-    	</tr>
-    </table>
+    <form action="{:U('Custom/myCustomDocumentAdd')}" method="post" class="form-horizontal" enctype="multipart/form-data">
+    	<div class="form-item">
+            <label class="item-label">文档名称</label>
+            <div class="controls">
+                <input type="text" class="text" name="document_name" >
+            </div>
+        </div>
+        <div class="form-item">
+            <label class="item-label">文档类别</label>
+            <div class="controls">
+                <select name="document_type" style="width:230px;height:29px;" class="text">
+                    <option value="合同文档">合同文档</option>
+                    <option value="其他文档">其他文档</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-item">
+            <label class="item-label">文档描述</label>
+            <div class="controls">
+                <textarea name="document_explain" rows="4" cols="40"></textarea>
+            </div>
+        </div>
+		<div style="width: 356px; height: auto; border: 1px solid #e1e1e1; font-size: 12px; padding: 10px;margin: 10px;">
+			<label class="item-label">相关附件：</label>
+			<span id="spanButtonPlaceholder"></span>
+			<div id="divFileProgressContainer"></div>
+			<div id="thumbnails">
+				<ul id="pic_list" style="margin: 5px;"></ul>
+				<div style="clear: both;"></div>
+			</div>
+		</div>
+		<input type="hidden" name="document_path" id="" value=""/>
+		<input type="hidden" name="customer_number" value="{$customer_number}" />
+		<input type="hidden" name="customer_name" value="{$customer_name}"/>
+		
+		<!-- <input type="submit" value="submit"> -->
         <div class="form-item">
         <!-- 有ajax     -->
         	<button class="btn submit-btn ajax-post" id="submit" type="submit" target-form="form-horizontal">保存</button>
@@ -68,7 +105,8 @@
     	}
     	document.getElementById('way_name').innerHTML = way_name;
     }
-
+  //导航高亮
+    highlight_subnav('{:U('Custom/customList')}');
 </script>
 </block>
 
