@@ -24,7 +24,7 @@
 				8. 一次性导入的数据量，不要超过500条数据，以避免因网络故障导致的数据库相关问题；<br>
     	</div>
     	<div>
-    		<form action="{:U(Custom/customListImport)}" method="post" enctype="multipart/form-data">
+    		<form action="{:U(Custom/customlistExcelUpload)}" method="post" enctype="multipart/form-data">
     			<input type="file" name="import">
     			<input class="btn" type="submit" value="开始导入">
     		</form>

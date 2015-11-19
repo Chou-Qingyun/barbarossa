@@ -5,7 +5,7 @@
 	<!-- <script type="text/javascript" src="__STATIC__/area.js"></script> -->
 	<script type="text/javascript" src="__STATIC__/js/laydate.js"></script>
     <div class="main-title">
-        <h2>新增客户资料</h2>
+        <h2>编辑客户资料</h2>
     </div>
     <form action="{:U('Custom/customListUpdate')}" method="post" class="form-horizontal">
         <div class="form-item">
@@ -306,6 +306,9 @@
 	}
 	fun('customer_type','ctype');
 	fun('customer_source','csource');
+	
+	//导航高亮
+    highlight_subnav('{:U('Custom/customList')}');
 </script>
 </block>
 

@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- 主机: localhost
--- 生成日期: 2015 年 11 月 13 日 19:53
+-- 生成日期: 2015 年 11 月 18 日 21:22
 -- 服务器版本: 5.5.40
 -- PHP 版本: 5.3.29
 
@@ -76,140 +76,18 @@ CREATE TABLE IF NOT EXISTS `xmls_action_log` (
   KEY `action_ip_ix` (`action_ip`),
   KEY `action_id_ix` (`action_id`),
   KEY `user_id_ix` (`user_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED COMMENT='行为日志表' AUTO_INCREMENT=128 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED COMMENT='行为日志表' AUTO_INCREMENT=6 ;
 
 --
 -- 转存表中的数据 `xmls_action_log`
 --
 
 INSERT INTO `xmls_action_log` (`id`, `action_id`, `user_id`, `action_ip`, `model`, `record_id`, `remark`, `status`, `create_time`) VALUES
-(1, 1, 1, 2130706433, 'member', 1, 'admin在2015-10-27 19:01登录了后台', 1, 1445943703),
-(2, 10, 1, 2130706433, 'Menu', 122, '操作url：/index.php?s=/admin/menu/add.html', 1, 1446193380),
-(3, 10, 1, 2130706433, 'Menu', 123, '操作url：/index.php?s=/admin/menu/add.html', 1, 1446193825),
-(4, 10, 1, 2130706433, 'Menu', 124, '操作url：/index.php?s=/admin/menu/add.html', 1, 1446193888),
-(5, 10, 1, 2130706433, 'Menu', 125, '操作url：/index.php?s=/admin/menu/add.html', 1, 1446193936),
-(6, 10, 1, 2130706433, 'Menu', 126, '操作url：/index.php?s=/admin/menu/add.html', 1, 1446194134),
-(7, 10, 1, 2130706433, 'Menu', 127, '操作url：/index.php?s=/admin/menu/add.html', 1, 1446195059),
-(8, 10, 1, 2130706433, 'Menu', 128, '操作url：/index.php?s=/admin/menu/add.html', 1, 1446195142),
-(9, 10, 1, 2130706433, 'Menu', 129, '操作url：/index.php?s=/admin/menu/add.html', 1, 1446195193),
-(10, 10, 1, 2130706433, 'Menu', 130, '操作url：/index.php?s=/admin/menu/add.html', 1, 1446195253),
-(11, 10, 1, 2130706433, 'Menu', 131, '操作url：/index.php?s=/admin/menu/add.html', 1, 1446195305),
-(12, 10, 1, 2130706433, 'Menu', 132, '操作url：/index.php?s=/admin/menu/add.html', 1, 1446195348),
-(13, 10, 1, 2130706433, 'Menu', 133, '操作url：/index.php?s=/admin/menu/add.html', 1, 1446195401),
-(14, 10, 1, 2130706433, 'Menu', 134, '操作url：/index.php?s=/admin/menu/add.html', 1, 1446195447),
-(15, 10, 1, 2130706433, 'Menu', 135, '操作url：/index.php?s=/admin/menu/add.html', 1, 1446195511),
-(16, 10, 1, 0, 'Menu', 136, '操作url：/barbarossa/index.php?s=/admin/menu/add.html', 1, 1446209753),
-(17, 1, 1, 0, 'member', 1, 'admin在2015-10-30 21:01登录了后台', 1, 1446210103),
-(18, 1, 1, 0, 'member', 1, 'admin在2015-10-31 09:36登录了后台', 1, 1446255411),
-(19, 10, 1, 0, 'Menu', 137, '操作url：/barbarossa/index.php?s=/admin/menu/add.html', 1, 1446258912),
-(20, 10, 1, 0, 'Menu', 0, '操作url：/barbarossa/index.php?s=/admin/menu/del/id/137.html', 1, 1446258971),
-(21, 1, 1, 0, 'member', 1, 'admin在2015-10-31 11:09登录了后台', 1, 1446260957),
-(22, 1, 1, 0, 'member', 1, 'admin在2015-11-02 08:28登录了后台', 1, 1446424112),
-(23, 1, 1, 0, 'member', 1, 'admin在2015-11-02 10:33登录了后台', 1, 1446431602),
-(24, 10, 1, 0, 'Menu', 138, '操作url：/barbarossa/index.php?s=/admin/menu/add.html', 1, 1446433706),
-(25, 10, 1, 0, 'Menu', 138, '操作url：/barbarossa/index.php?s=/admin/menu/edit.html', 1, 1446433750),
-(26, 1, 1, 0, 'member', 1, 'admin在2015-11-02 11:26登录了后台', 1, 1446434785),
-(27, 10, 1, 0, 'Menu', 138, '操作url：/barbarossa/index.php?s=/admin/menu/edit.html', 1, 1446447768),
-(28, 10, 1, 0, 'Menu', 138, '操作url：/barbarossa/index.php?s=/admin/menu/edit.html', 1, 1446447816),
-(29, 10, 1, 0, 'Menu', 0, '操作url：/barbarossa/index.php?s=/admin/menu/del/id/138.html', 1, 1446447943),
-(30, 10, 1, 0, 'Menu', 139, '操作url：/barbarossa/index.php?s=/admin/menu/add.html', 1, 1446448025),
-(31, 10, 1, 0, 'Menu', 139, '操作url：/barbarossa/index.php?s=/admin/menu/edit.html', 1, 1446448159),
-(32, 10, 1, 0, 'Menu', 139, '操作url：/barbarossa/index.php?s=/admin/menu/edit.html', 1, 1446448203),
-(33, 10, 1, 0, 'Menu', 139, '操作url：/barbarossa/index.php?s=/admin/menu/edit.html', 1, 1446448300),
-(34, 10, 1, 0, 'Menu', 139, '操作url：/barbarossa/index.php?s=/admin/menu/edit.html', 1, 1446448725),
-(35, 10, 1, 0, 'Menu', 139, '操作url：/barbarossa/index.php?s=/admin/menu/edit.html', 1, 1446448756),
-(36, 10, 1, 0, 'Menu', 139, '操作url：/barbarossa/index.php?s=/admin/menu/edit.html', 1, 1446448763),
-(37, 10, 1, 0, 'Menu', 140, '操作url：/barbarossa/index.php?s=/admin/menu/add.html', 1, 1446465109),
-(38, 10, 1, 0, 'Menu', 141, '操作url：/barbarossa/index.php?s=/admin/menu/add.html', 1, 1446468957),
-(39, 10, 1, 0, 'Menu', 141, '操作url：/barbarossa/index.php?s=/admin/menu/edit.html', 1, 1446469179),
-(40, 10, 1, 0, 'Menu', 141, '操作url：/barbarossa/index.php?s=/admin/menu/edit.html', 1, 1446469312),
-(41, 1, 1, 0, 'member', 1, 'admin在2015-11-03 11:12登录了后台', 1, 1446520338),
-(42, 1, 1, 0, 'member', 1, 'admin在2015-11-03 11:14登录了后台', 1, 1446520488),
-(43, 1, 1, 0, 'member', 1, 'admin在2015-11-03 16:30登录了后台', 1, 1446539459),
-(44, 1, 1, 0, 'member', 1, 'admin在2015-11-03 19:30登录了后台', 1, 1446550244),
-(45, 1, 1, 0, 'member', 1, 'admin在2015-11-04 08:50登录了后台', 1, 1446598243),
-(46, 10, 1, 0, 'Menu', 142, '操作url：/barbarossa/index.php/Admin/Menu/add.html', 1, 1446606712),
-(47, 10, 1, 0, 'Menu', 141, '操作url：/barbarossa/index.php/Admin/Menu/edit.html', 1, 1446616595),
-(48, 10, 1, 0, 'Menu', 143, '操作url：/barbarossa/index.php/Admin/Menu/add.html', 1, 1446617396),
-(49, 10, 1, 0, 'Menu', 144, '操作url：/barbarossa/index.php/Admin/Menu/add.html', 1, 1446619794),
-(50, 10, 1, 0, 'Menu', 144, '操作url：/barbarossa/index.php/Admin/Menu/edit.html', 1, 1446619840),
-(51, 1, 1, 0, 'member', 1, 'admin在2015-11-04 15:12登录了后台', 1, 1446621126),
-(52, 1, 1, 0, 'member', 1, 'admin在2015-11-04 19:53登录了后台', 1, 1446638018),
-(53, 1, 1, 0, 'member', 1, 'admin在2015-11-05 08:41登录了后台', 1, 1446684102),
-(54, 1, 1, 0, 'member', 1, 'admin在2015-11-05 11:37登录了后台', 1, 1446694649),
-(55, 1, 1, 0, 'member', 1, 'admin在2015-11-06 08:42登录了后台', 1, 1446770560),
-(56, 10, 1, 0, 'Menu', 145, '操作url：/barbarossa/index.php/Admin/Menu/add.html', 1, 1446790801),
-(57, 10, 1, 0, 'Menu', 145, '操作url：/barbarossa/index.php/Admin/Menu/edit.html', 1, 1446790826),
-(58, 1, 1, 0, 'member', 1, 'admin在2015-11-06 16:04登录了后台', 1, 1446797058),
-(59, 1, 1, 0, 'member', 1, 'admin在2015-11-07 09:31登录了后台', 1, 1446859906),
-(60, 10, 1, 0, 'Menu', 146, '操作url：/barbarossa/index.php/Admin/Menu/add.html', 1, 1446862673),
-(61, 10, 1, 0, 'Menu', 146, '操作url：/barbarossa/index.php/Admin/Menu/edit.html', 1, 1446862828),
-(62, 10, 1, 0, 'Menu', 146, '操作url：/barbarossa/index.php/Admin/Menu/edit.html', 1, 1446863199),
-(63, 11, 1, 0, 'category', 39, '操作url：/barbarossa/index.php/Admin/Category/add.html', 1, 1446863509),
-(64, 11, 1, 0, 'category', 39, '操作url：/barbarossa/index.php/Admin/Category/remove/id/39.html', 1, 1446863522),
-(65, 1, 1, 0, 'member', 1, 'admin在2015-11-07 10:45登录了后台', 1, 1446864310),
-(66, 10, 1, 0, 'Menu', 146, '操作url：/barbarossa/index.php/Admin/Menu/edit.html', 1, 1446864335),
-(67, 10, 1, 0, 'Menu', 147, '操作url：/barbarossa/index.php/Admin/Menu/add.html', 1, 1446864594),
-(68, 10, 1, 0, 'Menu', 147, '操作url：/barbarossa/index.php/Admin/Menu/edit.html', 1, 1446890651),
-(69, 10, 1, 0, 'Menu', 147, '操作url：/barbarossa/index.php/Admin/Menu/edit.html', 1, 1446890670),
-(70, 10, 1, 0, 'Menu', 147, '操作url：/barbarossa/index.php/Admin/Menu/edit.html', 1, 1446890690),
-(71, 10, 1, 0, 'Menu', 147, '操作url：/barbarossa/index.php/Admin/Menu/edit.html', 1, 1446890762),
-(72, 10, 1, 0, 'Menu', 148, '操作url：/barbarossa/index.php/Admin/Menu/add.html', 1, 1446890791),
-(73, 10, 1, 0, 'Menu', 145, '操作url：/barbarossa/index.php/Admin/Menu/edit.html', 1, 1446890847),
-(74, 10, 1, 0, 'Menu', 147, '操作url：/barbarossa/index.php/Admin/Menu/edit.html', 1, 1446890860),
-(75, 10, 1, 0, 'Menu', 147, '操作url：/barbarossa/index.php/Admin/Menu/edit.html', 1, 1446890880),
-(76, 10, 1, 0, 'Menu', 0, '操作url：/barbarossa/index.php/Admin/Menu/del/id/147.html', 1, 1446890900),
-(77, 10, 1, 0, 'Menu', 0, '操作url：/barbarossa/index.php/Admin/Menu/del/id/148.html', 1, 1446890910),
-(78, 10, 1, 0, 'Menu', 149, '操作url：/barbarossa/index.php/Admin/Menu/add.html', 1, 1446890990),
-(79, 10, 1, 0, 'Menu', 150, '操作url：/barbarossa/index.php/Admin/Menu/add.html', 1, 1446891123),
-(80, 10, 1, 0, 'Menu', 151, '操作url：/barbarossa/index.php/Admin/Menu/add.html', 1, 1446891282),
-(81, 1, 1, 0, 'member', 1, 'admin在2015-11-07 19:04登录了后台', 1, 1446894297),
-(82, 1, 1, 0, 'member', 1, 'admin在2015-11-08 09:41登录了后台', 1, 1446946916),
-(83, 10, 1, 0, 'Menu', 152, '操作url：/barbarossa/index.php/Admin/Menu/add.html', 1, 1446947261),
-(84, 10, 1, 0, 'Menu', 0, '操作url：/barbarossa/index.php/Admin/Menu/del/id/152.html', 1, 1446948213),
-(85, 1, 1, 0, 'member', 1, 'admin在2015-11-08 10:10登录了后台', 1, 1446948648),
-(86, 1, 1, 0, 'member', 1, 'admin在2015-11-08 10:12登录了后台', 1, 1446948764),
-(87, 10, 1, 0, 'Menu', 153, '操作url：/barbarossa/index.php/Admin/Menu/add.html', 1, 1446952833),
-(88, 10, 1, 0, 'Menu', 154, '操作url：/barbarossa/index.php/Admin/Menu/add.html', 1, 1446952949),
-(89, 1, 1, 0, 'member', 1, 'admin在2015-11-09 08:39登录了后台', 1, 1447029584),
-(90, 10, 1, 0, 'Menu', 154, '操作url：/barbarossa/index.php/Admin/Menu/edit.html', 1, 1447029744),
-(91, 10, 1, 0, 'Menu', 154, '操作url：/barbarossa/index.php/Admin/Menu/edit.html', 1, 1447031596),
-(92, 10, 1, 0, 'Menu', 154, '操作url：/barbarossa/index.php/Admin/Menu/edit.html', 1, 1447031604),
-(93, 10, 1, 0, 'Menu', 155, '操作url：/barbarossa/index.php/Admin/Menu/add.html', 1, 1447031665),
-(94, 1, 1, 0, 'member', 1, 'admin在2015-11-09 10:46登录了后台', 1, 1447037176),
-(95, 1, 4, 0, 'member', 4, '234在2015-11-09 10:57登录了后台', 1, 1447037878),
-(96, 1, 4, 0, 'member', 4, '234在2015-11-09 10:59登录了后台', 1, 1447037951),
-(97, 1, 4, 0, 'member', 4, '234在2015-11-09 11:04登录了后台', 1, 1447038247),
-(98, 1, 4, 0, 'member', 4, '234在2015-11-09 11:06登录了后台', 1, 1447038370),
-(99, 1, 1, 0, 'member', 1, 'admin在2015-11-09 11:11登录了后台', 1, 1447038712),
-(100, 10, 1, 0, 'Menu', 156, '操作url：/barbarossa/index.php/Admin/Menu/add.html', 1, 1447054006),
-(101, 10, 1, 0, 'Menu', 157, '操作url：/barbarossa/index.php/Admin/Menu/add.html', 1, 1447054088),
-(102, 1, 1, 0, 'member', 1, 'admin在2015-11-09 17:32登录了后台', 1, 1447061579),
-(103, 10, 1, 0, 'Menu', 158, '操作url：/barbarossa/index.php/Admin/Menu/add.html', 1, 1447062431),
-(104, 1, 1, 0, 'member', 1, 'admin在2015-11-10 08:34登录了后台', 1, 1447115687),
-(105, 1, 1, 0, 'member', 1, 'admin在2015-11-10 11:48登录了后台', 1, 1447127313),
-(106, 10, 1, 0, 'Menu', 159, '操作url：/barbarossa/index.php/Admin/Menu/add.html', 1, 1447137520),
-(107, 10, 1, 0, 'Menu', 160, '操作url：/barbarossa/index.php/Admin/Menu/add.html', 1, 1447148480),
-(108, 1, 1, 0, 'member', 1, 'admin在2015-11-10 20:33登录了后台', 1, 1447158784),
-(109, 1, 1, 0, 'member', 1, 'admin在2015-11-11 08:41登录了后台', 1, 1447202469),
-(110, 1, 1, 0, 'member', 1, 'admin在2015-11-11 11:30登录了后台', 1, 1447212616),
-(111, 1, 1, 0, 'member', 1, 'admin在2015-11-12 08:46登录了后台', 1, 1447289211),
-(112, 1, 1, 0, 'member', 1, 'admin在2015-11-12 14:25登录了后台', 1, 1447309533),
-(113, 1, 1, 0, 'member', 1, 'admin在2015-11-12 14:41登录了后台', 1, 1447310473),
-(114, 1, 1, 0, 'member', 1, 'admin在2015-11-12 14:55登录了后台', 1, 1447311312),
-(115, 1, 1, 0, 'member', 1, 'admin在2015-11-12 15:06登录了后台', 1, 1447311961),
-(116, 10, 1, 0, 'Menu', 161, '操作url：/barbarossa/index.php/Admin/Menu/add.html', 1, 1447314172),
-(117, 10, 1, 0, 'Menu', 161, '操作url：/barbarossa/index.php/Admin/Menu/edit.html', 1, 1447314191),
-(118, 1, 1, 0, 'member', 1, 'admin在2015-11-12 17:15登录了后台', 1, 1447319745),
-(119, 10, 1, 0, 'Menu', 161, '操作url：/barbarossa/index.php/Admin/Menu/edit.html', 1, 1447332676),
-(120, 10, 1, 0, 'Menu', 162, '操作url：/barbarossa/index.php/Admin/Menu/add.html', 1, 1447332738),
-(121, 1, 1, 0, 'member', 1, 'admin在2015-11-13 10:10登录了后台', 1, 1447380646),
-(122, 1, 1, 0, 'member', 1, 'admin在2015-11-13 10:27登录了后台', 1, 1447381661),
-(123, 1, 1, 0, 'member', 1, 'admin在2015-11-13 11:47登录了后台', 1, 1447386426),
-(124, 10, 1, 0, 'Menu', 163, '操作url：/barbarossa/index.php/Admin/Menu/add.html', 1, 1447405411),
-(125, 1, 1, 0, 'member', 1, 'admin在2015-11-13 19:02登录了后台', 1, 1447412552),
-(126, 1, 1, 0, 'member', 1, 'admin在2015-11-13 19:06登录了后台', 1, 1447412792),
-(127, 1, 1, 0, 'member', 1, 'admin在2015-11-13 19:08登录了后台', 1, 1447412885);
+(1, 1, 1, 0, 'member', 1, 'admin在2015-11-17 21:34登录了后台', 1, 1447767246),
+(2, 1, 1, 0, 'member', 1, 'admin在2015-11-18 09:29登录了后台', 1, 1447810144),
+(3, 1, 1, 0, 'member', 1, 'admin在2015-11-18 09:32登录了后台', 1, 1447810327),
+(4, 10, 1, 0, 'Menu', 131, '操作url：/barbarossa/index.php/Admin/Menu/edit.html', 1, 1447810460),
+(5, 1, 1, 0, 'member', 1, 'admin在2015-11-18 18:50登录了后台', 1, 1447843814);
 
 -- --------------------------------------------------------
 
@@ -390,7 +268,7 @@ CREATE TABLE IF NOT EXISTS `xmls_auth_group` (
 
 INSERT INTO `xmls_auth_group` (`id`, `module`, `type`, `title`, `description`, `status`, `rules`) VALUES
 (1, 'admin', 1, '默认用户组', '', 1, '1,2,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,79,80,81,82,83,84,86,87,88,89,90,91,92,93,94,95,96,97,100,102,103,105,106'),
-(2, 'admin', 1, '测试用户', '测试用户', 1, '1,2,5,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,79,80,82,83,84,88,89,90,91,92,93,100,102,103,195,217,218,219,221,222,224,226,227,228,229,231,232,233,234,235,236,237,238,239,240,241');
+(2, 'admin', 1, '测试用户', '测试用户', 1, '1,2,5,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,79,80,82,83,84,88,89,90,91,92,93,96,97,100,102,103,195');
 
 -- --------------------------------------------------------
 
@@ -411,7 +289,7 @@ CREATE TABLE IF NOT EXISTS `xmls_auth_group_access` (
 --
 
 INSERT INTO `xmls_auth_group_access` (`uid`, `group_id`) VALUES
-(4, 2);
+(4, 1);
 
 -- --------------------------------------------------------
 
@@ -429,7 +307,7 @@ CREATE TABLE IF NOT EXISTS `xmls_auth_rule` (
   `condition` varchar(300) NOT NULL DEFAULT '' COMMENT '规则附加条件',
   PRIMARY KEY (`id`),
   KEY `module` (`module`,`status`,`type`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=242 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=267 ;
 
 --
 -- 转存表中的数据 `xmls_auth_rule`
@@ -438,7 +316,7 @@ CREATE TABLE IF NOT EXISTS `xmls_auth_rule` (
 INSERT INTO `xmls_auth_rule` (`id`, `module`, `type`, `name`, `title`, `status`, `condition`) VALUES
 (1, 'admin', 2, 'Admin/Index/index', '首页', 1, ''),
 (2, 'admin', 2, 'Admin/Article/mydocument', '内容', 1, ''),
-(3, 'admin', 2, 'Admin/User/index', '用户', 1, ''),
+(3, 'admin', 2, 'Admin/User/index', '用户', -1, ''),
 (4, 'admin', 2, 'Admin/Addons/index', '扩展', 1, ''),
 (5, 'admin', 2, 'Admin/Config/group', '系统', 1, ''),
 (7, 'admin', 1, 'Admin/article/add', '新增', 1, ''),
@@ -460,7 +338,7 @@ INSERT INTO `xmls_auth_rule` (`id`, `module`, `type`, `name`, `title`, `status`,
 (23, 'admin', 1, 'Admin/User/changeStatus?method=forbidUser', '禁用会员', 1, ''),
 (24, 'admin', 1, 'Admin/User/changeStatus?method=resumeUser', '启用会员', 1, ''),
 (25, 'admin', 1, 'Admin/User/changeStatus?method=deleteUser', '删除会员', 1, ''),
-(26, 'admin', 1, 'Admin/User/index', '用户信息', 1, ''),
+(26, 'admin', 1, 'Admin/User/index', '员工信息管理', 1, ''),
 (27, 'admin', 1, 'Admin/User/action', '用户行为', 1, ''),
 (28, 'admin', 1, 'Admin/AuthManager/changeStatus?method=deleteGroup', '删除', 1, ''),
 (29, 'admin', 1, 'Admin/AuthManager/changeStatus?method=forbidGroup', '禁用', 1, ''),
@@ -475,7 +353,7 @@ INSERT INTO `xmls_auth_rule` (`id`, `module`, `type`, `name`, `title`, `status`,
 (38, 'admin', 1, 'Admin/AuthManager/addToGroup', '保存成员授权', 1, ''),
 (39, 'admin', 1, 'Admin/AuthManager/category', '分类授权', 1, ''),
 (40, 'admin', 1, 'Admin/AuthManager/addToCategory', '保存分类授权', 1, ''),
-(41, 'admin', 1, 'Admin/AuthManager/index', '权限管理', 1, ''),
+(41, 'admin', 1, 'Admin/AuthManager/index', '系统角色管理', 1, ''),
 (42, 'admin', 1, 'Admin/Addons/create', '创建', 1, ''),
 (43, 'admin', 1, 'Admin/Addons/checkForm', '检测创建', 1, ''),
 (44, 'admin', 1, 'Admin/Addons/preview', '预览', 1, ''),
@@ -652,12 +530,12 @@ INSERT INTO `xmls_auth_rule` (`id`, `module`, `type`, `name`, `title`, `status`,
 (217, 'admin', 2, 'Admin/System/index', 'CRM', 1, ''),
 (218, 'admin', 1, 'Admin/Custom/customListUpdate', '编辑客户资料', 1, ''),
 (219, 'admin', 1, 'Admin/Custom/myCustomList', '我的客户列表', 1, ''),
-(220, 'admin', 1, 'Admin/System/employeeManage', '员工信息管理', 1, ''),
+(220, 'admin', 1, 'Admin/System/employeeManage', '员工信息管理', -1, ''),
 (221, 'admin', 1, 'Admin/Custom/customList', '客户资料管理', 1, ''),
 (222, 'admin', 1, 'Admin/Custom/customListAdd', '新增客户资料', 1, ''),
 (223, 'admin', 1, 'Admin/System/DepartmentManage', '企业部门管理', 1, ''),
 (224, 'admin', 1, 'Admin/Custom/customListSearch', '客户资料搜索', 1, ''),
-(225, 'admin', 1, 'Admin/System/roleManage', '系统角色管理', 1, ''),
+(225, 'admin', 1, 'Admin/System/roleManage', '系统角色管理', -1, ''),
 (226, 'admin', 1, 'Admin/Custom/feedbackList', '联系记录管理', 1, ''),
 (227, 'admin', 1, 'Admin/Custom/customListChangeCategory', '批量修改客户类型', 1, ''),
 (228, 'admin', 1, 'Admin/Custom/waitLinkList', '等待回访客户', 1, ''),
@@ -673,7 +551,32 @@ INSERT INTO `xmls_auth_rule` (`id`, `module`, `type`, `name`, `title`, `status`,
 (238, 'admin', 1, 'Admin/Custom/categorymanageaction', '编辑客户类别', 1, ''),
 (239, 'admin', 1, 'Admin/Custom/sourceManageAdd', '新增客户来源', 1, ''),
 (240, 'admin', 1, 'Admin/Custom/sourceManageEdit', '客户来源编辑', 1, ''),
-(241, 'admin', 1, 'Admin/Custom/sourceManageSearch', '客户来源搜索结果', 1, '');
+(241, 'admin', 1, 'Admin/Custom/sourceManageSearch', '客户来源搜索结果', 1, ''),
+(242, 'admin', 1, 'Admin/Custom/customPoolManageSearch', '公共客户管理搜索', 1, ''),
+(243, 'admin', 1, 'Admin/Custom/feedbacklistadd', '添加联系记录', 1, ''),
+(244, 'admin', 1, 'Admin/Custom/waitlinklistsearch', '搜索等待回访客户', 1, ''),
+(245, 'admin', 1, 'Admin/Custom/myCustomListSelf', '我的领用', 1, ''),
+(246, 'admin', 1, 'Admin/Custom/feedbacklistedit', '编辑联系记录', 1, ''),
+(247, 'admin', 1, 'Admin/Custom/myCustomListRec', '即将回收', 1, ''),
+(248, 'admin', 1, 'Admin/Custom/feedbackListCat', '查看联系记录', 1, ''),
+(249, 'admin', 1, 'Admin/Custom/feedbacklistsearch', '联系记录搜索结果', 1, ''),
+(250, 'admin', 1, 'Admin/Custom/myCustomListSearch', '我的客户列表搜索结果', 1, ''),
+(251, 'admin', 1, 'Admin/Custom/customListDetail', '客户资料具体详情', 1, ''),
+(252, 'admin', 1, 'Admin/Custom/myCustomDocumentAdd', '添加合同文档', 1, ''),
+(253, 'admin', 2, 'Admin/System/index', 'CRM', -1, ''),
+(254, 'admin', 1, 'Admin/Custom/customList', '客户资料管理', -1, ''),
+(255, 'admin', 1, 'Admin/System/DepartmentManage', '企业部门管理', -1, ''),
+(256, 'admin', 1, 'Admin/Custom/myCustomList', '我的客户列表', -1, ''),
+(257, 'admin', 1, 'Admin/Custom/feedbackList', '联系记录管理', -1, ''),
+(258, 'admin', 1, 'Admin/Custom/waitLinkList', '等待回访客户', -1, ''),
+(259, 'admin', 1, 'Admin/System/customPoolSetting', '客户池设置', -1, ''),
+(260, 'admin', 1, 'Admin/Custom/excelUpload', '客户资料导入', -1, ''),
+(261, 'admin', 1, 'Admin/Custom/shareCustomList', '共享客户列表', -1, ''),
+(262, 'admin', 1, 'Admin/Custom/customPoolManage', '公共客户管理', -1, ''),
+(263, 'admin', 1, 'Admin/Custom/categoryManage', '客户类别管理', -1, ''),
+(264, 'admin', 1, 'Admin/Custom/sourceManage', '客户来源管理', -1, ''),
+(265, 'admin', 1, 'Admin/System/departmentManageAdd', '新增部门', 1, ''),
+(266, 'admin', 1, 'Admin/System/departmentManageEdit', '编辑', 1, '');
 
 -- --------------------------------------------------------
 
@@ -711,7 +614,7 @@ CREATE TABLE IF NOT EXISTS `xmls_category` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `uk_name` (`name`),
   KEY `pid` (`pid`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='分类表' AUTO_INCREMENT=40 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='分类表' AUTO_INCREMENT=39 ;
 
 --
 -- 转存表中的数据 `xmls_category`
@@ -954,29 +857,39 @@ INSERT INTO `xmls_hooks` (`id`, `name`, `description`, `type`, `update_time`, `a
 CREATE TABLE IF NOT EXISTS `xmls_member` (
   `uid` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '用户ID',
   `nickname` char(16) NOT NULL DEFAULT '' COMMENT '昵称',
+  `realname` char(16) NOT NULL,
   `sex` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '性别',
   `birthday` date NOT NULL DEFAULT '0000-00-00' COMMENT '生日',
   `qq` char(10) NOT NULL DEFAULT '' COMMENT 'qq号',
+  `department_id` int(11) NOT NULL,
+  `auth_group_id` int(11) NOT NULL,
+  `telephone` char(15) NOT NULL,
+  `mobile` char(11) NOT NULL,
+  `title` varchar(20) NOT NULL,
+  `email` varchar(50) NOT NULL,
+  `custom_limit` int(11) NOT NULL,
   `score` mediumint(8) NOT NULL DEFAULT '0' COMMENT '用户积分',
   `login` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '登录次数',
-  `reg_ip` bigint(20) NOT NULL DEFAULT '0' COMMENT '注册IP',
+  `reg_ip` varchar(20) NOT NULL DEFAULT '0' COMMENT '注册IP',
   `reg_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '注册时间',
   `last_login_ip` bigint(20) NOT NULL DEFAULT '0' COMMENT '最后登录IP',
   `last_login_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '最后登录时间',
   `status` tinyint(4) NOT NULL DEFAULT '0' COMMENT '会员状态',
   PRIMARY KEY (`uid`),
   KEY `status` (`status`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='会员表' AUTO_INCREMENT=5 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='会员表' AUTO_INCREMENT=12 ;
 
 --
 -- 转存表中的数据 `xmls_member`
 --
 
-INSERT INTO `xmls_member` (`uid`, `nickname`, `sex`, `birthday`, `qq`, `score`, `login`, `reg_ip`, `reg_time`, `last_login_ip`, `last_login_time`, `status`) VALUES
-(1, 'admin', 0, '0000-00-00', '', 30, 46, 0, 1445943683, 0, 1447412885, 1),
-(2, 'admin111', 0, '0000-00-00', '', 0, 0, 0, 0, 0, 0, 1),
-(3, 'admin1', 0, '0000-00-00', '', 0, 0, 0, 0, 0, 0, 1),
-(4, '234', 0, '0000-00-00', '', 10, 4, 0, 0, 0, 1447038370, 1);
+INSERT INTO `xmls_member` (`uid`, `nickname`, `realname`, `sex`, `birthday`, `qq`, `department_id`, `auth_group_id`, `telephone`, `mobile`, `title`, `email`, `custom_limit`, `score`, `login`, `reg_ip`, `reg_time`, `last_login_ip`, `last_login_time`, `status`) VALUES
+(1, 'admin', '', 0, '0000-00-00', '', 1, 0, '', '', '', '', 0, 70, 22, '0', 1445943683, 0, 1447843814, 1),
+(4, 'aaaaaa', '', 0, '0000-00-00', '', 2, 0, '', '', '', '', 0, 10, 2, '0', 0, 2130706433, 1446280755, -1),
+(7, 'bbbb', 'realname', 0, '0000-00-00', '', 1, 1, '05920558215', '', '', 'xmls@qq.com', 0, 0, 0, '0', 0, 0, 0, 1),
+(9, 'okzappos', '真实名字', 0, '0000-00-00', '', 2, 2, '05920558215', '18208987632', '主管', 'shou@admin.com', 100, 0, 0, '0', 0, 0, 0, 1),
+(10, 'jacket', '小陈', 1, '0000-00-00', '', 2, 2, '1234567', '1321232123', '客服', 'xiaochen@xc.com', 10, 0, 0, '1270', 1446472520, 0, 0, -1),
+(11, 'bosikai', '博思凯', 1, '0000-00-00', '', 1, 1, '1234567', '13212345678', '客服', 'myt@admin.com', 10, 0, 0, '127.0.0.1', 1446472665, 0, 0, 1);
 
 -- --------------------------------------------------------
 
@@ -996,7 +909,7 @@ CREATE TABLE IF NOT EXISTS `xmls_menu` (
   `is_dev` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '是否仅开发者模式可见',
   PRIMARY KEY (`id`),
   KEY `pid` (`pid`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=164 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=161 ;
 
 --
 -- 转存表中的数据 `xmls_menu`
@@ -1018,9 +931,9 @@ INSERT INTO `xmls_menu` (`id`, `title`, `pid`, `sort`, `url`, `hide`, `tip`, `gr
 (13, '回收站', 2, 0, 'article/recycle', 1, '', '内容', 0),
 (14, '还原', 13, 0, 'article/permit', 0, '', '', 0),
 (15, '清空', 13, 0, 'article/clear', 0, '', '', 0),
-(16, '用户', 0, 3, 'User/index', 0, '', '', 0),
+(16, '员工信息管理', 122, 1, 'User/index', 0, '', 'CRM系统设置', 0),
 (17, '用户信息', 16, 0, 'User/index', 0, '', '用户管理', 0),
-(18, '新增用户', 17, 0, 'User/add', 0, '添加新用户', '', 0),
+(18, '新增用户', 16, 0, 'User/add', 0, '添加新用户', '', 0),
 (19, '用户行为', 16, 0, 'User/action', 0, '', '行为管理', 0),
 (20, '新增用户行为', 19, 0, 'User/addaction', 0, '', '', 0),
 (21, '编辑用户行为', 19, 0, 'User/editaction', 0, '', '', 0),
@@ -1029,22 +942,22 @@ INSERT INTO `xmls_menu` (`id`, `title`, `pid`, `sort`, `url`, `hide`, `tip`, `gr
 (24, '禁用会员', 19, 0, 'User/changeStatus?method=forbidUser', 0, '"用户->用户信息"中的禁用', '', 0),
 (25, '启用会员', 19, 0, 'User/changeStatus?method=resumeUser', 0, '"用户->用户信息"中的启用', '', 0),
 (26, '删除会员', 19, 0, 'User/changeStatus?method=deleteUser', 0, '"用户->用户信息"中的删除', '', 0),
-(27, '权限管理', 16, 0, 'AuthManager/index', 0, '', '用户管理', 0),
-(28, '删除', 27, 0, 'AuthManager/changeStatus?method=deleteGroup', 0, '删除用户组', '', 0),
-(29, '禁用', 27, 0, 'AuthManager/changeStatus?method=forbidGroup', 0, '禁用用户组', '', 0),
-(30, '恢复', 27, 0, 'AuthManager/changeStatus?method=resumeGroup', 0, '恢复已禁用的用户组', '', 0),
-(31, '新增', 27, 0, 'AuthManager/createGroup', 0, '创建新的用户组', '', 0),
-(32, '编辑', 27, 0, 'AuthManager/editGroup', 0, '编辑用户组名称和描述', '', 0),
-(33, '保存用户组', 27, 0, 'AuthManager/writeGroup', 0, '新增和编辑用户组的"保存"按钮', '', 0),
-(34, '授权', 27, 0, 'AuthManager/group', 0, '"后台 \\ 用户 \\ 用户信息"列表页的"授权"操作按钮,用于设置用户所属用户组', '', 0),
-(35, '访问授权', 27, 0, 'AuthManager/access', 0, '"后台 \\ 用户 \\ 权限管理"列表页的"访问授权"操作按钮', '', 0),
-(36, '成员授权', 27, 0, 'AuthManager/user', 0, '"后台 \\ 用户 \\ 权限管理"列表页的"成员授权"操作按钮', '', 0),
-(37, '解除授权', 27, 0, 'AuthManager/removeFromGroup', 0, '"成员授权"列表页内的解除授权操作按钮', '', 0),
-(38, '保存成员授权', 27, 0, 'AuthManager/addToGroup', 0, '"用户信息"列表页"授权"时的"保存"按钮和"成员授权"里右上角的"添加"按钮)', '', 0),
-(39, '分类授权', 27, 0, 'AuthManager/category', 0, '"后台 \\ 用户 \\ 权限管理"列表页的"分类授权"操作按钮', '', 0),
-(40, '保存分类授权', 27, 0, 'AuthManager/addToCategory', 0, '"分类授权"页面的"保存"按钮', '', 0),
-(41, '模型授权', 27, 0, 'AuthManager/modelauth', 0, '"后台 \\ 用户 \\ 权限管理"列表页的"模型授权"操作按钮', '', 0),
-(42, '保存模型授权', 27, 0, 'AuthManager/addToModel', 0, '"分类授权"页面的"保存"按钮', '', 0),
+(27, '系统角色管理', 122, 3, 'AuthManager/index', 0, '', 'CRM系统设置', 0),
+(28, '删除', 27, 0, 'AuthManager/changeStatus?method=deleteGroup', 1, '删除用户组', '', 0),
+(29, '禁用', 27, 0, 'AuthManager/changeStatus?method=forbidGroup', 1, '禁用用户组', '', 0),
+(30, '恢复', 27, 0, 'AuthManager/changeStatus?method=resumeGroup', 1, '恢复已禁用的用户组', '', 0),
+(31, '新增', 27, 0, 'AuthManager/createGroup', 1, '创建新的用户组', '', 0),
+(32, '编辑', 27, 0, 'AuthManager/editGroup', 1, '编辑用户组名称和描述', '', 0),
+(33, '保存用户组', 27, 0, 'AuthManager/writeGroup', 1, '新增和编辑用户组的"保存"按钮', '', 0),
+(34, '授权', 27, 0, 'AuthManager/group', 1, '"后台 \\ 用户 \\ 用户信息"列表页的"授权"操作按钮,用于设置用户所属用户组', '', 0),
+(35, '访问授权', 27, 0, 'AuthManager/access', 1, '"后台 \\ 用户 \\ 权限管理"列表页的"访问授权"操作按钮', '', 0),
+(36, '成员授权', 27, 0, 'AuthManager/user', 1, '"后台 \\ 用户 \\ 权限管理"列表页的"成员授权"操作按钮', '', 0),
+(37, '解除授权', 27, 0, 'AuthManager/removeFromGroup', 1, '"成员授权"列表页内的解除授权操作按钮', '', 0),
+(38, '保存成员授权', 27, 0, 'AuthManager/addToGroup', 1, '"用户信息"列表页"授权"时的"保存"按钮和"成员授权"里右上角的"添加"按钮)', '', 0),
+(39, '分类授权', 27, 0, 'AuthManager/category', 1, '"后台 \\ 用户 \\ 权限管理"列表页的"分类授权"操作按钮', '', 0),
+(40, '保存分类授权', 27, 0, 'AuthManager/addToCategory', 1, '"分类授权"页面的"保存"按钮', '', 0),
+(41, '模型授权', 27, 0, 'AuthManager/modelauth', 1, '"后台 \\ 用户 \\ 权限管理"列表页的"模型授权"操作按钮', '', 0),
+(42, '保存模型授权', 27, 0, 'AuthManager/addToModel', 1, '"分类授权"页面的"保存"按钮', '', 0),
 (43, '扩展', 0, 7, 'Addons/index', 0, '', '', 0),
 (44, '插件管理', 43, 1, 'Addons/index', 0, '', '扩展', 0),
 (45, '创建', 44, 0, 'Addons/create', 0, '服务器上创建插件结构向导', '', 0),
@@ -1115,20 +1028,20 @@ INSERT INTO `xmls_menu` (`id`, `title`, `pid`, `sort`, `url`, `hide`, `tip`, `gr
 (120, '排序', 75, 0, 'Menu/sort', 1, '', '', 0),
 (121, '排序', 76, 0, 'Channel/sort', 1, '', '', 0),
 (122, 'CRM', 0, 0, 'System/index', 0, '', '', 0),
-(123, '员工信息管理', 122, 1, 'System/employeeManage', 0, '', 'CRM系统设置', 0),
+(137, '编辑', 124, 0, 'System/departmentManageEdit', 1, '', '', 0),
 (124, '企业部门管理', 122, 2, 'System/DepartmentManage', 0, '', 'CRM系统设置', 0),
-(125, '系统角色管理', 122, 3, 'System/roleManage', 0, '', 'CRM系统设置', 0),
 (126, '客户池设置', 122, 5, 'System/customPoolSetting', 0, '', 'CRM系统设置', 0),
 (127, '客户资料管理', 122, 1, 'Custom/customList', 0, '', '客户管理', 0),
 (128, '我的客户列表', 122, 2, 'Custom/myCustomList', 0, '', '客户管理', 0),
 (129, '联系记录管理', 122, 3, 'Custom/feedbackList', 0, '', '客户管理', 0),
 (130, '等待回访客户', 122, 4, 'Custom/waitLinkList', 0, '', '客户管理', 0),
-(131, '客户资料导入', 122, 5, 'Custom/excelUpload', 0, '', '客户管理', 0),
+(131, '客户资料导入', 122, 5, 'Custom/customListImport', 0, '将客户的资料的EXCEL导入数据库', '客户管理', 0),
 (132, '共享客户列表', 122, 6, 'Custom/shareCustomList', 0, '', '客户管理', 0),
 (133, '公共客户管理', 122, 7, 'Custom/customPoolManage', 0, '', '客户管理', 0),
 (134, '客户类别管理', 122, 8, 'Custom/categoryManage', 0, '', '客户管理', 0),
 (135, '客户来源管理', 122, 9, 'Custom/sourceManage', 0, '', '客户管理', 0),
-(136, '客户类别新增', 134, 140, 'Custom/categoryManageAdd', 1, '客户类别的添加操作', '客户类别管理', 1),
+(136, '新增部门', 124, 0, 'System/departmentManageAdd', 1, '', '', 0),
+(138, '客户类别新增', 134, 140, 'Custom/categoryManageAdd', 1, '客户类别的添加操作', '客户类别管理', 1),
 (139, '编辑客户类别', 134, 142, 'Custom/categorymanageaction', 1, '操作客户类别', '客户类别管理', 0),
 (140, '新增客户来源', 135, 143, 'Custom/sourceManageAdd', 1, '添加客户来源操作', '客户来源管理', 1),
 (141, '客户来源编辑', 135, 144, 'Custom/sourceManageEdit', 1, '客户来源的编辑操作', '客户来源管理', 1),
@@ -1137,17 +1050,20 @@ INSERT INTO `xmls_menu` (`id`, `title`, `pid`, `sort`, `url`, `hide`, `tip`, `gr
 (144, '新增客户资料', 127, 1, 'Custom/customListAdd', 0, '添加新的客户', '客户资料管理', 0),
 (145, '编辑客户资料', 127, 0, 'Custom/customListUpdate', 0, '编辑客户的资料', '客户资料管理', 0),
 (146, '我的客户', 128, 0, 'Custom/myCustomList', 0, '显示用户的客户列表', '我的客户列表', 0),
-(153, '客户资料搜索', 127, 2, 'Custom/customListSearch', 0, '搜索结果显示', '客户资料管理', 0),
-(154, '批量修改客户类型', 127, 3, 'Custom/customListChangeCategory', 0, '客户资料的批量修改客户类型', '客户资料管理', 0),
-(155, '批量修改客户来源', 127, 4, 'Custom/customListChangeSource', 0, '客户资料批量修改客户来源', '客户资料管理', 0),
-(156, '我的领用', 128, 1, 'Custom/myCustomListSelf', 0, '显示领用客户的记录', '我的客户列表', 0),
-(157, '即将回收', 128, 2, 'Custom/myCustomListRec', 0, '显示即将即将回收的客户', '我的客户列表', 0),
-(158, '公共客户管理搜索', 133, 0, 'Custom/customPoolManageSearch', 0, '显示公共客户管理搜索的结果', '公共客户管理', 0),
-(159, '客户资料具体详情', 127, 5, 'Custom/customListDetail', 0, '客户的相关操作', '客户资料管理', 0),
-(160, '添加联系记录', 129, 0, 'Custom/feedbacklistadd', 0, '添加联系记录', '联系记录管理', 0),
-(161, '编辑联系记录', 129, 1, 'Custom/feedbacklistedit', 0, '修改已存在的联系记录', '联系记录管理', 0),
-(162, '查看联系记录', 129, 2, 'Custom/feedbackListCat', 0, '查看联系记录详细', '联系记录管理', 0),
-(163, '联系记录搜索结果', 129, 3, 'Custom/feedbacklistsearch', 0, '联系记录搜索结果展示', '联系记录管理', 0);
+(147, '客户资料搜索', 127, 2, 'Custom/customListSearch', 0, '搜索结果显示', '客户资料管理', 0),
+(148, '批量修改客户类型', 127, 3, 'Custom/customListChangeCategory', 0, '客户资料的批量修改客户类型', '客户资料管理', 0),
+(149, '批量修改客户来源', 127, 4, 'Custom/customListChangeSource', 0, '客户资料批量修改客户来源', '客户资料管理', 0),
+(150, '我的领用', 128, 1, 'Custom/myCustomListSelf', 0, '显示领用客户的记录', '我的客户列表', 0),
+(151, '即将回收', 128, 2, 'Custom/myCustomListRec', 0, '显示即将即将回收的客户', '我的客户列表', 0),
+(152, '公共客户管理搜索', 133, 0, 'Custom/customPoolManageSearch', 0, '显示公共客户管理搜索的结果', '公共客户管理', 0),
+(153, '客户资料具体详情', 127, 5, 'Custom/customListDetail', 0, '客户的相关操作', '客户资料管理', 0),
+(154, '添加联系记录', 129, 0, 'Custom/feedbacklistadd', 0, '添加联系记录', '联系记录管理', 0),
+(155, '编辑联系记录', 129, 1, 'Custom/feedbacklistedit', 0, '修改已存在的联系记录', '联系记录管理', 0),
+(156, '查看联系记录', 129, 2, 'Custom/feedbackListCat', 0, '查看联系记录详细', '联系记录管理', 0),
+(157, '联系记录搜索结果', 129, 3, 'Custom/feedbacklistsearch', 0, '联系记录搜索结果展示', '联系记录管理', 0),
+(158, '添加合同文档', 127, 6, 'Custom/myCustomDocumentAdd', 0, '添加合同文档', '', 0),
+(159, '我的客户列表搜索结果', 128, 3, 'Custom/myCustomListSearch', 0, '显示我的客户列表的搜索结果', '我的客户列表', 0),
+(160, '搜索等待回访客户', 130, 0, 'Custom/waitlinklistsearch', 0, '搜索等待客户结果展示', '等待回访客户', 0);
 
 -- --------------------------------------------------------
 
@@ -1203,7 +1119,7 @@ CREATE TABLE IF NOT EXISTS `xmls_my_customer_data` (
   `position` varchar(12) CHARACTER SET utf8 NOT NULL COMMENT '当前职位',
   `birthday` int(12) NOT NULL COMMENT '出生年月日',
   `phone` varchar(30) CHARACTER SET utf8 NOT NULL COMMENT '固定电话',
-  `tel` int(12) NOT NULL COMMENT '联系方式',
+  `tel` varchar(12) CHARACTER SET utf8 NOT NULL COMMENT '联系方式',
   `office_phone` varchar(30) CHARACTER SET utf8 NOT NULL COMMENT '办公电话',
   `fax_number` varchar(30) CHARACTER SET utf8 NOT NULL COMMENT '传真',
   `email` varchar(25) CHARACTER SET utf8 NOT NULL COMMENT '邮箱',
@@ -1226,17 +1142,19 @@ CREATE TABLE IF NOT EXISTS `xmls_my_customer_data` (
   `appoint_time` int(11) NOT NULL COMMENT '预约时间',
   `status` tinyint(2) NOT NULL COMMENT '状态',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8mb4 COMMENT='客户资料表' AUTO_INCREMENT=7 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8mb4 COMMENT='客户资料表' AUTO_INCREMENT=9 ;
 
 --
 -- 转存表中的数据 `xmls_my_customer_data`
 --
 
 INSERT INTO `xmls_my_customer_data` (`id`, `customer_number`, `customer_name`, `contact_name`, `gender`, `position`, `birthday`, `phone`, `tel`, `office_phone`, `fax_number`, `email`, `QQ`, `province`, `city`, `country`, `detail_address`, `customer_source`, `customer_type`, `trade`, `website`, `contract_start`, `contract_end`, `notes`, `create_people`, `create_time`, `customer_service`, `last_time`, `appoint_time`, `status`) VALUES
-(1, 'LS15111110334022', '阿里巴巴', '马路', '男', '助理', -108028800, '0591-12345678', 2147483647, '0591-12345678', '0591-12345678', 'alibaba@sina.com', 'alibabaxiaoma', '北京市', '市辖区', '西城区', '西单一号', '百度推广', '进行中的客户', '电商', 'www.alibaba.com', 1446776061, 1449417600, '测试的', 'admin', 1446802877, '公共客户', 1447244372, 1448713187, 0),
-(2, 'LS15111110335765', '腾讯', '小马哥', '男', 'CEO', 212860800, '0592-123456', 2147483647, '0592-123456', '0592-12365479', '888888@qq.com', '666666', '天津市', '市辖区', '河西区', '南开小马路1号', '百度推广', '进行中的客户', '互联网社交/游戏/门户/视频', 'www.qq.com', 1446803975, 1451404800, '测试的', 'admin', 1446803988, 'admin', 1447247839, 1448630256, 0),
-(3, 'LS15111110340878', '三只松鼠', '小松', '男', '市场营销', 1446220800, '', 2147483647, '', '', '15260696523@163.com', '71859632', '浙江省', '杭州市', '市辖区', '三只松鼠大楼1号', '百度推广', '已完成的客户', '电商', 'www.threes.com', 1447038502, 1449590400, '测试的。', '234', 1447038374, '234', 1447327309, 1450092184, 0),
-(6, 'LS15111110324050', 'AUMU', '小林', '男', '助理', 658598400, '0594-2138526', 2147483647, '0594-2138526', '0594-2138526', 'aumu@hotmail.com', 'aumucustomer', '福建省', '莆田市', '荔城区', '黄石镇', '微信公众号', '进行中的客户', '电商，鞋贸', 'www.aumu-tmall.com', 1447209140, 1452528000, '测试的', 'admin', 1447209006, 'admin', 1447334216, 1449590400, 0);
+(1, 'LS15111519594080', '阿里巴巴', '马路', '男', '助理', -165916800, '0591-12345678', '15260696532', '0591-12345678', '0591-12345678', 'alibaba@sina.com', 'alibabaxiaoma', '北京市', '市辖区', '西城区', '西单一号', '百度推广', '正在接触的客户', '电商', 'www.alibaba.com', 1446776061, 1449417600, '测试', 'admin', 1446802877, 'admin', 1447654555, 1447862400, -1),
+(2, 'LS15111520002359', '腾讯', '小马哥', '男', 'CEO', 207590400, '0592-123456', '15263626589', '0592-123456', '0592-12365479', '888888@qq.com', '666666', '天津市', '市辖区', '河西区', '南开小马路1号', '微信公众号', '正在接触的客户', '互联网社交/游戏/门户/视频', 'www.qq.com', 1446803975, 1451404800, '测试的', 'admin', 1446803988, 'admin', 1447660984, 1448630256, -1),
+(3, 'LS15111110340878', '三只松鼠', '小松', '男', '市场营销', 1446220800, '', '2147483647', '', '', '15260696523@163.com', '71859632', '浙江省', '杭州市', '市辖区', '三只松鼠大楼1号', '微信公众号', '正在接触的客户', '电商', 'www.threes.com', 1447038502, 1449590400, '测试的。', '234', 1447038374, '234', 1447327309, 1450092184, -1),
+(6, 'LS15111110324050', 'AUMU', '小林', '男', '助理', 658598400, '0594-2138526', '2147483647', '0594-2138526', '0594-2138526', 'aumu@hotmail.com', 'aumucustomer', '福建省', '莆田市', '荔城区', '黄石镇', '微信公众号', '正在接触的客户', '电商，鞋贸', 'www.aumu-tmall.com', 1447209140, 1452528000, '测试的', 'admin', 1447209006, 'admin', 1447334216, 1449590400, 0),
+(7, 'LS15111611535892', '七匹狼', '小七', '男', '市场营销', 1971, '0591-2186392', '13152623965', '0591-2186392', '0591-2186392', '1526069632@163.com', 'qpl', '福建省', '泉州市', '洛江区', '七匹狼大楼1号', '微信公众号', '蠢蠢欲动的客户', '服装', 'qpl.tmall.com', 1447654769, 1450246773, '正在谈', 'admin', 1447654670, '', 0, 0, 0),
+(8, 'LS15111614194870', '七匹狼', '小七', '男', '市场营销', -36921600, '', '13150623025', '', '', '71859565@qq.com', '', '福建省', '泉州市', '洛江区', '七匹狼大楼', '微信公众号', '正在接触的客户', '服装', 'www.qpl-tmall.com', 1447654769, 1450246773, '七匹狼测试', 'admin', 1447654670, 'admin', 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -1255,7 +1173,7 @@ CREATE TABLE IF NOT EXISTS `xmls_my_customer_receive` (
   `create_time` int(11) NOT NULL COMMENT '建档时间',
   `receive_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '领用时间',
   PRIMARY KEY (`receive_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='领用表' AUTO_INCREMENT=4 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='领用表' AUTO_INCREMENT=5 ;
 
 --
 -- 转存表中的数据 `xmls_my_customer_receive`
@@ -1264,7 +1182,8 @@ CREATE TABLE IF NOT EXISTS `xmls_my_customer_receive` (
 INSERT INTO `xmls_my_customer_receive` (`receive_id`, `id`, `customer_name`, `contact_name`, `tel`, `customer_type`, `create_people`, `create_time`, `receive_time`) VALUES
 (1, 2, '腾讯', '小马哥', 2147483647, '进行中的客户', 'admin', 1446803988, '2015-11-10 03:27:26'),
 (2, 1, '阿里巴巴', '马路', 2147483647, '进行中的客户', 'admin', 1446802877, '2015-11-10 03:34:09'),
-(3, 2, '腾讯', '小马哥', 2147483647, '进行中的客户', 'admin', 1446803988, '2015-11-10 03:34:09');
+(3, 2, '腾讯', '小马哥', 2147483647, '进行中的客户', 'admin', 1446803988, '2015-11-10 03:34:09'),
+(4, 8, '七匹狼', '小七', 2147483647, '正在接触的客户', 'admin', 1447654670, '2015-11-17 13:35:21');
 
 -- --------------------------------------------------------
 
@@ -1287,20 +1206,24 @@ CREATE TABLE IF NOT EXISTS `xmls_my_customer_record` (
   `customer_service` varchar(11) NOT NULL COMMENT '联系客服',
   `status` tinyint(4) NOT NULL COMMENT '状态',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='联系记录表' AUTO_INCREMENT=8 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='联系记录表' AUTO_INCREMENT=12 ;
 
 --
 -- 转存表中的数据 `xmls_my_customer_record`
 --
 
 INSERT INTO `xmls_my_customer_record` (`id`, `customer_number`, `customer_name`, `contact_name`, `contact_way`, `txttel`, `contact_content`, `last_time`, `contact_type`, `appoint_time`, `next_content`, `customer_service`, `status`) VALUES
-(1, 'LS15111110334022', '阿里巴巴', '马路', '手机', '2147483647', '好的。', 0, '客户回访', 0, '再聊吧~', 'admin', 0),
-(2, 'LS15111110334022', '阿里巴巴', '马路', 'QQ', '2147483647', '不错的合作', 0, '客户回访', 1447321218, '下次增加投资', 'admin', 0),
-(3, 'LS15111110334022', '阿里巴巴', '马路', '固定电话', '2147483647', '好的。很愉快的洽谈', 2015, '客户回访', 2015, '合作', 'admin', 0),
-(4, 'LS15111110334022', '阿里巴巴', '马路', '手机', '2147483647', '真的不错哦。', 1447244372, '客户回访', 1447384371, '有空再聊', 'admin', 0),
-(5, 'LS15111110335765', '腾讯', '小马哥', '固定电话', '2147483647', '谈的不错哦。', 1447247839, '客户回访', 1448630256, '下次再聊吧', 'admin', 0),
+(1, 'LS15111519594080', '阿里巴巴', '马路', '手机', '2147483647', '好的。', 1447654670, '客户回访', 1447654670, '再聊吧~', 'admin', 0),
+(2, 'LS15111519594080', '阿里巴巴', '马路', 'QQ', '2147483647', '不错的合作', 1447654670, '客户回访', 1447321218, '下次增加投资', 'admin', 0),
+(3, 'LS15111519594080', '阿里巴巴', '马路', '固定电话', '2147483647', '好的。很愉快的洽谈', 2015, '客户回访', 1447654670, '合作', 'admin', 0),
+(4, 'LS15111519594080', '阿里巴巴', '马路', '手机', '15260696523', '真的不错哦。', 1447244372, '客户回访', 1447816371, '有空再聊', 'admin', 0),
+(5, 'LS15111520002359', '腾讯', '小马哥', '固定电话', '2147483647', '谈的不错哦。', 1447247839, '客户回访', 1448630256, '下次再聊吧！', 'admin', 0),
 (6, 'LS15111110340878', '三只松鼠', '小松', '手机', '2147483647', '投放产品的更新', 1447327309, '客户来电', 1450092184, '销售额达到1千万', '234', 0),
-(7, 'LS15111110324050', 'AUMU', '小林', '手机', '15263696523', '双十一销售额突破两千万', 1447334216, '客户来电', 1449590400, '在双十二销售额达到一千万', 'admin', 0);
+(7, 'LS15111110324050', 'AUMU', '小林', '手机', '15263696523', '双十一销售额突破两千万', 1447334216, '客户来电', 1449590400, '在双十二销售额达到一千万', 'admin', 0),
+(8, 'LS15111520002359', '腾讯', '小马哥', '手机', '2147483647', '新产品的投放位置', 1447478205, '客户回访', 1447997080, '好的', 'admin', 0),
+(9, 'LS15111520002359', '腾讯', '小马哥', '手机', '2147483647', '嗯。不错的。', 1447481738, '客户回访', 1447827370, '下次再见', 'admin', 0),
+(10, 'LS15111519594080', '阿里巴巴', '马路', '手机', '15260696532', '2015-11-16', 1447652881, '客户回访', 1447480156, '2015-11-26', 'admin', 0),
+(11, 'LS15111519594080', '阿里巴巴', '马路', '手机', '15260696532', '2015-11-16阿里巴巴', 1447654555, '客户来电', 1447862400, '2015-11-16下次', 'admin', 0);
 
 -- --------------------------------------------------------
 
@@ -1349,11 +1272,36 @@ CREATE TABLE IF NOT EXISTS `xmls_my_customer_type` (
 --
 
 INSERT INTO `xmls_my_customer_type` (`id`, `type_name`, `type_description`, `operator`, `create_time`, `is_default`, `status`) VALUES
-(11, '蠢蠢欲动的客户', '向进步了解后购买的客户', '小元', 1446456950, '否', 0),
+(11, '正在接触的客户', '想进步了解后购买的客户', '小元', 1446456950, '否', 0),
 (9, '已完成的客户', '客户已付全款', '管理员', 1446455167, '否', 0),
 (12, '无意向客户', '无意向购买的客户', '管理员', 1446541363, '否', 0),
 (13, '进行中的客户', '正在洽谈的客户', 'admin', 1446549055, '是', 0),
 (21, '实在的客户', '真诚要合作的客户', 'admin', 1447164979, '否', 0);
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `xmls_my_department`
+--
+
+CREATE TABLE IF NOT EXISTS `xmls_my_department` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `department` varchar(30) NOT NULL COMMENT '部门名称',
+  `description` varchar(100) NOT NULL COMMENT '描述',
+  `who_add` varchar(30) NOT NULL COMMENT '操作人',
+  `create_time` char(10) NOT NULL,
+  `update_time` char(10) NOT NULL,
+  `status` int(1) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+
+--
+-- 转存表中的数据 `xmls_my_department`
+--
+
+INSERT INTO `xmls_my_department` (`id`, `department`, `description`, `who_add`, `create_time`, `update_time`, `status`) VALUES
+(1, '技术部', '负责公司网站', '1', '1446455408', '1446455408', 1),
+(2, '销售部', '销售', '1', '1446455465', '1446455465', 1);
 
 -- --------------------------------------------------------
 
@@ -1428,17 +1376,19 @@ CREATE TABLE IF NOT EXISTS `xmls_ucenter_member` (
   UNIQUE KEY `username` (`username`),
   UNIQUE KEY `email` (`email`),
   KEY `status` (`status`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='用户表' AUTO_INCREMENT=5 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='用户表' AUTO_INCREMENT=12 ;
 
 --
 -- 转存表中的数据 `xmls_ucenter_member`
 --
 
 INSERT INTO `xmls_ucenter_member` (`id`, `username`, `password`, `email`, `mobile`, `reg_time`, `reg_ip`, `last_login_time`, `last_login_ip`, `update_time`, `status`) VALUES
-(1, 'admin', '753f86cd25d856e511ce1f7f76347d1f', 'admin@admin.com', '', 1445943683, 2130706433, 1447412885, 0, 1445943683, 1),
-(2, 'admin111', '9fab85ae60c423e80436e9e328af4a37', '12@qq.com', '', 1446438548, 0, 0, 0, 1446438548, 1),
-(3, 'admin1', '9fab85ae60c423e80436e9e328af4a37', '123@qq.com', '', 1446439404, 0, 0, 0, 1446439404, 1),
-(4, '234', '9fab85ae60c423e80436e9e328af4a37', '123456789@163.com', '', 1447037759, 0, 1447038370, 0, 1447037759, 1);
+(1, 'admin', '753f86cd25d856e511ce1f7f76347d1f', 'admin@admin.com', '', 1445943683, 2130706433, 1447843814, 0, 1445943683, 1),
+(4, 'aaaaaa', '09afb8da4de285a3167563ae8da4abeb', 'a@a.com', '', 1446280596, 2130706433, 1446280755, 2130706433, 1446280596, 1),
+(7, 'bbbb', '9fab85ae60c423e80436e9e328af4a37', 'xmls@qq.com', '', 1446471808, 2130706433, 0, 0, 1446471808, 1),
+(9, 'okzappos', '9fab85ae60c423e80436e9e328af4a37', 'shou@admin.com', '', 1446472196, 2130706433, 0, 0, 1446472196, 1),
+(10, 'jacket', '9fab85ae60c423e80436e9e328af4a37', 'xiaochen@xc.com', '', 1446472520, 2130706433, 0, 0, 1446472520, 1),
+(11, 'bosikai', '9fab85ae60c423e80436e9e328af4a37', 'myt@admin.com', '', 1446472665, 2130706433, 0, 0, 1446472665, 1);
 
 -- --------------------------------------------------------
 

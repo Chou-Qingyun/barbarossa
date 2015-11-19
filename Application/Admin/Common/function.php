@@ -391,3 +391,22 @@ function get_auth_group($id){
 	$auth_group = M('AuthGroup')->where(array('id'=>$id))->getField('title');
 	return $auth_group;
 }
+
+/*路径转义*/
+function J($str){
+	return str_replace('./', '', str_replace('//', '/', $str));
+}
+
+function myFilename($name){
+	return time() . '_' . substr_replace($name, '', -4);
+}
+
+function analysisPath($path){
+	$arr = array();
+	$onepath = explode('|', $path);
+	foreach ($onepath as $value){
+		$arr[$value] = substr($value, strpos($value,'_')+1);
+	}
+	print_r($arr);
+	return $arr;
+}

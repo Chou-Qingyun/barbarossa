@@ -29,30 +29,27 @@
     </div>
     <table class="record_t">
 	    <tr class="tr_bk">
-	    	<td width="14%">文档名称</td>
-	    	<td width="13%">文档类别</td>
-	    	<td width="14%">相关附件</td>
+	    	<td width="12%">文档名称</td>
+	    	<td width="8%">文档类别</td>
+	    	<td width="30%">相关附件</td>
 	    	<td >文档说明</td>
-	    	<td width="14%">添加人</td>
-	    	<td width="14%">添加时间</td>
-	    	<td width="14%">操作</td>
+	    	<td width="8%">添加人</td>
+	    	<td width="12%">添加时间</td>
+	    	<td width="5%">操作</td>
 	    </tr>
-    <notempty name="_feed">
-    	<volist name="_feed" id="vo">
+    <notempty name="_list">
+    	<volist name="_list" id="vo">
 	    	<tr class="tr_style">
-	    		<td>{$vo.last_time|date="Y-m-d H:i:s",###}<br>
-	    			{$vo.customer_service}
-	    		</td>
-	    		<td>{$vo.contact_content}</td>
-	    		<td>{$vo.contact_type}<br>
-	    			{$vo.contact_name}
-	    		</td>
-	    		<td>{$vo.contact_way}<br>
-	    			{$vo.txttel}
-	    		</td>
-	    		<td>{$vo.appoint_time|date="Y-m-d",###}<br>{$vo.appoint_time|date="H:i:s",###}</td>
+	    		<td>{$vo.document_name}</td>
+	    		<td>{$vo.document_type}</td>
+	    		<!-- <volist name="$vo.document_path" id="ab"> -->
+	    			<td>{$vo.document_path|analysis=###}</td>
+	    		<!-- </volist> -->
+	    		<td>{$vo.document_explain}</td>
+	    		<td>{$vo.add_person}</td>
+	    		<td>{$vo.add_time|date="Y-m-d H:i:s",###}</td>
 	    		<td>
-	    			<a href="{:U('Custom/feedbackListEdit?id='.$vo['id'])}" target="_top">编辑</a>&nbsp;&nbsp;
+	    			<a href="{:U('Custom/feedbackListEdit?id='.$vo['id'])}" target="_top">编辑</a>&nbsp;
 	    			<a href="{:U('Custom/feedbackListDelete?id='.$vo['id'])}" class="ajax-get" >删除</a>
 	    		</td>
 	    	</tr>
@@ -76,5 +73,8 @@
 				obj[i].style.background="#FFF";
 			}	
 		}
+		
+		//导航高亮
+	    highlight_subnav('{:U('Custom/myCustomList')}');	
 	</script>
 </block>
