@@ -101,7 +101,10 @@ class CustomController extends AdminController {
 			$data['customer_type'] = I('customer_type');
 			$map['id'] = array('in',$id);
 			$customData = D('MyCustomerData');
-			if($customData->where($map)->field('customer_type')->save($data)){
+			if(empty($data['customer_type'])){
+				$this->error('更新失败，请选择客户类型~！');
+			}
+			elseif($customData->where($map)->field('customer_type')->save($data)){
 				$this->success('更新成功！',U('Custom/customList'));
 			}else{	
 				$this->error('更新失败，请重新操作！');
@@ -137,7 +140,10 @@ class CustomController extends AdminController {
 			$data['customer_source'] = I('customer_source');
 			$map['id'] = array('in',$id);
 			$customData = D('MyCustomerData');
-			if($customData->where($map)->field('customer_source')->save($data)){
+			if(empty($data['customer_source'])){
+				$this->error('更新失败，请选择客户来源~！');
+			}
+			elseif($customData->where($map)->field('customer_source')->save($data)){
 				$this->success('更新成功！',U('Custom/customList'));
 			}else{	
 				$this->error('更新失败，请重新操作！');
@@ -164,8 +170,46 @@ class CustomController extends AdminController {
 	}
 	
 	//批量客户指派
-	public function customListOfone(){
-		echo "客户指派";	
+	public function customListOfone($id=0){
+// 		dump(I('get.'));
+		$id = $this->filterId($id);
+		if(IS_POST){
+// 			print_r(I('post.'));
+// 			dump($id);
+			$map['id'] = array('in',$id);
+			$data['customer_service'] = I('employee');
+			$customerData = M('MyCustomerData');
+			if(empty($data['customer_service'])){
+				$this->error('指派失败，请选择指派的对象~！');
+			}elseif($customerData->where($map)->save($data)){
+// 				echo 'aba';
+				$this->success('更新成功！',U('Custom/customList'));
+			}else{
+					$this->error('指派失败，请重新操作~');
+				}
+			
+		}else{
+			$userArr = array();
+			$map['id'] = array('in',$id);
+			$list = $this->lists('MyCustomerData',$map);
+			$department = $this->lists('MyDepartment','','id');
+			$user = $this->lists('Member','','uid');
+// 			dump($user);
+			foreach ($department as $dValue){
+				foreach ($user as $uValue){
+					if($dValue['id'] == $uValue['department_id']){
+						$userArr[$dValue['id']][] = $uValue['realname'];
+					}
+				}
+			}
+			$this->assign('_list',$list);
+			$this->assign('_depart',$department);
+			$user = json_encode($userArr);
+			$this->assign('_user',$user);
+			$this->assign('_id',$id);
+			$this->display();
+			
+		}
 	}
 	
 	//客户资料导出Excel
@@ -906,7 +950,61 @@ class CustomController extends AdminController {
 	
 	/* 共享客户列表 */
 	public function shareCustomList(){
+		$list = $this->lists('MyCustomerShare');
 		$this->display();
+		
+	}
+	
+	/* 共享客户操作*/
+	public function shareCustomListAction($id=0){
+		$id = $this->filterId($id);
+		if(IS_POST){
+// 			print_r(I('post.'));die();
+			$share_arr = I('uid');
+			$map['id'] = array('in',$id);
+			$customer = $this->lists('MyCustomerData',$map);
+			foreach ($share_arr as $svalue){
+				$shareData = M('MyCustomerShare');
+				foreach ($customer as $cvalue){
+					$data = $cvalue;
+					$data['share_to'] = $svalue;
+					$data['share_time'] = time();
+					$data['share_name'] = get_username();
+// 					print_r($data);
+					if(!$shareData->add($data)){
+						$result = false;
+					}
+				}
+				
+			}
+			if($result){
+				$this->error('共享失败，请重新操作~');
+			}else{
+				$this->success('共享成功！',U('Custom/myCustomList'));
+			}
+			
+		}else{
+			$userArr = array();
+			$map['id'] = array('in',$id);
+			$list = $this->lists('MyCustomerData',$map);
+			$department = $this->lists('MyDepartment','','id');
+			$user = $this->lists('Member','','uid');
+			// 			dump($user);
+			foreach ($department as $dValue){
+				foreach ($user as $uValue){
+					if($dValue['id'] == $uValue['department_id']){
+						$userArr[$dValue['department']][$uValue['uid']] = $uValue['realname'];
+					}
+				}
+			}
+			$this->assign('_list',$list);
+			$this->assign('_depart',$department);
+// 			dump($userArr);
+			$this->assign('_user',$userArr);
+			$this->assign('_id',$id);
+			$this->display();
+		}
+		
 		
 	}
 	
