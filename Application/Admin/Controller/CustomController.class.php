@@ -11,7 +11,7 @@ class CustomController extends AdminController {
 	/*过滤ID*/
 	public function filterId($id){
 		($id==0) && $this->error('请选择要操作的数据');
-		$id = array_unique((array)I('id'));
+		$id = array_unique((array)$id);
 		$id = is_array($id) ? implode(',',$id) : $id;
 		return $id;
 	}
@@ -482,10 +482,6 @@ class CustomController extends AdminController {
 		$this->editRow('MyCustomerData', $data, $map);
 	}
 	
-	/*我的客户共享操作*/
-	public function myCustomListShare(){
-		
-	}
 	
 	/*我的客户搜索操作*/
 	public function myCustomListSearch(){
@@ -538,7 +534,7 @@ class CustomController extends AdminController {
 			$where['_logic'] = 'AND';	
 		}
 // 		$feedbacklist = M('MyCustomerRecord');
-		$list = $this->lists('MyCustomerRecord',$where);
+		$list = $this->lists('MyCustomerRecord',$where,'id');
 // 		echo $feedbacklist->getLastSql();
 // 		dump($arr);
 		$this->assign('searched',$arr);
@@ -923,7 +919,7 @@ class CustomController extends AdminController {
 					$this->error($upload->getError());
 				} else {
 					//$this->success('上传成功！');
-				}
+				
 				
 				Vendor("PHPExcel.PHPExcel");
 				Vendor("PHPExcel.PHPExcel.IOFactory");
@@ -934,13 +930,40 @@ class CustomController extends AdminController {
 				$sheet = $objPHPExcel->getSheet(0);
 				$highestRow = $sheet->getHighestRow(); // 取得总行数
 				$highestColumn = $sheet->getHighestColumn(); // 取得总列数
-				for($i=3;$i<=$highestRow;$i++)
-				{
-					$data['id']    = $objPHPExcel->getActiveSheet()->getCell("A".$i)->getValue();
-					$data['class'] = $objPHPExcel->getActiveSheet()->getCell("B".$i)->getValue();
-					M('Test')->add($data);
+					for($i=2;$i<=$highestRow;$i++)
+						{
+							$data['customer_name']    = $objPHPExcel->getActiveSheet()->getCell("A".$i)->getValue();
+							$data['contact_name'] = $objPHPExcel->getActiveSheet()->getCell("B".$i)->getValue();
+							$data['gender'] = $objPHPExcel->getActiveSheet()->getCell("C".$i)->getValue();
+							$data['tel'] = $objPHPExcel->getActiveSheet()->getCell("D".$i)->getValue();
+							$data['phone'] = $objPHPExcel->getActiveSheet()->getCell("E".$i)->getValue();
+							$data['email'] = $objPHPExcel->getActiveSheet()->getCell("F".$i)->getValue();
+							$data['QQ'] = $objPHPExcel->getActiveSheet()->getCell("G".$i)->getValue();
+							$data['province'] = $objPHPExcel->getActiveSheet()->getCell("H".$i)->getValue();
+							$data['city'] = $objPHPExcel->getActiveSheet()->getCell("I".$i)->getValue();
+							$data['country'] = $objPHPExcel->getActiveSheet()->getCell("J".$i)->getValue();
+							$data['detail_address'] = $objPHPExcel->getActiveSheet()->getCell("K".$i)->getValue();
+							$data['customer_source'] = $objPHPExcel->getActiveSheet()->getCell("L".$i)->getValue();
+							$data['customer_type'] = $objPHPExcel->getActiveSheet()->getCell("M".$i)->getValue();
+							$data['contract_start'] = \PHPExcel_Shared_Date::ExcelToPHP($objPHPExcel->getActiveSheet()->getCell("N".$i)->getValue());
+							$data['contract_end'] = \PHPExcel_Shared_Date::ExcelToPHP($objPHPExcel->getActiveSheet()->getCell("O".$i)->getValue());
+							$data['notes'] = $objPHPExcel->getActiveSheet()->getCell("P".$i)->getValue();
+							$data['customer_number'] = 'LS' . date('ymdHis',time()) . mt_rand(10,99);
+							$data['create_time'] = time();
+							$data['create_people'] = get_username();
+							$data['customer_service'] = get_username();
+// 							dump($data);die();
+							$customerData = D('MyCustomerData');
+							$customerData->create();
+							$customerData->add($data);
+// 							echo $customerData->getLastSql();	
+							/* }else{
+								exit($customerData->getError());
+							}
+							 */
+						}
+						$this->success('导入成功！');
 				}
-				$this->success('导入成功！');
 			}else{
 				$this->error("请选择上传的文件",U('Custom/customListImport'));
 			}
@@ -950,9 +973,75 @@ class CustomController extends AdminController {
 	
 	/* 共享客户列表 */
 	public function shareCustomList(){
-		$list = $this->lists('MyCustomerShare');
+		$map['share_to'] = get_username();
+		$list = $this->lists('MyCustomerShare',$map,'sid');
+		$customer_type = $this->lists('MyCustomerType','','id');
+		$this->assign('type',$customer_type);
+		$this->assign('_list',$list);
 		$this->display();
 		
+	}
+	
+	/*我的共享页面*/
+	public function shareCustomListSelf(){
+		$map['share_name'] = get_username();
+		$list = $this->lists('MyCustomerShare',$map,'sid');
+		$customer_type = $this->lists('MyCustomerType','','id');
+		$this->assign('type',$customer_type);
+		$this->assign('_list',$list);
+		$this->display();
+	}
+	
+	/*共享给我的搜索*/
+	public function shareCustomListSearchTo(){
+		$this->shareCustomListSearch('share_to', 'shareCustomList');
+	}
+	
+	/*我的共享搜索*/
+	public function shareCustomListSearchMe(){
+		$this->shareCustomListSearch('share_name','shareCustomList');
+	}
+	
+	/*共享客户列表搜索操作*/
+	public function shareCustomListSearch($user,$url){
+		$searchArr = I('get.');
+		$arr = $searchArr;
+		// 		dump($searchArr);
+		if(empty($searchArr)){
+			$this->redirect('sharecustomlist');
+		}else{
+			if(array_key_exists('search_content', $searchArr)){
+				$map['customer_name'] = array('like','%'.$searchArr['search_content'].'%');
+				$map['tel'] = array('like','%'.$searchArr['search_content'].'%');
+				$map['contact_name'] = array('like','%'.$searchArr['search_content'].'%');
+				$map['customer_service'] = array('like','%'.$searchArr['search_content'].'%');
+				$map['_logic'] = 'OR';
+				unset($searchArr['search_content']);
+			}
+			foreach ($searchArr as $key => $value){
+				$where[$key] = $value;
+			}
+			if(isset($map)){
+				$where['_complex'] = $map;
+			}
+			$where[$user] = get_username();
+			$where['_logic'] = 'AND';
+		}
+// 		dump($where);
+		$mycustomerShare = M('MyCustomerShare');
+		$list = $this->lists('MyCustomerShare',$where,'sid');
+		$this->assign('_list',$list);
+// 		echo $mycustomerShare->getLastSql();
+		$this->assign('sarr',$searchArr);
+		$this->display($url);	
+	}
+
+	/*取消共享客户*/
+	public function shareCustomListCancel($sid=0){
+		// dump(I('get.'));
+		$id = $this->filterId($sid);
+		$map['sid'] = array('in',$id);
+		$this->delete('MyCustomerShare',$map,$msg = array( 'success'=>'取消成功！', 'error'=>'取消失败！'));
 	}
 	
 	/* 共享客户操作*/
@@ -977,7 +1066,7 @@ class CustomController extends AdminController {
 				}
 				
 			}
-			if($result){
+			if(isset($result)){
 				$this->error('共享失败，请重新操作~');
 			}else{
 				$this->success('共享成功！',U('Custom/myCustomList'));
@@ -1029,17 +1118,25 @@ class CustomController extends AdminController {
 		$where['id'] = array('in',implode(',',$no));
 		dump($where);*/
 		$customerData = M('MyCustomerData');
-		$sql = "select id,(". time() ."-last_time) as subtime,(". time() ."-create_time) as subcreate,last_time as ltime from " .C('DB_PREFIX'). "my_customer_data group by id having (subtime>3600*24*30 and subtime<".time().") or (subcreate>3600*24*30 and ltime=0)";
-// 		echo $sql;
-		$item = $customerData->query($sql);
-// 		dump($item);
-		foreach ($item as $vo){
-			$arr[] = $vo['id'];
+		$customerPoolSet = M('MyCustomerPool');
+		$isOpen = $customerPoolSet->getField('is_open');
+		if($isOpen == '1'){
+			$period = $customerPoolSet->getField('recycle_period');
+			$days = (int)$period;
+			// 		dump($period);die();
+			$sql = "select id,(". time() ."-last_time) as subtime,(". time() ."-create_time) as subcreate,last_time as ltime from " .C('DB_PREFIX'). "my_customer_data group by id having (subtime>3600*24*".$days." and subtime<".time().") or (subcreate>3600*24*".$days." and ltime=0)";
+// 					echo $sql;
+			$item = $customerData->query($sql);
+			// 		dump($item);
+			foreach ($item as $vo){
+				$arr[] = $vo['id'];
+			}
+			$where['id'] = array('in',implode(',', $arr));
+			// 		dump($where);
+			
+			$customerData->where($where)->setField('customer_service','公共客户');;
 		}
-		$where['id'] = array('in',implode(',', $arr));
-// 		dump($where);
 		$map['customer_service'] = '公共客户';
-		$customerData->where($where)->save($map);
 		$list = $this->lists('MyCustomerData',$map,'id');
 		$type= $this->lists('MyCustomerType');
 		$source = $this->lists('MyCustomerSource');

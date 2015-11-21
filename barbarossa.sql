@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- 主机: localhost
--- 生成日期: 2015 年 11 月 19 日 21:25
+-- 生成日期: 2015 年 11 月 21 日 14:57
 -- 服务器版本: 5.5.40
 -- PHP 版本: 5.3.29
 
@@ -76,7 +76,7 @@ CREATE TABLE IF NOT EXISTS `xmls_action_log` (
   KEY `action_ip_ix` (`action_ip`),
   KEY `action_id_ix` (`action_id`),
   KEY `user_id_ix` (`user_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED COMMENT='行为日志表' AUTO_INCREMENT=8 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED COMMENT='行为日志表' AUTO_INCREMENT=16 ;
 
 --
 -- 转存表中的数据 `xmls_action_log`
@@ -89,7 +89,15 @@ INSERT INTO `xmls_action_log` (`id`, `action_id`, `user_id`, `action_ip`, `model
 (4, 10, 1, 0, 'Menu', 131, '操作url：/barbarossa/index.php/Admin/Menu/edit.html', 1, 1447810460),
 (5, 1, 1, 0, 'member', 1, 'admin在2015-11-18 18:50登录了后台', 1, 1447843814),
 (6, 1, 1, 0, 'member', 1, 'admin在2015-11-19 08:48登录了后台', 1, 1447894138),
-(7, 1, 1, 0, 'member', 1, 'admin在2015-11-19 14:54登录了后台', 1, 1447916069);
+(7, 1, 1, 0, 'member', 1, 'admin在2015-11-19 14:54登录了后台', 1, 1447916069),
+(8, 1, 1, 0, 'member', 1, 'admin在2015-11-20 08:50登录了后台', 1, 1447980612),
+(9, 10, 1, 0, 'Menu', 161, '操作url：/barbarossa/index.php/Admin/Menu/add.html', 1, 1448006629),
+(10, 10, 1, 0, 'Menu', 162, '操作url：/barbarossa/index.php/Admin/Menu/add.html', 1, 1448012528),
+(11, 10, 1, 0, 'Menu', 163, '操作url：/barbarossa/index.php/Admin/Menu/add.html', 1, 1448039265),
+(12, 1, 1, 0, 'member', 1, 'admin在2015-11-21 09:38登录了后台', 1, 1448069919),
+(13, 10, 1, 0, 'Menu', 164, '操作url：/barbarossa/index.php/Admin/Menu/add.html', 1, 1448073196),
+(14, 10, 1, 0, 'Menu', 165, '操作url：/barbarossa/index.php/Admin/Menu/add.html', 1, 1448073262),
+(15, 1, 1, 0, 'member', 1, 'admin在2015-11-21 13:04登录了后台', 1, 1448082290);
 
 -- --------------------------------------------------------
 
@@ -886,11 +894,11 @@ CREATE TABLE IF NOT EXISTS `xmls_member` (
 --
 
 INSERT INTO `xmls_member` (`uid`, `nickname`, `realname`, `sex`, `birthday`, `qq`, `department_id`, `auth_group_id`, `telephone`, `mobile`, `title`, `email`, `custom_limit`, `score`, `login`, `reg_ip`, `reg_time`, `last_login_ip`, `last_login_time`, `status`) VALUES
-(1, 'admin', '', 0, '0000-00-00', '', 1, 0, '', '', '', '', 0, 70, 24, '0', 1445943683, 0, 1447916069, 1),
+(1, 'admin', 'admin', 0, '0000-00-00', '', 1, 0, '', '', '', '', 0, 80, 27, '0', 1445943683, 0, 1448082290, 1),
 (4, 'aaaaaa', '', 0, '0000-00-00', '', 2, 0, '', '', '', '', 0, 10, 2, '0', 0, 2130706433, 1446280755, -1),
 (7, 'bbbb', 'realname', 0, '0000-00-00', '', 1, 1, '05920558215', '', '', 'xmls@qq.com', 0, 0, 0, '0', 0, 0, 0, 1),
 (9, 'okzappos', '真实名字', 0, '0000-00-00', '', 2, 2, '05920558215', '18208987632', '主管', 'shou@admin.com', 100, 0, 0, '0', 0, 0, 0, 1),
-(10, 'jacket', '小陈', 1, '0000-00-00', '', 2, 2, '1234567', '1321232123', '客服', 'xiaochen@xc.com', 10, 0, 0, '1270', 1446472520, 0, 0, -1),
+(10, 'jacket', '小陈', 1, '0000-00-00', '', 2, 2, '1234567', '1321232123', '客服', 'xiaochen@xc.com', 10, 0, 0, '1270', 1446472520, 0, 0, 1),
 (11, 'bosikai', '博思凯', 1, '0000-00-00', '', 1, 1, '1234567', '13212345678', '客服', 'myt@admin.com', 10, 0, 0, '127.0.0.1', 1446472665, 0, 0, 1);
 
 -- --------------------------------------------------------
@@ -911,7 +919,7 @@ CREATE TABLE IF NOT EXISTS `xmls_menu` (
   `is_dev` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '是否仅开发者模式可见',
   PRIMARY KEY (`id`),
   KEY `pid` (`pid`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=161 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=166 ;
 
 --
 -- 转存表中的数据 `xmls_menu`
@@ -1065,7 +1073,12 @@ INSERT INTO `xmls_menu` (`id`, `title`, `pid`, `sort`, `url`, `hide`, `tip`, `gr
 (157, '联系记录搜索结果', 129, 3, 'Custom/feedbacklistsearch', 0, '联系记录搜索结果展示', '联系记录管理', 0),
 (158, '添加合同文档', 127, 6, 'Custom/myCustomDocumentAdd', 0, '添加合同文档', '', 0),
 (159, '我的客户列表搜索结果', 128, 3, 'Custom/myCustomListSearch', 0, '显示我的客户列表的搜索结果', '我的客户列表', 0),
-(160, '搜索等待回访客户', 130, 0, 'Custom/waitlinklistsearch', 0, '搜索等待客户结果展示', '等待回访客户', 0);
+(160, '搜索等待回访客户', 130, 0, 'Custom/waitlinklistsearch', 0, '搜索等待客户结果展示', '等待回访客户', 0),
+(161, '批量客户指派', 127, 7, 'Custom/customListOfone', 0, '批量客户指派给员工', '客户资料管理', 0),
+(162, '共享客户操作页面', 132, 0, 'Custom/shareCustomListAction', 0, '共享客户操作页面', '共享客户列表', 0),
+(163, '我的共享', 132, 1, 'Custom/shareCustomListSelf', 0, '展示我共享给其他人的客户信息', '共享客户列表', 0),
+(164, '共享给的搜索', 132, 2, 'Custom/shareCustomListSearchTo', 0, '共享给的搜索结果展示', '共享客户列表', 0),
+(165, '我的共享的搜索', 132, 3, 'Custom/shareCustomListSearchMe', 0, '我的共享的搜索结果展示', '共享客户列表', 0);
 
 -- --------------------------------------------------------
 
@@ -1174,19 +1187,47 @@ CREATE TABLE IF NOT EXISTS `xmls_my_customer_data` (
   `appoint_time` int(11) NOT NULL COMMENT '预约时间',
   `status` tinyint(2) NOT NULL COMMENT '状态',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8mb4 COMMENT='客户资料表' AUTO_INCREMENT=9 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8mb4 COMMENT='客户资料表' AUTO_INCREMENT=16 ;
 
 --
 -- 转存表中的数据 `xmls_my_customer_data`
 --
 
 INSERT INTO `xmls_my_customer_data` (`id`, `customer_number`, `customer_name`, `contact_name`, `gender`, `position`, `birthday`, `phone`, `tel`, `office_phone`, `fax_number`, `email`, `QQ`, `province`, `city`, `country`, `detail_address`, `customer_source`, `customer_type`, `trade`, `website`, `contract_start`, `contract_end`, `notes`, `create_people`, `create_time`, `customer_service`, `last_time`, `appoint_time`, `status`) VALUES
-(1, 'LS15111519594080', '阿里巴巴', '马路', '男', '助理', -168422400, '0591-12345678', '15260696532', '0591-12345678', '0591-12345678', 'alibaba@sina.com', 'alibabaxiaoma', '北京市', '市辖区', '西城区', '西单一号', '百度推广', '正在接触的客户', '电商', 'www.alibaba.com', 1446776061, 1449417600, '测试', 'admin', 1441532477, 'admin', 1447935462, 1447862400, 0),
-(2, 'LS15111520002359', '腾讯', '小马哥', '男', 'CEO', 207590400, '0592-123456', '15263626589', '0592-123456', '0592-12365479', '888888@qq.com', '666666', '天津市', '市辖区', '河西区', '南开小马路1号', '微信公众号', '正在接触的客户', '互联网社交/游戏/门户/视频', 'www.qq.com', 1446803975, 1451404800, '测试的', 'admin', 1446803988, '公共客户', 1438928138, 1447827370, 0),
-(3, 'LS15111110340878', '三只松鼠', '小松', '男', '市场营销', 1446220800, '', '2147483647', '', '', '15260696523@163.com', '71859632', '浙江省', '杭州市', '市辖区', '三只松鼠大楼1号', '微信公众号', '正在接触的客户', '电商', 'www.threes.com', 1447038502, 1449590400, '测试的。', '234', 1447038374, 'admin', 1447327309, 1450092184, 0),
-(6, 'LS15111110324050', 'AUMU', '小林', '男', '助理', 658598400, '0594-2138526', '2147483647', '0594-2138526', '0594-2138526', 'aumu@hotmail.com', 'aumucustomer', '福建省', '莆田市', '荔城区', '黄石镇', '微信公众号', '正在接触的客户', '电商，鞋贸', 'www.aumu-tmall.com', 1447209140, 1452528000, '测试的', 'admin', 1447209006, 'admin', 1447902567, 1448035200, 0),
-(7, 'LS15111611535892', '七匹狼', '小七', '男', '市场营销', 1971, '0591-2186392', '13152623965', '0591-2186392', '0591-2186392', '1526069632@163.com', 'qpl', '福建省', '泉州市', '洛江区', '七匹狼大楼1号', '微信公众号', '蠢蠢欲动的客户', '服装', 'qpl.tmall.com', 1447654769, 1450246773, '正在谈', 'admin', 1447654670, 'admin', 0, 0, 0),
-(8, 'LS15111614194870', '七匹狼', '小七', '男', '市场营销', -39600000, '', '13150623025', '', '', '71859565@qq.com', '', '福建省', '泉州市', '洛江区', '七匹狼大楼', '微信公众号', '正在接触的客户', '服装', 'www.qpl-tmall.com', 1447654769, 1450246773, '七匹狼测试', 'admin', 1446877070, 'admin', 0, 0, 0);
+(1, 'LS15111519594080', '阿里巴巴', '马路', '男', '助理', -168422400, '0591-12345678', '15260696532', '0591-12345678', '0591-12345678', 'alibaba@sina.com', 'alibabaxiaoma', '北京市', '市辖区', '西城区', '西单一号', 'QQ空间', '正在接触的客户', '电商', 'www.alibaba.com', 1446776061, 1449417600, '测试', 'admin', 1441532477, 'admin', 1447935462, 1447862400, -1),
+(2, 'LS15111520002359', '腾讯', '小马哥', '男', 'CEO', 207590400, '0592-123456', '15263626589', '0592-123456', '0592-12365479', '888888@qq.com', '666666', '天津市', '市辖区', '河西区', '南开小马路1号', 'QQ空间', '正在接触的客户', '互联网社交/游戏/门户/视频', 'www.qq.com', 1446803975, 1451404800, '测试的', 'admin', 1446803988, 'admin', 1448073351, 1447827370, 0),
+(3, 'LS15111110340878', '三只松鼠', '小松', '男', '市场营销', 1446220800, '', '2147483647', '', '', '15260696523@163.com', '71859632', '浙江省', '杭州市', '市辖区', '三只松鼠大楼1号', 'QQ空间', '已完成的客户', '电商', 'www.threes.com', 1447038502, 1449590400, '测试的。', '234', 1447038374, '公共客户', 1448073351, 1450092184, 0),
+(6, 'LS15111110324050', 'AUMU', '小林', '男', '助理', 658598400, '0594-2138526', '2147483647', '0594-2138526', '0594-2138526', 'aumu@hotmail.com', 'aumucustomer', '福建省', '莆田市', '荔城区', '黄石镇', 'QQ空间', '正在接触的客户', '电商，鞋贸', 'www.aumu-tmall.com', 1447209140, 1452528000, '测试的', 'admin', 1447209006, '公共客户', 1447902567, 1448035200, 0),
+(7, 'LS15111611535892', '七匹狼', '小七', '男', '市场营销', 1971, '0591-2186392', '13152623965', '0591-2186392', '0591-2186392', '1526069632@163.com', 'qpl', '福建省', '泉州市', '洛江区', '七匹狼大楼1号', 'QQ空间', '蠢蠢欲动的客户', '服装', 'qpl.tmall.com', 1447654769, 1450246773, '正在谈', 'admin', 1447654670, '公共客户', 0, 0, 0),
+(8, 'LS15111614194870', '七匹狼', '小七', '男', '市场营销', -39600000, '', '13150623025', '', '', '71859565@qq.com', '', '福建省', '泉州市', '洛江区', '七匹狼大楼', '微信公众号', '正在接触的客户', '服装', 'www.qpl-tmall.com', 1447654769, 1450246773, '七匹狼测试', 'admin', 1446877070, 'admin', 1448073351, 0, 0),
+(9, '', '古奇天伦', '小轮', '男', '', 0, '26595959', '15260696523', '', '', '1526395@qq.com', '2659585654', '福建', '莆田', '荔城', '职教中心', 'QQ空间', '正在接触中', '', '', 0, 0, '无', '', 0, '公共客户', 0, 0, -1),
+(10, '', '古奇天伦', '小轮', '男', '', 0, '26595959', '15260696523', '', '', '1526395@qq.com', '2659585654', '福建', '莆田', '荔城', '职教中心', 'QQ空间', '正在接触中', '', '', 2015, 2015, '无', '', 0, '公共客户', 0, 0, -1),
+(11, '', '古奇天伦', '小轮', '男', '', 0, '26595959', '15260696523', '', '', '1526395@qq.com', '2659585654', '福建', '莆田', '荔城', '职教中心', 'QQ空间', '正在接触中', '', '', 2015, 2015, '无', '', 0, '公共客户', 0, 0, -1),
+(12, '', '古奇天伦', '小轮', '男', '', 0, '26595959', '15260696523', '', '', '1526395@qq.com', '2659585654', '福建', '莆田', '荔城', '职教中心', 'QQ空间', '正在接触中', '', '', 2015, 2015, '无', '', 0, '公共客户', 0, 0, -1),
+(13, '', '古奇天伦', '小轮', '男', '', 0, '26595959', '15260696523', '', '', '1526395@qq.com', '2659585654', '福建', '莆田', '荔城', '职教中心', 'QQ空间', '正在接触中', '', '', 2015, 2015, '无', '', 0, '公共客户', 0, 0, -1),
+(14, 'LS15112114065847', '古奇天伦', '小轮', '男', '', 0, '26595959', '15260696523', '', '', '1526395@qq.com', '2659585654', '福建', '莆田', '荔城', '职教中心', 'QQ空间', '正在接触中', '', '', 1447545600, 1448064000, '无', 'admin', 1448086018, 'admin', 0, 0, 0),
+(15, 'LS15112114071219', '古奇天伦', '小轮', '男', '', 0, '26595959', '15260696523', '', '', '1526395@qq.com', '2659585654', '福建', '莆田', '荔城', '职教中心', 'QQ空间', '正在接触中', '', '', 1447545600, 1448064000, '无', 'admin', 1448086032, 'admin', 0, 0, 0);
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `xmls_my_customer_pool`
+--
+
+CREATE TABLE IF NOT EXISTS `xmls_my_customer_pool` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `is_open` int(1) NOT NULL DEFAULT '0',
+  `recycle_period` int(11) NOT NULL,
+  `recycle_scope` varchar(200) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+
+--
+-- 转存表中的数据 `xmls_my_customer_pool`
+--
+
+INSERT INTO `xmls_my_customer_pool` (`id`, `is_open`, `recycle_period`, `recycle_scope`) VALUES
+(1, 1, 2, '11,9,12,13,21');
 
 -- --------------------------------------------------------
 
@@ -1205,7 +1246,7 @@ CREATE TABLE IF NOT EXISTS `xmls_my_customer_receive` (
   `create_time` int(11) NOT NULL COMMENT '建档时间',
   `receive_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '领用时间',
   PRIMARY KEY (`receive_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='领用表' AUTO_INCREMENT=14 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='领用表' AUTO_INCREMENT=21 ;
 
 --
 -- 转存表中的数据 `xmls_my_customer_receive`
@@ -1224,7 +1265,14 @@ INSERT INTO `xmls_my_customer_receive` (`receive_id`, `id`, `customer_name`, `co
 (10, 6, 'AUMU', '小林', 2147483647, '正在接触的客户', 'admin', 1447209006, '2015-11-19 12:01:27'),
 (11, 7, '七匹狼', '小七', 2147483647, '蠢蠢欲动的客户', 'admin', 1447654670, '2015-11-19 12:01:31'),
 (12, 8, '七匹狼', '小七', 2147483647, '正在接触的客户', 'admin', 1447654670, '2015-11-19 12:01:34'),
-(13, 1, '阿里巴巴', '马路', 2147483647, '正在接触的客户', 'admin', 1441532477, '2015-11-19 12:17:42');
+(13, 1, '阿里巴巴', '马路', 2147483647, '正在接触的客户', 'admin', 1441532477, '2015-11-19 12:17:42'),
+(14, 2, '腾讯', '小马哥', 2147483647, '正在接触的客户', 'admin', 1446803988, '2015-11-21 02:35:10'),
+(15, 2, '腾讯', '小马哥', 2147483647, '正在接触的客户', 'admin', 1446803988, '2015-11-21 02:35:31'),
+(16, 3, '三只松鼠', '小松', 2147483647, '已完成的客户', '234', 1447038374, '2015-11-21 02:35:31'),
+(17, 8, '七匹狼', '小七', 2147483647, '正在接触的客户', 'admin', 1446877070, '2015-11-21 02:35:31'),
+(18, 2, '腾讯', '小马哥', 2147483647, '正在接触的客户', 'admin', 1446803988, '2015-11-21 02:35:51'),
+(19, 3, '三只松鼠', '小松', 2147483647, '已完成的客户', '234', 1447038374, '2015-11-21 02:35:51'),
+(20, 8, '七匹狼', '小七', 2147483647, '正在接触的客户', 'admin', 1446877070, '2015-11-21 02:35:51');
 
 -- --------------------------------------------------------
 
@@ -1266,6 +1314,43 @@ INSERT INTO `xmls_my_customer_record` (`id`, `customer_number`, `customer_name`,
 (10, 'LS15111519594080', '阿里巴巴', '马路', '手机', '15260696532', '2015-11-16', 1447652881, '客户回访', 1447480156, '2015-11-26', 'admin', 0),
 (11, 'LS15111519594080', '阿里巴巴', '马路', '手机', '15260696532', '2015-11-16阿里巴巴', 1447654555, '客户来电', 1447862400, '2015-11-16下次', 'admin', 0),
 (12, 'LS15111110324050', 'AUMU', '小林', '手机', '2147483647', '测试的', 1447902567, '客户回访', 1448035200, '测试的', 'admin', 0);
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `xmls_my_customer_share`
+--
+
+CREATE TABLE IF NOT EXISTS `xmls_my_customer_share` (
+  `sid` int(11) NOT NULL AUTO_INCREMENT COMMENT '共享ID',
+  `customer_name` varchar(30) NOT NULL COMMENT '客户名称',
+  `contact_name` varchar(20) NOT NULL COMMENT '联系人',
+  `tel` varchar(12) NOT NULL COMMENT '联系方式',
+  `customer_type` varchar(10) NOT NULL COMMENT '客户类别',
+  `customer_source` varchar(15) NOT NULL COMMENT '客户来源',
+  `create_people` varchar(10) NOT NULL COMMENT '建档客服',
+  `create_time` int(11) NOT NULL COMMENT '建档时间',
+  `customer_service` varchar(10) NOT NULL COMMENT '客服专员',
+  `share_time` int(11) NOT NULL COMMENT '共享时间',
+  `share_to` varchar(10) NOT NULL COMMENT '共享予',
+  `share_name` varchar(10) NOT NULL COMMENT '共享人',
+  `status` tinyint(4) NOT NULL COMMENT '状态',
+  PRIMARY KEY (`sid`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='客户共享表' AUTO_INCREMENT=9 ;
+
+--
+-- 转存表中的数据 `xmls_my_customer_share`
+--
+
+INSERT INTO `xmls_my_customer_share` (`sid`, `customer_name`, `contact_name`, `tel`, `customer_type`, `customer_source`, `create_people`, `create_time`, `customer_service`, `share_time`, `share_to`, `share_name`, `status`) VALUES
+(1, '七匹狼', '小七', '13150623025', '正在接触的客户', '微信公众号', 'admin', 1446877070, 'admin', 1448038914, '真实名字', 'admin', 0),
+(2, '三只松鼠', '小松', '2147483647', '已完成的客户', 'QQ空间', '234', 1447038374, 'admin', 1448038914, '真实名字', 'admin', 0),
+(3, '七匹狼', '小七', '13150623025', '正在接触的客户', '微信公众号', 'admin', 1446877070, 'admin', 1448038914, 'admin', '小陈', 0),
+(4, '三只松鼠', '小松', '2147483647', '已完成的客户', 'QQ空间', '234', 1447038374, 'admin', 1448038914, '小陈', 'admin', 0),
+(5, '腾讯', '小马哥', '15263626589', '正在接触的客户', 'QQ空间', 'admin', 1446803988, 'admin', 1448075434, '小陈', 'admin', 0),
+(6, '腾讯', '小马哥', '15263626589', '正在接触的客户', 'QQ空间', 'admin', 1446803988, 'admin', 1448075457, '小陈', 'admin', 0),
+(7, '腾讯', '小马哥', '15263626589', '正在接触的客户', 'QQ空间', 'admin', 1446803988, 'admin', 1448075487, '小陈', 'admin', 0),
+(8, '腾讯', '小马哥', '15263626589', '正在接触的客户', 'QQ空间', 'admin', 1446803988, 'admin', 1448075613, '小陈', 'admin', 0);
 
 -- --------------------------------------------------------
 
@@ -1315,7 +1400,7 @@ CREATE TABLE IF NOT EXISTS `xmls_my_customer_type` (
 
 INSERT INTO `xmls_my_customer_type` (`id`, `type_name`, `type_description`, `operator`, `create_time`, `is_default`, `status`) VALUES
 (11, '正在接触的客户', '想进步了解后购买的客户', '小元', 1446456950, '否', 0),
-(9, '已完成的客户', '客户已付全款', '管理员', 1446455167, '否', 0),
+(9, '已完成的客户', '客户已付全款', '管理', 1446455167, '否', 0),
 (12, '无意向客户', '无意向购买的客户', '管理员', 1446541363, '否', 0),
 (13, '进行中的客户', '正在洽谈的客户', 'admin', 1446549055, '是', 0),
 (21, '实在的客户', '真诚要合作的客户', 'admin', 1447164979, '否', 0);
@@ -1425,7 +1510,7 @@ CREATE TABLE IF NOT EXISTS `xmls_ucenter_member` (
 --
 
 INSERT INTO `xmls_ucenter_member` (`id`, `username`, `password`, `email`, `mobile`, `reg_time`, `reg_ip`, `last_login_time`, `last_login_ip`, `update_time`, `status`) VALUES
-(1, 'admin', '753f86cd25d856e511ce1f7f76347d1f', 'admin@admin.com', '', 1445943683, 2130706433, 1447916069, 0, 1445943683, 1),
+(1, 'admin', '753f86cd25d856e511ce1f7f76347d1f', 'admin@admin.com', '', 1445943683, 2130706433, 1448082290, 0, 1445943683, 1),
 (4, 'aaaaaa', '09afb8da4de285a3167563ae8da4abeb', 'a@a.com', '', 1446280596, 2130706433, 1446280755, 2130706433, 1446280596, 1),
 (7, 'bbbb', '9fab85ae60c423e80436e9e328af4a37', 'xmls@qq.com', '', 1446471808, 2130706433, 0, 0, 1446471808, 1),
 (9, 'okzappos', '9fab85ae60c423e80436e9e328af4a37', 'shou@admin.com', '', 1446472196, 2130706433, 0, 0, 1446472196, 1),
