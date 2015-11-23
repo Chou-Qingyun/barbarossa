@@ -14,7 +14,6 @@ class MyCustomerDataModel extends Model{
 	);
 
 	protected $_auto = array(
-			array('customer_number','createNum',self::MODEL_INSERT,'callback'),
 			array('birthday','unixTime',3,'callback'),
 			array('contract_start','unixTime',3,'callback'),
 			array('contract_end','unixTime',3,'callback'),
@@ -37,9 +36,5 @@ class MyCustomerDataModel extends Model{
 		return I('create_people');
 	}
 	
-	/*随机生成客户编码*/
-	public function createNum(){
-		return 'LS' . date('ymdHis',time()) . mt_rand(10,99);
-	}
 
 }
