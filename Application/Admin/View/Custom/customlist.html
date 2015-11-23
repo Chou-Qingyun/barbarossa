@@ -143,8 +143,24 @@
 	});
 	//批量导出客户资料的EXCEL
 	$("#expE").click(function(){
+		var quer = document.getElementsByClassName('ids');
 		var url = $(this).attr('url');
-		piliang(url);
+		for(i=0; i<quer.length; i++){
+			if(quer[i].checked){
+				if(url.indexOf('?')>0){
+					url += ',' + quer[i].value ;
+				}else{
+					url += '?id=' + quer[i].value ;
+				}
+			}
+        }
+		if($(".ids:checked").length==0) {
+			if(!confirm('确认要导出全部资料么？')){
+				return false;
+			}
+		}
+		window.location.href = url;
+		
 	});
 	
 	//批量客户指派
@@ -165,6 +181,13 @@
 				}
 			}
         		}
+		if($(".ids:checked").length==0) {
+			updateAlert("请选择要修改的数据");
+            setTimeout(function(){
+            	$('#top-alert').find('button').click();
+            },1500);
+			return;
+		}
 		window.location.href = url;
 		
 	}

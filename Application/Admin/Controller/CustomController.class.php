@@ -35,10 +35,12 @@ class CustomController extends AdminController {
 	public function customListAdd(){
 		if(IS_POST){
 			$customData = D('MyCustomerData');
+			$contactPerson = M('MyContactPerson');
 			if (!$customData->create()) {
 				$this->error($customData->getError());
 			}else{
 				if ($customData->add($data)) {
+					$contactPerson->add();
 					$this->success('客户资料添加成功',U('Custom/customlist'));
 				}
 			}
@@ -500,6 +502,8 @@ class CustomController extends AdminController {
 		$this->assign('start_time',$start_time);
 		$this->assign('end_time',$end_time);
 		$this->assign('_list',$list);
+		$employee = $this->lists('Member');
+		$this->assign('employee',$employee);
 // 		dump($list);
 		$this->display();
 	}
@@ -539,6 +543,8 @@ class CustomController extends AdminController {
 // 		dump($arr);
 		$this->assign('searched',$arr);
 		$this->assign('_list',$list);
+		$employee = $this->lists('Member');
+		$this->assign('employee',$employee);
 		$this->display('feedbacklistsearch');
 		
 	}
@@ -854,9 +860,77 @@ class CustomController extends AdminController {
 	
 	/*联系人*/
 	public function myCustomContactPerson(){
+		$map['customer_number'] = I('customer_number');
+		$list = $this->lists('MyContactPerson',$map);
+		$this->assign('customer_number',I('customer_number'));
+		$this->assign('_list',$list);
 		$this->display();
 	}
 	
+	/*增加联系人*/
+	public function myCustomContactPersonAdd(){
+		if(IS_POST){
+			$map['customer_number'] = I('customer_number');
+			$id = M('MyCustomerData')->where($map)->getField('id');
+			$contactPerson = D('MyContactPerson');
+			if (!$contactPerson->create()){
+				$this->error($contactPerson->getError());
+			}else{
+				if($contactPerson->add()){
+					$this->success('联系人添加成功',U('customListDetail?id='.$id));
+				}else{
+					$this->error('联系人添加失败，请重新操作!');
+				}
+			}
+			
+			
+		}else {
+			$map['customer_number'] = I('customer_number');
+			$customer = $this->lists('MyCustomerData',$map);
+			$this->assign('customer',$customer);
+			$this->display();
+		}
+	}
+	
+	/*编辑联系人*/
+	public function myCustomContactPersonEdit(){
+		if(IS_POST){
+			$map['id'] = I('id');
+			$contactPerson = D('MyContactPerson');
+			$map['customer_number'] = I('customer_number');
+			$id = M('MyCustomerData')->where($map)->getField('id');
+			if(!$contactPerson->create()){
+				$this->error($contactPerson->getError());
+			}else{
+				if ($contactPerson->save()){
+					$this->success('联系人更新成功',U('customListDetail?id='.$id));
+				}else{
+					$this->error('联系人更新失败，请重新操作！');
+				}
+			}
+			
+		}else{
+			$map['id'] = I('id');
+			$list = $this->lists('MyContactPerson',$map);
+			$this->assign('_list',$list);
+			$this->display();
+		}
+		
+	}
+	
+	/*查看联系人*/
+	public function myCustomContactPersonCat(){
+		$map['id'] = I('id');
+		$list = $this->lists('MyContactPerson',$map);
+		$this->assign('_list',$list);
+		$this->display();
+	}
+	
+	/*删除联系人*/
+	public function myCustomContactPersonDelete(){
+		$map['id'] = I('id');
+		$this->delete('MyContactPerson',$map);
+	}
 	
 	
 	/*某个客户的联系记录*/
@@ -953,8 +1027,9 @@ class CustomController extends AdminController {
 							$data['create_people'] = get_username();
 							$data['customer_service'] = get_username();
 // 							dump($data);die();
-							$customerData = D('MyCustomerData');
-							$customerData->create();
+							$customerData = M('MyCustomerData');
+							$contactPerson = M('MyContactPerson');
+							$contactPerson->add($data);
 							$customerData->add($data);
 // 							echo $customerData->getLastSql();	
 							/* }else{

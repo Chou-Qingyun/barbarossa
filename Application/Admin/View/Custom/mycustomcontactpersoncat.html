@@ -1,0 +1,61 @@
+<extend name="Public/base"/>
+
+<block name="body">
+<style>
+	table.gritable{
+		border: 1px;
+		width: 60%;
+		height: 188px;
+		font-family: "Microsoft Yahei",arial,sans-serif;
+		font-size: 16px;
+	}
+	table.gritable td{
+		width: 335px;
+		padding: 10px;
+	
+	}
+</style>
+	<script type="text/javascript" src="__STATIC__/js/laydate.js"></script>
+    <div class="main-title">
+        <h2>新增联系记录</h2>
+    </div>
+    <table class="gritable" >
+    <volist name="_list" id="vo">
+    
+    	<tr>
+    		<input type="hidden" name="id" value="{$vo.id}">
+    		<td>客户编号：{$vo.customer_number}</td>
+    		<td>客户名称：{$vo.customer_name}</td>
+    	</tr>
+    	<tr>
+    		<td>部门：{$vo.department}</td>
+    		<td>职位：{$vo.position}</td>
+    	</tr>
+    	<tr>
+    		<td>联系人：{$vo.contact_name}</td>
+    		<td>联系方式：{$vo.tel}</td>	
+    	</tr>
+    	<tr>
+    		<td>QQ：{$vo.QQ}</td>
+    		<td>邮箱：{$vo.email}</td>
+    	</tr>
+    	<tr>
+    		<td>出生日期：{$vo.birthday|date='Y-m-d H:i:s',###}</td>
+    	</tr>
+    </volist>
+    </table>
+    <div class="form-item">
+            <button class="btn btn-return" onclick="javascript:history.back(-1);return false;">返 回</button>
+        </div>
+</block>
+
+<block name="script">
+<script src="__STATIC__/select.js"></script>
+<script type="text/javascript">
+	//导航高亮
+        highlight_subnav('{:U('Custom/customList')}');
+
+</script>
+	
+</block>
+

@@ -32,10 +32,10 @@
 							style="width:170px;border:none;background-image:url(__STATIC__/js/skins/yahui/icon.png);background-repeat:no-repeat;background-position:right center;"
 							 onClick="laydate({istime: true, format: 'YYYY-MM-DD hh:mm:ss'})">
 				</div>
-				<select class="search-input"  name="customer_type">
+				<select class="search-input"  name="customer_service">
 					<option value="">请选择员工</option>
-					<volist name="type" id="ty">
-					<option value="{$ty.type_name}">{$ty.type_name}</option>
+					<volist name="employee" id="service">
+					<option value="{$service.realname}">{$service.realname}</option>
 					</volist>
 				</select>
 				<input type="hidden" id="sel1" value="{$searched.contact_way}">

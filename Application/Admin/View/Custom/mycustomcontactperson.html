@@ -24,7 +24,7 @@
 
     <div class="blk" style="height: 40px;">
     	<div style="float:right;margin-top:4px;">
-    		<a class="btn" href="{:U('Custom/myCustomDocument?customer_number='.$customer_number)}" target="_top">添加联系人</a>
+    		<a class="btn" href="{:U('Custom/myCustomContactPersonAdd?customer_number='.$customer_number)}" target="_top">添加联系人</a>
     	</div>
     </div>
     <table class="record_t">
@@ -38,23 +38,20 @@
 	    	<td width="12%">出生日期</td>
 	    	<td width="12%">操作</td>
 	    </tr>
-    <notempty name="_feed">
-    	<volist name="_feed" id="vo">
+    <notempty name="_list">
+    	<volist name="_list" id="vo">
 	    	<tr class="tr_style">
-	    		<td>{$vo.last_time|date="Y-m-d H:i:s",###}<br>
-	    			{$vo.customer_service}
-	    		</td>
-	    		<td>{$vo.contact_content}</td>
-	    		<td>{$vo.contact_type}<br>
-	    			{$vo.contact_name}
-	    		</td>
-	    		<td>{$vo.contact_way}<br>
-	    			{$vo.txttel}
-	    		</td>
-	    		<td>{$vo.appoint_time|date="Y-m-d",###}<br>{$vo.appoint_time|date="H:i:s",###}</td>
+	    		<td>{$vo.contact_name}</td>
+	    		<td>{$vo.department}</td>
+	    		<td>{$vo.position}</td>
+	    		<td>{$vo.tel}</td>
+	    		<td>{$vo.QQ}</td>
+	    		<td>{$vo.email}</td>
+	    		<td>{$vo.birthday|date="Y-m-d H:i:s",###}</td>
 	    		<td>
-	    			<a href="{:U('Custom/feedbackListEdit?id='.$vo['id'])}" target="_top">编辑</a>&nbsp;&nbsp;
-	    			<a href="{:U('Custom/feedbackListDelete?id='.$vo['id'])}" class="ajax-get" >删除</a>
+	    			<a href="{:U('Custom/myCustomContactPersonEdit?id='.$vo['id'])}" target="_top">编辑</a>&nbsp;&nbsp;
+	    			<a href="{:U('Custom/myCustomContactPersonDelete?id='.$vo['id'])}" class="confirm ajax-get" >删除</a>&nbsp;&nbsp;
+	    			<a href="{:U('Custom/myCustomContactPersonCat?id='.$vo['id'])}" target="_top">查看</a>
 	    		</td>
 	    	</tr>
 	    </volist>

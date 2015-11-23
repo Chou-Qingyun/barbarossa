@@ -25,12 +25,28 @@
     	</div>
     	<div>
     		<form action="{:U(Custom/customlistExcelUpload)}" method="post" enctype="multipart/form-data" >
-    			<input  type="file" name="import">
-    			<input class="btn" type="submit" value="开始导入">
+    			<input  type="file" name="import" id="file">
+    			<input class="btn" type="submit" value="开始导入" onclick="return checkfile();">
     			<!-- <button class="submit-btn ajax-post" id="submit" type="submit" target-form="form-horizontal">导入</button> -->
     		</form>
     	</div>
     </div>
     
     
+</block>
+<block name="script">
+<script type="text/javascript">
+	function checkfile(){
+		var f = document.getElementById('file').value;
+		if(f == ''){
+			updateAlert("请选择要修改的数据");
+			setTimeout(function(){
+            	$('#top-alert').find('button').click();
+            },1500);
+			return false;
+		}
+	}
+
+</script>
+	
 </block>

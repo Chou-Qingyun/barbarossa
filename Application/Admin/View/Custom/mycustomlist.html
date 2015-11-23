@@ -178,7 +178,14 @@
 					url += '?id=' + quer[i].value ;
 				}
 			}
-        		}
+        }
+		if($(".ids:checked").length==0) {
+			updateAlert("请选择要修改的数据");
+            setTimeout(function(){
+            	$('#top-alert').find('button').click();
+            },1500);
+			return;
+		}
 		window.location.href = url;
 		
 	}
