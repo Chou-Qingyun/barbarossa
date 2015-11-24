@@ -53,7 +53,7 @@
 	    		<td>{$vo.add_time|date="Y-m-d H:i:s",###}</td>
 	    		<td>
 	    			<a href="{:U('Custom/myCustomDocumentEdit?id='.$vo['id'])}" target="_top">编辑</a>&nbsp;
-	    			<a href="{:U('Custom/myCustomDocumentDelete?id='.$vo['id'])}" class="ajax-get" >删除</a>
+	    			<a href="{:U('Custom/myCustomDocumentDelete?id='.$vo['id'])}" class="confirm ajax-get" >删除</a>
 	    		</td>
 	    	</tr>
 	    </foreach>

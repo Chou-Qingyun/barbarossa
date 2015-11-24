@@ -1,0 +1,11 @@
+apache
+
+/alidata/server/httpd/bin/httpd -k start
+/alidata/server/httpd/bin/httpd -k stop
+/alidata/server/httpd/bin/httpd -k restart
+
+ÅäÖÃÎÄ¼ş£º
+
+/alidata/server/httpd/conf/vhosts/
+
+

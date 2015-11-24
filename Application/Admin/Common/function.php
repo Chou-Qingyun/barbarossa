@@ -398,6 +398,7 @@ function J($str){
 }
 
 function myFilename($name){
+	$name=iconv("UTF-8","gb2312", $name);
 	return time() . '_' . substr_replace($name, '', -4);
 }
 
@@ -406,7 +407,9 @@ function analysisPath($path){
 	$arr = array();
 	$onepath = explode('|', $path);
 	foreach ($onepath as $value){
-		$arr[$value] = substr($value, strpos($value,'_')+1);
+		if($value != ""){
+			$arr[$value] = substr($value, strpos($value,'_')+1);
+		}
 	}
 	return $arr;
 }

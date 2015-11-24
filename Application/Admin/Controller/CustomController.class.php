@@ -487,13 +487,14 @@ class CustomController extends AdminController {
 	
 	/*即将回收*/
 	public function myCustomListRec(){
-		$sql = "select id,(". time() ."-last_time) as subtime,(". time() ."-create_time) as subcreate,last_time as ltime from " .C('DB_PREFIX'). "my_customer_data group by id having (subtime>3600*7*30 and subtime<".time().") or (subcreate>3600*7*30 and ltime=0)";
+		$sql = "select id,(". time() ."-last_time) as subtime,(". time() ."-create_time) as subcreate,last_time as ltime from " .C('DB_PREFIX'). "my_customer_data group by id having (subtime>3600*6*30 and subtime<".time().") or (subcreate>3600*6*30 and ltime=0)";
+// 		echo $sql;
 		$customerData = M('MyCustomerData');
 		$item = $customerData->query($sql);
-		// 		dump($item);
 		foreach ($item as $vo){
 			$arr[] = $vo['id'];
 		}
+// 		dump($arr);
 		$where['id'] = array('in',implode(',', $arr));
 		$where['customer_service'] = get_username();
 		$list = $this->lists('MyCustomerData',$where,'id');
@@ -813,7 +814,7 @@ class CustomController extends AdminController {
 	/*添加文档*/
 	public function myCustomDocumentAdd(){
 		if(IS_POST){
-// 			dump(I('post.'));
+// 			dump(I('post.'));die();
 		$map['customer_number'] = I('customer_number');
 		$customer = $this->lists('MyCustomerData',$map);
 		$id = $customer[0]['id'];
@@ -851,8 +852,16 @@ class CustomController extends AdminController {
 	}
 	
 	/*编辑文档*/
-	public function myCustomDocumentEdit(){
-		
+	public function myCustomDocumentEdit($id=0){
+		$id = $this->filterId($id);
+		$map['id'] = $id;
+		$doc = $this->lists('MyContractDocument',$map);
+		foreach ($doc as &$value){
+			$value['document_path'] = analysisPath($value['document_path']);
+		}
+// 		dump($doc);die();
+		$this->assign('_doc',$doc);
+		$this->display();
 	}
 	
 	/*文档上传*/
@@ -876,16 +885,6 @@ class CustomController extends AdminController {
 			}
 		}
 		print_r(J(__ROOT__.'/Uploads/'. $spath));
-	}
-
-	/*页面上删除展示文档*/
-	public function myCustomDocumentUploadDelete(){
-		$src=str_replace(__ROOT__.'/', '', str_replace('//', '/', $_GET['src']));
-		if (file_exists($src)){
-			unlink($src);
-		}
-		print_r($_GET['src']);
-		exit();
 	}
 	
 	/*联系人*/
