@@ -398,8 +398,8 @@ function J($str){
 }
 
 function myFilename($name){
-	$name=iconv("UTF-8","gb2312", $name);
 	return time() . '_' . substr_replace($name, '', -4);
+	
 }
 
 /*文档显示相关附件*/

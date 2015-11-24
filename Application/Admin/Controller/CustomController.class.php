@@ -876,6 +876,7 @@ class CustomController extends AdminController {
 		}
 		$upload->savePath =  $savepath;// 设置附件上传目录
 		$info = $upload->upload();
+// 		dump($info);die();
 		if(!$info) {// 上传错误提示错误信息		
 			$this->error($upload->getErrorMsg());
 		}else{// 上传成功 获取上传文件信息
@@ -884,6 +885,7 @@ class CustomController extends AdminController {
 				$spath = $file['savepath'].'/'.$file['savename'];
 			}
 		}
+// 		dump($spath);
 		print_r(J(__ROOT__.'/Uploads/'. $spath));
 	}
 	
