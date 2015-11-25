@@ -28,6 +28,32 @@
 	.blk{
 		width: 100%;
 	}
+	.navi{
+		width: 8%;
+		height: 40px;
+		float: left;
+		text-align: center;
+		font-family: "Microsoft Yahei",arial,sans-serif;
+		font-size: 18px;
+		line-height: 35px;
+		list-style-type :none;
+		
+	}
+	table.record_t{
+		width: 100%;
+		font-family: "Microsoft Yahei",arial,sans-serif;
+		font-size: 16px;
+		text-align: center;
+	}
+	table.record_t td{
+		height: 32px;
+	}
+	
+	 .tr_bk{
+	 	font-weight: bold;
+	 	background: #DFDFDF;
+	 }
+	
 </style>
 	<volist name="_list" id="vo">
 	<div style="border:2px solid #dce0e1;">
@@ -60,25 +86,96 @@
     	</tr>
     </table>
     </div>
-    <div class="blk" style="height: 50px;">
-		<iframe frameborder="0" src="{:U('Custom/nav?customer_number='.$vo['customer_number'])}" width="100%" height="50px" scrolling="no" name="father"></iframe>
+    
+		<!-- <iframe frameborder="0" src="{:U('Custom/nav?customer_number='.$vo['customer_number'])}" width="100%" height="50px" scrolling="no" name="father"></iframe> -->
+	<div id="nav" style="width:100%;height:40px;border-bottom:2px solid #86dc01;">
+		<li class="navi"><a href="{:U('Custom/customListDetail?id='.$vo['id'])}" >联系记录</a></li>
+		<li class="navi"><a href="{:U('Custom/myCustomDocument?id='.$vo['id'])}" >合同文档</a></li>
+		<li class="navi"><a href="{:U('Custom/myCustomContactPerson?id='.$vo['id'])}">联系人</a></li>
 	</div>
+	</volist>
     <!-- <div class="blk" style="height: 40px;">
         <div style="float:right;margin-top:4px;">
             <a class="btn" href="{:U('Custom/feedbacklistadd?id='.$vo['id'])}" class="">添加记录</a>
         </div>
     </div> -->
     <div class="blk">
-    	<iframe frameborder="0" src="{:U('Custom/feedbacklistone?customer_number='.$vo['customer_number'])}" width="100%" height="500" name="under" scrolling="no"></iframe>
+    	<!-- <iframe frameborder="0" src="{:U('Custom/feedbacklistone?customer_number='.$vo['customer_number'])}" width="100%" height="500" name="under" id="under" scrolling="no"></iframe> -->
+    	<div class="blk" style="height: 40px;">
+    	<div style="float:right;margin-top:4px;">
+    		<a class="btn" href="{:U('Custom/feedbacklistadd?customer_number='.$customer_number)}" target="_top">添加记录</a>
+    	</div>
+    </div>
+    <table class="record_t">
+	    <tr class="tr_bk">
+	    	<td width="16%">联系时间&客服</td>
+	    	<td>联系内容</td>
+	    	<td width="15%">类型&联系人</td>
+	    	<td width="16%">联系方式&号码</td>
+	    	<td width="16%">预约时间</td>
+	    	<td width="10%">操作</td>
+	    </tr>
+    <notempty name="_feed">
+    	<volist name="_feed" id="vo">
+	    	<tr class="tr_style">
+	    		<td>{$vo.last_time|date="Y-m-d H:i:s",###}<br>
+	    			{$vo.customer_service}
+	    		</td>
+	    		<td>{$vo.contact_content}</td>
+	    		<td>{$vo.contact_type}<br>
+	    			{$vo.contact_name}
+	    		</td>
+	    		<td>{$vo.contact_way}<br>
+	    			{$vo.txttel}
+	    		</td>
+	    		<td>{$vo.appoint_time|date="Y-m-d",###}<br>{$vo.appoint_time|date="H:i:s",###}</td>
+	    		<td>
+	    			<a href="{:U('Custom/feedbackListEdit?id='.$vo['id'])}" >编辑</a>&nbsp;&nbsp;
+	    			<a href="{:U('Custom/feedbackListDelete?id='.$vo['id'])}" class="ajax-get" >删除</a>
+	    		</td>
+	    	</tr>
+	    </volist>
+    <else/>
+			<td colspan="6" class="text-center"> aOh! 暂时还没有内容! </td>
+	</notempty>
+    	
+    </table>
+    
+    <div class="page">
+        {$_page}
+    </div>
     </div>
     
     
-    </volist>
+    
 </block>
 
 <block name="script">
     <script type="text/javascript">
-  	//导航高亮
+    var obj = document.getElementsByClassName('tr_style');
+	for(var i=0; i<obj.length; i++){
+		if(i % 2 == 0){
+			obj[i].style.background="#FFF";
+		}	
+	}
+	
+	
+	//内部标题高亮
+	var links = document.getElementById('nav');
+	var currenturl = document.location.href;
+ 	var divst = document.getElementsByClassName('navi'); 
+	var li = links.getElementsByTagName('a');
+	/* console.log(li.length);  */
+	for(var i=0; i<li.length; i++){
+		var linkurl = li[i].getAttribute('href');
+		if(currenturl.indexOf(linkurl) != -1){
+			last = i;
+		}
+	}
+	
+	divst[last].style.background = '#86dc01';
+	
+	//导航高亮
     highlight_subnav('{:U('Custom/customList')}');
     </script>
 </block>
