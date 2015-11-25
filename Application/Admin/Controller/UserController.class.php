@@ -90,6 +90,12 @@ class UserController extends AdminController {
      * @author huajie <banhuajie@163.com>
      */
     public function updatePassword(){
+        $id = I('get.id');
+        if($id){
+            $this->realname = M('Member')->where(array('uid'=>$id))->getField('realname');
+        }else{
+            $this->error('参数错误');
+        }
         $this->meta_title = '修改密码';
         $this->display();
     }
@@ -215,17 +221,23 @@ class UserController extends AdminController {
             $User   =   new UserApi;
             $uid    =   $User->register($username, $password, $email);
             if(0 < $uid){ //注册成功
-                //$user = array('uid' => $uid, 'nickname' => $username, 'status' => 1);
                 $M = D('Member');
-                $M->create();
-                if(!$M->add()){
-                	if(APP_DEBUG===true){
-                		$this->error($M->getDbError());
-                	}else{
-                    	$this->error('用户添加失败！');
-                	}
-                } else {
-                    $this->success('用户添加成功！',U('index'));
+                if($M->create()){
+                    $M->uid = $uid;
+                    if(!$M->add()){
+                    	if(APP_DEBUG===true){
+                    		$this->error($M->getDbError());
+                    	}else{
+                            // 删除刚刚成功注册的记录
+                            M('UcenterMember')->where(array('id'=>$uid))->delete();
+                        	$this->error('用户添加失败！');
+                    	}
+                    } else {
+                        $this->success('用户添加成功！',U('index'));
+                    }
+                }else{
+                    M('UcenterMember')->where(array('id'=>$uid))->delete();
+                    $this->error($M->getError());
                 }
             } else { //注册失败，显示错误信息
                 $this->error($this->showRegError($uid));

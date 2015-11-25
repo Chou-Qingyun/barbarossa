@@ -48,7 +48,7 @@ return array(
     'DB_PWD'    => 'longshangdata123!@#',  // 密码*/
 
     'DB_HOST'   => '127.0.0.1', // 服务器地址
-    'DB_NAME'   => 'barbarossa', // 数据库名
+    'DB_NAME'   => 'barbarossa_fixbug', // 数据库名
     'DB_USER'   => 'root', // 用户名
     'DB_PWD'    => 'root',  // 密码
 

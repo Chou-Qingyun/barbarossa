@@ -18,6 +18,6 @@ define('UC_AUTH_KEY', '6Q=ok{hA`2nEJ$N_c&yZVjxsu)"z1O?dI<Xl(4b8'); //加密KEY
 
 //define('UC_DB_DSN', 'mysqli://root:longshangdata123!@#@127.0.0.1:3306/xmls_crm'); // 数据库连接，使用Model方式调用API必须配置此项
 
-define('UC_DB_DSN', 'mysqli://root:root@127.0.0.1:3306/barbarossa'); // 数据库连接，使用Model方式调用API必须配置此项
+define('UC_DB_DSN', 'mysqli://root:root@127.0.0.1:3306/barbarossa_fixbug'); // 数据库连接，使用Model方式调用API必须配置此项
 
 define('UC_TABLE_PREFIX', 'xmls_'); // 数据表前缀，使用Model方式调用API必须配置此项

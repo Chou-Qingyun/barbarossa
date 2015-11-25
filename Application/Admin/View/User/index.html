@@ -28,7 +28,7 @@
         <tr>
 		<th class="row-selected row-selected"><input class="check-all" type="checkbox"/></th>
 		<th class="">UID</th>
-		<th class="">姓名</th>
+		<th class="">真实姓名</th>
 		<th class="">性别</th>
 		<th class="">手机</th>
 		<th class="">邮箱</th>
@@ -48,7 +48,7 @@
 		<tr>
             <td><input class="ids" type="checkbox" name="id[]" value="{$vo.uid}" /></td>
 			<td>{$vo.uid} </td>
-			<td>{$vo["realname"]|default=$vo["nickname"]}</td>
+			<td title="登录用户名：{$vo["nickname"]}">{$vo["realname"]|default='未知'}</td>
 			<td>{$vo["sex"]=='1'? '男' : '女'}</td>
 			<td>{$vo.mobile}</td>
 			<td>{$vo.email}</td>
