@@ -1,0 +1,159 @@
+<extend name="Public/base" />
+
+<block name="body">
+<style>
+	.changebg{}
+</style>
+	<!-- 标题栏 -->
+	<div id="mtitle">	
+		<div class="main-title" style="float:left;margin-right:10px;">
+			<a href="{:U('Custom/myCustomList')}"><h2>{:get_username()}的客户</h2></a>
+		</div>
+		<div class="main-title" style="float:left;margin-right:10px;">
+			<a href="{:U('Custom/myCustomListSelf')}"><h2>我的领用</h2></a>
+		</div>
+		<div class="main-title">
+			<a href="{:U('Custom/myCustomListRec')}"><h2>即将回收</h2></a>
+		</div>
+	</div>
+    <!-- 数据列表 -->
+    <div class="data-table table-striped">
+	<table class="">
+    <thead>
+        <tr>
+		<th class="">客户ID</th>
+		<th class="">客户名称</th>
+		<th class="">联系人</th>
+		<th class="">联系方式</th>
+		<th class="">客户类别</th>
+		<th class="">建档客服</th>
+		<th class="">最后联系</th>
+		<th class="">剩余天数</th>
+		<th class="">操作</th>
+		</tr>
+    </thead>
+    <tbody>
+		<notempty name="_list">
+		<volist name="_list" id="vo">
+		<tr>
+			<td>{$vo.customer_number} </td>
+			<td>{$vo.customer_name}</td>
+			<td>{$vo.contact_name}</td>
+			<td><span>{$vo.tel}</span></td>
+			<td>{$vo.customer_source}</td>
+			<td>{$vo.create_people}</td>
+			<if condition="$vo.last_time eq 0">
+				<td>未联系</td>
+			<else />
+				<td>{$vo.last_time|date="Y-m-d H:i:s",###}</td>
+			</if>
+			<if condition="$vo.last_time eq 0">
+				<td >&nbsp;&nbsp;&nbsp;&nbsp;{$vo.create_time|getDays=###}</td>
+			<else />
+				<td>&nbsp;&nbsp;&nbsp;&nbsp;{$vo.last_time|getDays=###}</td>
+			</if>
+			<td>
+				<a href="{:U('Custom/customListUpdate?id='.$vo['id'])}" class="">编辑</a>
+			&nbsp;	
+				<a href="{:U('Custom/feedbacklistadd?customer_number='.$vo['customer_number'])}">回访</a>
+			&nbsp;
+				<a href="{:U('Custom/customListDelete?id='.$vo['id'])}" class="ajax-get">删除</a>
+				<!-- <a href="{:U('Custom/customListUpdate?id='.$vo['id'])}" class="ajax-get">设为默认</a>
+			&nbsp;
+				<a href="{:U('Custom/sourceManageAction?method=cancelDefault&id='.$vo['id'])}" class="ajax-get">取消默认</a>	 -->
+			</td>
+            
+		</tr>
+		</volist>
+		<else/>
+		<td colspan="10" class="text-center"> aOh! 暂时还没有内容! </td>
+		</notempty>
+	</tbody>
+    </table>
+	</div>
+    <div class="page">
+        {$_page}
+    </div>
+</block>
+
+<block name="script">
+	<script src="__STATIC__/thinkbox/jquery.thinkbox.js"></script>
+
+	<script type="text/javascript">
+	//搜索功能
+	$("#search").click(function(){
+		var url = $(this).attr('url');
+        var query  = $('.search-form').find('input').serialize();
+        var squery = $('.search-form').find('select').serialize();
+        query = query.replace(/(&|^)(\w*?\d*?\-*?_*?)*?=?((?=&)|(?=$))/g,'');
+        squery = squery.replace(/(&|^)(\w*?\d*?\-*?_*?)*?=?((?=&)|(?=$))/g,'');
+        query = query.replace(/^&/g,'');
+        squery = squery.replace(/^&/g,'');
+        if( url.indexOf('?')>0 ){
+            url += '&' + query + '&' + squery;
+        }else{
+            url += '?' + query + '&' + squery;
+        }
+		window.location.href = url;
+	});
+	//回车搜索
+	$(".search-input").keyup(function(e){
+		if(e.keyCode === 13){
+			$("#search").click();
+			return false;
+		}
+	});
+	
+	//批量处理客户类别功能
+	$("#changeC").click(function(){
+		var url = $(this).attr('url');
+		piliang(url);
+		/* console.log(url); */
+	});
+	//批量处理客户来源功能
+	$("#changeS").click(function(){
+		var url = $(this).attr('url');
+		piliang(url);
+	});
+
+	function piliang(url) {
+		var quer = document.getElementsByClassName('ids');
+		
+		for(i=0; i<quer.length; i++){
+			if(quer[i].checked){
+				if(url.indexOf('?')>0){
+					url += ',' + quer[i].value ;
+				}else{
+					url += '?id=' + quer[i].value ;
+				}
+			}else{
+				alert('请选择要修改的数据');
+				return false;
+			}
+        		}
+		window.location.href = url;
+		
+	}
+	
+	//内部标题高亮
+	var links = document.getElementById('mtitle');
+	var currenturl = document.location.href;
+	var divst = document.getElementsByClassName('main-title');
+	var li = links.getElementsByTagName('a');
+	/* console.log(li.length);  */
+	for(var i=0; i<li.length; i++){
+		var linkurl = li[i].getAttribute('href');
+		/* console.log(linkurl); */
+		if(currenturl.indexOf(linkurl) != -1){
+			last = i;
+		}
+	}
+	divst[last].className = "changebg";
+	
+    //导航高亮
+    highlight_subnav('{:U('Custom/myCustomList')}');
+    var target_form = $(this).attr('target-form');
+    
+    
+	</script>
+</block>

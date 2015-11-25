@@ -1,0 +1,83 @@
+<extend name="Public/custom"/>
+
+<block name="body">
+<style>
+	table.record_t{
+		width: 100%;
+		font-family: "Microsoft Yahei",arial,sans-serif;
+		font-size: 16px;
+		text-align: center;
+	}
+	table.record_t td{
+		height: 32px;
+	}
+	
+	 .tr_bk{
+	 	font-weight: bold;
+	 	background: #DFDFDF;
+	 }
+	 a {
+	 	color: #2d7200;
+	 	text-decoration: none;
+	 }
+</style>
+
+    <div class="blk" style="height: 40px;">
+    	<div style="float:right;margin-top:4px;">
+    		<a class="btn" href="{:U('Custom/myCustomDocumentAdd?customer_number='.$customer_number)}" target="_top">添加文档</a>
+    	</div>
+    </div>
+    <table class="record_t">
+	    <tr class="tr_bk">
+	    	<td width="12%">文档名称</td>
+	    	<td width="8%">文档类别</td>
+	    	<td width="30%">相关附件</td>
+	    	<td >文档说明</td>
+	    	<td width="8%">添加人</td>
+	    	<td width="12%">添加时间</td>
+	    	<td width="5%">操作</td>
+	    </tr>
+    <notempty name="_list">
+    	<foreach name="_list" item="vo" key="k">
+	    	<tr class="tr_style">
+	    		<td>{$vo.document_name}</td>
+	    		<td>{$vo.document_type}</td>
+	    		<!-- <td>{$vo.document_path}</td> -->
+	    		<td>
+		    		<foreach name="vo.document_path" item="vi" key="k">
+		    			<a href="{$k}">{$vi}</a>&nbsp;
+		    		</foreach>
+	    		</td>
+	    		<td>{$vo.document_explain}</td>
+	    		<td>{$vo.add_person}</td>
+	    		<td>{$vo.add_time|date="Y-m-d H:i:s",###}</td>
+	    		<td>
+	    			<a href="{:U('Custom/myCustomDocumentEdit?id='.$vo['id'])}" target="_top">编辑</a>&nbsp;
+	    			<a href="{:U('Custom/myCustomDocumentDelete?id='.$vo['id'])}" class="ajax-get" >删除</a>
+	    		</td>
+	    	</tr>
+	    </foreach>
+    <else/>
+			<td colspan="7" class="text-center"> aOh! 暂时还没有内容! </td>
+	</notempty>
+    	
+    </table>
+    
+    <div class="page">
+        {$_page}
+    </div>
+</block>
+
+<block name="script">
+	<script>
+		var obj = document.getElementsByClassName('tr_style');
+		for(var i=0; i<obj.length; i++){
+			if(i % 2 == 0){
+				obj[i].style.background="#FFF";
+			}	
+		}
+		
+		//导航高亮
+	    highlight_subnav('{:U('Custom/myCustomList')}');	
+	</script>
+</block>

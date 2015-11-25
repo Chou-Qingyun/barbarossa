@@ -1,0 +1,112 @@
+<!-- <extend name="Public/base" /> -->
+
+<block name="body">
+
+    <!-- 标题栏 -->
+    <div class="main-title">
+        <h2>等待回访记录管理</h2>
+    </div>
+    <div class="cf">
+        <!-- 高级搜索 -->
+        <div class="search-form fr cf">
+            <div class="sleft">
+                <input type="text" name="search_content" style="width:300px;" class="search-input"  placeholder="请输入客户名称/手机/联系人/客服专员">
+            <div class="search-input" style="width:460px;height:100%" >
+                    预约时间：<input type="text" class="text" name="time_start"  value="{$start_time}"
+                            style="width:170px;border:none;background-image:url(__STATIC__/js/skins/yahui/icon.png);background-repeat:no-repeat;background-position:right center;" 
+                            onClick="laydate({istime: true, format: 'YYYY-MM-DD hh:mm:ss'})"
+                            >
+                    至：<input type="text" class="text" name="time_end" value="{$end_time}"
+                            style="width:170px;border:none;background-image:url(__STATIC__/js/skins/yahui/icon.png);background-repeat:no-repeat;background-position:right center;"
+                             onClick="laydate({istime: true, format: 'YYYY-MM-DD hh:mm:ss'})">
+                </div>
+                <a class="sch-btn" href="javascript:;" id="search" url="{:U('Custom/waitLinkListSearch')}"><i class="btn-search"></i></a>
+            </div>
+        </div>
+    </div>
+    <!-- 数据列表 -->
+    <div class="data-table table-striped">
+    <table >
+    <thead>
+        <tr>
+        <th class="th1" width="20%">预约时间&客户名称</th>
+        <th class="th1" >联系记录</th>
+        <th class="th1" width="20%">联系人&电话</th>
+        <th class="th1" width="20%">回访客服&时间</th>
+        <th class="th1" width="5%">操作</th>
+        </tr>
+    </thead>
+    <notempty name="_list">
+    	<volist name="_list" id="vo">
+          <tr>
+              <td >
+              	{$vo.appoint_time|date="Y-m-d H:i:s",###}<br>
+                {$vo.customer_name}                         
+              </td>
+              <td >
+              	本次目标：{$vo.next_content}<br>
+              	上次记录：{$vo.contact_content}
+              </td>
+              <td >
+              	{$vo.contact_name}<br>
+              	{$vo.txttel}  
+              </td>
+              <td >
+              	{$vo.customer_service}<br>
+              	{$vo.last_time|date="Y-m-d H:i:s",###}
+              </td>
+              <td >
+                  <a href="{:U('Custom/feedbacklistadd?customer_number='.$vo['customer_number'])}">回访</a>
+              </td>
+          </tr>
+        </volist>
+    <else/>    
+        <td colspan="5" class="text-center"> aOh! 暂时还没有内容! </td>
+    </notempty>           
+    </table>
+    </div>
+    <div class="page">
+        {$_page}
+    </div>
+</block>
+
+<block name="script">
+    <script type="text/javascript" src="__STATIC__/js/laydate.js"></script>
+    <script src="__STATIC__/thinkbox/jquery.thinkbox.js"></script>
+
+    <script type="text/javascript">
+    //搜索功能
+    $("#search").click(function(){
+        var url = $(this).attr('url');
+        var query  = $('.search-form').find('input').serialize();
+        var squery = $('.search-form').find('select').serialize();
+        query = query.replace(/(&|^)(\w*?\d*?\-*?_*?)*?=?((?=&)|(?=$))/g,'');
+        squery = squery.replace(/(&|^)(\w*?\d*?\-*?_*?)*?=?((?=&)|(?=$))/g,'');
+        query = query.replace(/^&/g,'');
+        squery = squery.replace(/^&/g,'');
+        if( url.indexOf('?')>0 ){
+            url += '&' + query + '&' + squery;
+        }else{
+            url += '?' + query + '&' + squery;
+        }
+        window.location.href = url;
+    });
+    //回车搜索
+    $(".search-input").keyup(function(e){
+        if(e.keyCode === 13){
+            $("#search").click();
+            return false;
+        }
+    });
+    
+    
+    
+    
+    
+    //导航高亮
+    highlight_subnav('{:U('Custom/waitLinkList')}');
+    var target_form = $(this).attr('target-form');
+    console.log(target_form);
+    
+    </script>
+</block>

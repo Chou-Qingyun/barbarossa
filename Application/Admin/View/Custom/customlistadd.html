@@ -1,0 +1,297 @@
+<extend name="Public/base"/>
+
+<block name="body">
+	<script type="text/javascript" src="__STATIC__/select.js"></script>
+	<!-- <script type="text/javascript" src="__STATIC__/area.js"></script> -->
+	<script type="text/javascript" src="__STATIC__/js/laydate.js"></script>
+    <div class="main-title">
+        <h2>新增客户资料</h2>
+    </div>
+    <form action="{:U('Custom/customListAdd')}" method="post" class="form-horizontal">
+        <div class="form-item">
+            <input type="hidden" name="customer_number" value="{$customer_number}">
+        	<div style="width:350px;float:left;">
+	            <label class="item-label">客户名称</label>
+	            <div class="controls">
+	                <input type="text" class="text" name="customer_name" >
+	            </div>
+        	</div>
+            <label class="item-label">主联系人</label>
+            <div class="controls">
+                <input type="text" class="text" style="width:180px" name="contact_name" >&nbsp;&nbsp;
+                <input type="radio" name="gender" value="男" checked>先生&nbsp;
+                <input type="radio" name="gender" value="女">女士
+            </div>
+        </div>
+        <div class="form-item">
+	        <div style="width:350px;float:left;">
+	            <label class="item-label">当前职位</label>
+	            <div class="controls">
+	                <input type="text" class="text" name="position" >
+	            </div>
+	        </div>
+            <label class="item-label">出生日期</label>
+            <div class="controls">
+                <input type="text" class="text" name="birthday" 
+                style="background-image:url(__STATIC__/js/skins/yalan/icon.png);background-repeat:no-repeat;background-position:right center;" id="demo" >
+            </div>
+        </div>
+        <div class="form-item">
+	        <div style="width:350px;float:left;">
+	            <label class="item-label">电子邮箱</label>
+	            <div class="controls">
+	                <input type="text" class="text" name="email" >
+	            </div>
+	        </div>
+            <label class="item-label">QQ/旺旺</label>
+            <div class="controls">
+                <input type="text" class="text" name="QQ" >
+            </div>
+        </div>
+        <div class="form-item">
+	        <div style="width:350px;float:left;">
+	            <label class="item-label">固定电话</label>
+	            <div class="controls">
+	                <input type="text" class="text" name="phone" >
+	            </div>
+	        </div>
+            <label class="item-label">联系手机</label>
+            <div class="controls">
+                <input type="text" class="text" name="tel">
+            </div>
+        </div>
+        <div class="form-item">
+	        <div style="width:350px;float:left;">
+	            <label class="item-label">办公电话</label>
+	            <div class="controls">
+	                <input type="text" class="text" name="office_phone" >
+	            </div>
+	        </div>
+            <label class="item-label">传真</label>
+            <div class="controls">
+                <input type="text" class="text" name="fax_number" >
+            </div>
+        </div>
+        <div class="form-item">
+        	<label class="item-label">所在地区</label>
+        	<div class="controls">
+                <select id="province" name="province" style="width:185px">
+                    <option value="">
+                        --请选择省份--
+                    </option>
+                    <option value="北京市">
+                        	北京市
+                    </option>
+                    <option value="天津市">
+                        	天津市
+                    </option>
+                    <option value="河北省">
+                        	河北省
+                    </option>
+                    <option value="山西省">
+                        	山西省
+                    </option>
+                    <option value="内蒙古自治区">
+                       	 内蒙古自治区
+                    </option>
+                    <option value="辽宁省">
+                        	辽宁省
+                    </option>
+                    <option value="吉林省">
+                        	吉林省
+                    </option>
+                    <option value="黑龙江省">
+                        	黑龙江省
+                    </option>
+                    <option value="上海市">
+                        	上海市
+                    </option>
+                    <option value="江苏省">
+                        	江苏省
+                    </option>
+                    <option value="浙江省">
+                        	浙江省
+                    </option>
+                    <option value="安徽省">
+                        	安徽省
+                    </option>
+                    <option value="福建省">
+                        	福建省
+                    </option>
+                    <option value="江西省">
+                       	 江西省
+                    </option>
+                    <option value="山东省">
+                        	山东省
+                    </option>
+                    <option value="河南省">
+                        	河南省
+                    </option>
+                    <option value="湖北省">
+                        	湖北省
+                    </option>
+                    <option value="湖南省">
+                       	 湖南省
+                    </option>
+                    <option value="广东省">
+                        	广东省
+                    </option>
+                    <option value="广西壮族自治区">
+                        	广西壮族自治区
+                    </option>
+                    <option value="海南省">
+                        	海南省
+                    </option>
+                    <option value="重庆市">
+                        	重庆市
+                    </option>
+                    <option value="四川省">
+                        	四川省
+                    </option>
+                    <option value="贵州省">
+                        	贵州省
+                    </option>
+                    <option value="云南省">
+                        	云南省
+                    </option>
+                    <option value="西藏自治区">
+                        	西藏自治区
+                    </option>
+                    <option value="陕西省">
+                        	陕西省
+                    </option>
+                    <option value="甘肃省">
+                        	甘肃省
+                    </option>
+                    <option value="青海省">
+                        	青海省
+                    </option>
+                    <option value="宁夏回族自治区">
+                        	宁夏回族自治区
+                    </option>
+                    <option value="新疆维吾尔自治区">
+                        	新疆维吾尔自治区
+                    </option>
+                    <option value="香港特别行政区">
+                        	香港特别行政区
+                    </option>
+                    <option value="澳门特别行政区">
+                        	澳门特别行政区
+                    </option>
+                    <option value="台湾省">
+                       	 	台湾省
+                    </option>
+                    <option value="其它">
+                        	其它
+                    </option>
+                </select>
+                    &nbsp;&nbsp;
+                    <select id="city" name="city" style="width:185px">
+                        <option value="">
+                            --请选择城市--
+                        </option>
+                    </select>
+                    <select id="town" name="country" style="width:185px">
+                        <option value="">
+                            --请选择地区--
+                        </option>
+                    </select>
+                </div>
+        </div>
+        <div class="form-item">
+	            <label class="item-label">详细地址</label>
+	            <div class="controls">
+	                <input type="text" class="text input-large" name="detail_address" >
+	            </div>
+        </div>
+        <div class="form-item">
+	        <div style="width:350px;float:left;">
+	            <label class="item-label">客户类别</label>
+	            <div class="controls">
+	                <select name="customer_type" style="width:230px;height:29px;" class="text">
+		                <volist name="type" id="tpname" >
+		                	<option value="{$tpname.type_name}" {$tpname['is_default'] == '是' ? 'selected' : ''}>{$tpname.type_name}</option>
+		                </volist>
+		                
+	                </select>
+	            </div>
+	        </div>
+            <label class="item-label">客户来源</label>
+            <div class="controls">
+            <select name="customer_source" style="width:230px;height:29px;" class="text">
+                <volist name="source" id="sourcename" >
+                	
+                	<option value="{$sourcename.source_name}" {$sourcename['is_default'] == '是'? 'selected' : ''}>{$sourcename.source_name}</option>
+                </volist>
+            </select>
+            </div>
+        </div>
+        <div class="form-item">
+	        <div style="width:350px;float:left;">
+	            <label class="item-label">所属行业</label>
+	            <div class="controls">
+	                <input type="text" class="text" name="trade" >
+	            </div>
+	        </div>
+            <label class="item-label">网站地址</label>
+            <div class="controls">
+                <input type="text" class="text" name="website" >
+            </div>   
+        </div>
+        <div class="form-item">
+	        <div style="width:350px;float:left;">
+	            <label class="item-label">合同始日</label>
+	            <div class="controls">
+	                <input type="text" class="text" placeholder="请输入日期" name="contract_start" onClick="laydate({istime: true, format: 'YYYY-MM-DD hh:mm:ss'})">
+	            </div>
+	        </div>
+            <label class="item-label">合同止日</label>
+            <div class="controls">
+	                <input type="text" class="text" placeholder="请输入日期" name="contract_end"  onClick="laydate({istime: true, format: 'YYYY-MM-DD hh:mm:ss'})">
+	            </div>
+        </div>
+        <div class="form-item">
+	            <label class="item-label">备注</label>
+	            <div class="controls">
+	                <textarea name="notes" class="textarea" rows="4" cols="80"></textarea>
+	            </div>
+        </div>
+        <div class="form-item">
+	        <div style="width:350px;float:left;">
+	            <label class="item-label">建档客服</label>
+	            <div class="controls">
+	                <input type="text" class="text" name="create_people" value="{:get_username()}" >
+	            </div>
+	        </div>
+            <label class="item-label">建档时间</label>
+            <div class="controls">
+                <input type="text" class="text" name="create_time" 
+                onClick="laydate({istime: true, format: 'YYYY-MM-DD hh:mm:ss'})"
+                value="{:date('Y-m-d H:i:s',time())}">
+            </div>
+        </div>
+        
+        <div class="form-item">
+        <!-- 有ajax     -->
+        	<button class="btn submit-btn ajax-post" id="submit" type="submit" target-form="form-horizontal">确 定</button>
+            <button class="btn btn-return" onclick="javascript:history.back(-1);return false;">返 回</button>
+        </div>
+    </form>
+</block>
+
+<block name="script">
+<script src="__STATIC__/select.js"></script>
+<script type="text/javascript" defer>
+            new PCAS("province", "city", "country");
+        
+	!function(){
+		laydate.skin('molv');//切换皮肤，请查看skins下面皮肤库
+		laydate({elem: '#demo'});//绑定元素
+	}();
+	
+	//导航高亮
+        highlight_subnav('{:U('Custom/customList')}');
+	
+</script>
+</block>
+

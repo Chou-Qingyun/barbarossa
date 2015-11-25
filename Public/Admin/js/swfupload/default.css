@@ -1,0 +1,19 @@
+div.flash {width: 100%;margin: 0;border-color: #D9E4FF;float:left;-moz-border-radius-topleft : 5px;-webkit-border-top-left-radius : 5px;-moz-border-radius-topright : 5px;-webkit-border-top-right-radius : 5px;-moz-border-radius-bottomleft : 5px;-webkit-border-bottom-left-radius : 5px;-moz-border-radius-bottomright : 5px;-webkit-border-bottom-right-radius : 5px;}
+
+.progressWrapper {width: 300px;float:left;margin:2px;overflow: hidden;}
+.progressContainer {margin: 0 1px;padding: 3px;border: solid 1px #E8E8E8;background-color: #F7F7F7;overflow: hidden;}
+.message {margin: 1em 0;padding: 10px 20px;border: solid 1px #FFDD99;background-color: #FFFFCC;overflow: hidden;}
+.red {border: solid 1px #B50000;background-color: #FFEBEB;}
+.green {border: solid 1px #DDF0DD;background-color: #EBFFEB;}
+.blue {border: solid 1px #CEE2F2;background-color: #F0F5FF;}
+.completeMsg {color:#3D882D !important}
+
+.progressName {font-size: 8pt;font-weight: 800;color: #555;width: 260px;height: 14px;line-height:14px;text-align: left;white-space: nowrap;overflow: hidden;}
+.progressBarInProgress,.progressBarComplete,.progressBarError {font-size: 0;width: 0%;height: 2px;background-color: blue;margin-top: 2px;}
+.progressBarComplete {width: 100%;background-color: green;visibility: hidden;}
+.progressBarError {width: 100%;background-color: red;visibility: hidden;}
+.progressBarStatus {margin-top: 2px;width: 260px;font-size: 7pt;font-family: Arial;text-align: left;white-space: nowrap;height:17px;line-height:17px;}
+a.progressCancel {font-size: 0;display: block;height: 14px;width: 14px;background-image: url(../../images/cancelbutton.gif);background-repeat: no-repeat;background-position: -14px 0px;float: right;}
+a.progressCancel:hover {background-position: 0px 0px;}
+.swfupload {vertical-align: top;}
+#divSWFUploadUI p{margin:0;padding:0;}

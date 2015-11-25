@@ -1,0 +1,144 @@
+<extend name="Public/base" />
+
+<block name="body">
+<script type="text/javascript" src="__STATIC__/js/laydate.js"></script>
+<style>
+	table._char{
+		border: 1px solid #84d902;
+	}
+	
+	._char_td{
+		border: none;
+	}
+</style>
+	<!-- 标题栏 -->
+	<div class="main-title">
+		<h2>联系记录管理</h2>
+	</div>
+	<div class="cf">
+		<div class="fl">
+            <a class="sch-btn btn" href="javascript:;" id="expE" url="{:U('Custom/feedbackListOutexcel')}">导出Excel</a>
+        </div>
+        <!-- 高级搜索 -->
+		<div class="search-form fr cf">
+			<div class="sleft">
+				<input type="text" name="search_content"  style="width:300px;" class="search-input"  placeholder="请输入客户名称/手机/联系人/联系内容">
+				<div class="search-input" style="width:460px;height:100%" >
+					联系时间：<input type="text" class="text" name="time_start"  value="{$start_time}"
+							style="width:170px;border:none;background-image:url(__STATIC__/js/skins/yahui/icon.png);background-repeat:no-repeat;background-position:right center;" 
+							onClick="laydate({istime: true, format: 'YYYY-MM-DD hh:mm:ss'})"
+							>
+					至：<input type="text" class="text" name="time_end" value="{$end_time}"
+							style="width:170px;border:none;background-image:url(__STATIC__/js/skins/yahui/icon.png);background-repeat:no-repeat;background-position:right center;"
+							 onClick="laydate({istime: true, format: 'YYYY-MM-DD hh:mm:ss'})">
+				</div>
+				<select class="search-input"  name="customer_service">
+					<option value="">请选择员工</option>
+					<volist name="employee" id="service">
+					<option value="{$service.realname}">{$service.realname}</option>
+					</volist>
+				</select>
+				<select class="search-input" name="contact_way">
+					<option value="">请选择联系方式</option>
+					<option value="手机">手机</option>
+					<option value="固定电话">固定电话</option>
+					<option value="QQ">QQ</option>
+					<option value="微信">微信</option>
+				</select>
+				<a class="sch-btn" href="javascript:;" id="search" url="{:U('Custom/feedbackListSearch')}"><i class="btn-search"></i></a>
+			</div>
+		</div>
+    </div>
+    <!-- 数据列表 -->
+    <notempty name="_list">
+    <volist name="_list" id="vo">
+	    <div class="data-table table-striped">
+		<table class="_char">
+			<tr>
+				<td class="_char_td" width="80">客户名称：</td>
+				<td class="_char_td" width="260">{$vo.customer_name}</td>
+				<td class="_char_td" width="70">联系人：</td>
+				<td class="_char_td" width="168">{$vo.contact_name}</td>
+				<td class="_char_td" width="90">{$vo.contact_way}：</td>
+				<td class="_char_td" width="200">{$vo.txttel}</td>
+				<td class="_char_td" width="88">联系类型：</td>
+				<td class="_char_td" width="480">{$vo.contact_type}</td>
+				<td class="_char_td" width="200">
+					<a href="{:U('Custom/feedbackListEdit?id='.$vo['id'])}">编辑</a>&nbsp;&nbsp;
+					<a href="{:U('Custom/feedbackListDelete?id='.$vo['id'])}" class="ajax-get">删除</a>&nbsp;&nbsp;
+					<a href="{:U('Custom/feedbackListCat?id='.$vo['id'])}">查看</a>
+				</td>
+			</tr>
+			<tr rowspan="2">
+				<td class="_char_td" colspan="9">{$vo.contact_content}</td>
+			</tr>
+			<tr>
+				<td class="_char_td" colspan="9">
+				<span>跟进人：{$vo.customer_service}&nbsp;&nbsp;跟进时间：{$vo.last_time|date="Y-m-d H:i:s",###}</span></td>
+			</tr>
+		</table>
+		</div>
+	</volist>
+	<else/>
+		<div style="height:32px;line-height:32px;text-align:center;background:#FFF;">
+			<td colspan="9" class="text-center">aOh! 暂时还没有内容! </td>
+		</div>
+		
+	</notempty>
+    <div class="page">
+        {$_page}
+    </div>
+</block>
+
+<block name="script">
+	<script src="__STATIC__/thinkbox/jquery.thinkbox.js"></script>
+
+	<script type="text/javascript">
+	//搜索功能
+	$("#search").click(function(){
+		var url = $(this).attr('url');
+        var query  = $('.search-form').find('input').serialize();
+        var squery = $('.search-form').find('select').serialize();
+        query = query.replace(/(&|^)(\w*?\d*?\-*?_*?)*?=?((?=&)|(?=$))/g,'');
+        squery = squery.replace(/(&|^)(\w*?\d*?\-*?_*?)*?=?((?=&)|(?=$))/g,'');
+        query = query.replace(/^&/g,'');
+        squery = squery.replace(/^&/g,'');
+        if( url.indexOf('?')>0 ){
+            url += '&' + query + '&' + squery;
+        }else{
+            url += '?' + query + '&' + squery;
+        }
+		window.location.href = url;
+	});
+	//回车搜索
+	$(".search-input").keyup(function(e){
+		if(e.keyCode === 13){
+			$("#search").click();
+			return false;
+		}
+	});
+	
+	//导出EXCEL
+	$("#expE").click(function(){
+		var url = $(this).attr('url');
+        var query  = $('.search-form').find('input').serialize();
+        var squery = $('.search-form').find('select').serialize();
+        query = query.replace(/(&|^)(\w*?\d*?\-*?_*?)*?=?((?=&)|(?=$))/g,'');
+        squery = squery.replace(/(&|^)(\w*?\d*?\-*?_*?)*?=?((?=&)|(?=$))/g,'');
+        query = query.replace(/^&/g,'');
+        squery = squery.replace(/^&/g,'');
+        if( url.indexOf('?')>0 ){
+            url += '&' + query + '&' + squery;
+        }else{
+            url += '?' + query + '&' + squery;
+        }
+		window.location.href = url;
+	});
+	
+	
+	//导航高亮
+    highlight_subnav('{:U('Custom/feedbackList')}');
+    var target_form = $(this).attr('target-form');
+    
+	</script>
+</block>

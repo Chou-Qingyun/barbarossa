@@ -1,0 +1,33 @@
+<extend name="Public/base"/>
+
+<block name="body">
+    <div class="main-title">
+        <h2>新增客户来源</h2>
+    </div>
+    <form action="{:U('Custom/sourceManageAdd')}" method="post" class="form-horizontal">
+        <div class="form-item">
+            <label class="item-label">来源名称</label>
+            <div class="controls">
+                <input type="text" class="text input-large" name="source_name" >
+            </div>
+        </div>
+        <div class="form-item">
+            <label class="item-label">操作人</label>
+            <div class="controls">
+                <input type="text" class="text input-large" name="operator" value="{:get_username()}">
+            </div>
+        </div>
+        <div class="form-item">
+        <!-- 有ajax     -->
+        	<button class="btn submit-btn ajax-post" id="submit" type="submit" target-form="form-horizontal">确 定</button>
+            <button class="btn btn-return" onclick="javascript:history.back(-1);return false;">返 回</button>
+        </div>
+    </form>
+</block>
+
+<block name="script">
+    <script type="text/javascript">
+  //导航高亮
+    highlight_subnav('{:U('Custom/sourceManage')}');
+    </script>
+</block>

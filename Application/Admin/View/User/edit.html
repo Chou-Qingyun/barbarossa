@@ -1,0 +1,80 @@
+<extend name="Public/base"/>
+
+<block name="body">
+    <div class="main-title">
+        <h2>编辑用户信息</h2>
+    </div>
+    <form action="{:U('User/submitEdit')}" method="post" class="form-horizontal">
+        <div class="form-item">
+            <label class="item-label">真实名字</label>
+            <div class="controls">
+                {$user.realname}
+            </div>
+        </div>
+        <div class="form-item">
+            <label class="item-label">性别</label>
+            <div class="controls">
+                <select name="sex">
+                	<option value="1" {$user['sex']=='1' ? 'selected' : ''}>男</option>
+                	<option value="0" {$user['sex']=='0' ? 'selected' : ''}>女</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-item">
+            <label class="item-label">所属部门</label>
+            <div class="controls">
+            	<select name="department_id">
+            		<volist name="departments" id="vo">
+            			<option value="{$vo.id}" {$vo["id"] == $user["department_id"]? 'selected' : ''}>{$vo.department}</option>
+            		</volist>
+            	</select>
+            </div>
+        </div>
+        <div class="form-item">
+            <label class="item-label">所属用户组</label>
+            <div class="controls">
+            	<select name="auth_group_id">
+            		<volist name="groups" id="vo">
+            			<option value="{$vo.id}" {$vo["id"] == $user["auth_group_id"]? 'selected' : ''}>{$vo.title}</option>
+            		</volist>
+            	</select>
+            </div>
+        </div>         
+        <div class="form-item">
+            <label class="item-label">手机</label>
+            <div class="controls">
+                <input type="text" class="text input-large" name="mobile" value="{$user.mobile|default=''}">
+            </div>
+        </div>
+        <div class="form-item">
+            <label class="item-label">职称</label>
+            <div class="controls">
+                <input type="text" class="text input-large" name="title" value="{$user.title|default=''}">
+            </div>
+        </div>
+        <div class="form-item">
+            <label class="item-label">客户总容量</label>
+            <div class="controls">
+                <input type="text" class="text input-large" name="custom_limit" value="{$user.custom_limit|default=''}">
+            </div>
+        </div>
+        <div class="form-item">
+            <label class="item-label">邮箱<span class="check-tips">（用户邮箱，用于找回密码等安全操作）</span></label>
+            <div class="controls">
+                <input type="text" class="text input-large" name="email" value="{$user.email|default=''}">
+            </div>
+        </div>
+        <div class="form-item">
+            <button class="btn submit-btn ajax-post" id="submit" type="submit" target-form="form-horizontal">确 定</button>
+            <button class="btn btn-return" onclick="javascript:history.back(-1);return false;">返 回</button>
+        </div>
+        <input type="hidden" name="uid" value="{$user.uid}">
+    </form>
+</block>
+
+<block name="script">
+    <script type="text/javascript">
+        //导航高亮
+        highlight_subnav('{:U('User/index')}');
+    </script>
+</block>

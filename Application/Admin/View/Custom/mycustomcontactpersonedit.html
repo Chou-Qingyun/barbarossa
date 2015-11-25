@@ -1,0 +1,67 @@
+<extend name="Public/base"/>
+
+<block name="body">
+<style>
+	table.gritable{
+		border: 1px;
+		width: 60%;
+		height: 188px;
+		font-family: "Microsoft Yahei",arial,sans-serif;
+		font-size: 16px;
+	}
+	table.gritable td{
+		width: 335px;
+		padding: 10px;
+	
+	}
+</style>
+	<script type="text/javascript" src="__STATIC__/js/laydate.js"></script>
+    <div class="main-title">
+        <h2>新增联系记录</h2>
+    </div>
+    <form action="{:U('Custom/myCustomContactPersonEdit')}" method="post" class="form-horizontal">
+    <table class="gritable" >
+    <volist name="_list" id="vo">
+    
+    	<tr>
+    		<input type="hidden" name="id" value="{$vo.id}">
+    		<td>客户编号：{$vo.customer_number}<input type="hidden" name="customer_number" value="{$vo.customer_number}"></td>
+    		<td>客户名称：{$vo.customer_name}<input type="hidden" name="customer_name" value="{$vo.customer_name}"></td>
+    	</tr>
+    	<tr>
+    		<td>部门：<input type="text" class="text" name="department" value="{$vo.department}"></td>
+    		<td>职位：<input type="text" class="text" name="position" value="{$vo.position}"></td>
+    	</tr>
+    	<tr>
+    		<td>联系人：<input type="text" class="text" name="contact_name" value="{$vo.contact_name}"></td>
+    		<td>联系方式：<input type="text" class="text" name="tel" value="{$vo.tel}"></td>	
+    	</tr>
+    	<tr>
+    		<td>QQ：<input type="text" class="text" name="QQ" value="{$vo.QQ}"></td>
+    		<td>邮箱：<input type="text" class="text" name="email" value="{$vo.email}"></td>
+    	</tr>
+    	<tr>
+    		<td>出生日期：<input type="text" class="text" name="birthday" value="{$vo.birthday|date='Y-m-d H:i:s',###}"
+    		placeholder="点击选择日期" onClick="laydate({istime: true, format: 'YYYY-MM-DD hh:mm:ss'})">
+    		</td>
+    	</tr>
+    </volist>
+    </table>
+        <div class="form-item">
+        <!-- 有ajax     -->
+        	<button class="btn submit-btn ajax-post" id="submit" type="submit" target-form="form-horizontal">确 定</button>
+            <button class="btn btn-return" onclick="javascript:history.back(-1);return false;">返 回</button>
+        </div>
+    </form>
+</block>
+
+<block name="script">
+<script src="__STATIC__/select.js"></script>
+<script type="text/javascript">
+	//导航高亮
+        highlight_subnav('{:U('Custom/customList')}');
+
+</script>
+	
+</block>
+

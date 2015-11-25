@@ -1,0 +1,154 @@
+<extend name="Public/base" />
+
+<block name="body">
+<style>
+	.changebg{}
+</style>
+	<!-- 标题栏 -->
+	<div id="mtitle">	
+		<div class="main-title" style="float:left;margin-right:10px;">
+			<a href="{:U('Custom/shareCustomList')}"><h2>共享给我的</h2></a>
+		</div>
+	
+		<div class="main-title">
+			<a href="{:U('Custom/shareCustomListSelf')}"><h2>我的共享</h2></a>
+		</div>
+	</div>
+	<div class="cf">
+		
+        <!-- 高级搜索 -->
+		<div class="search-form fr cf">
+			<div class="sleft">
+				<input type="text" name="search_content" value="{$sarr['search_content']}" style="width:300px;" class="search-input"  placeholder="请输入客户名称/手机/联系人/客服专员">
+				<select class="search-input"  name="customer_type">
+					<option value="">请选择客户类别</option>
+					<volist name="type" id="ty">
+					<option value="{$ty.type_name}" {$ty['type_name'] == $sarr['customer_type']? 'selected':''}>{$ty.type_name}</option>
+					</volist>
+				</select>
+				<a class="sch-btn" href="javascript:;" id="search" url="{:U('Custom/shareCustomListSearchTo')}"><i class="btn-search"></i></a>
+			</div>
+		</div>
+    </div>
+    <!-- 数据列表 -->
+    <div class="data-table table-striped">
+	<table class="">
+    <thead>
+        <tr>
+		<th class="row-selected row-selected"><input class="check-all" type="checkbox"/></th>
+		<!-- <th class="">类别ID</th> -->
+		<th class="">客户名称</th>
+		<th class="">联系人</th>
+		<th class="">联系方式</th>
+		<th class="">客户类型</th>
+		<th class="">客户来源</th>
+		<th class="">建档人&时间</th>
+		<th class="">客服专员</th>
+		<th class="">最后一次联系</th>
+		<th class="">预约联系时间</th>
+		<th class="">共享人</th>
+		</tr>
+    </thead>
+    <tbody>
+		<notempty name="_list">
+		<volist name="_list" id="vo">
+		<tr>
+            <td><input class="ids" type="checkbox" name="id[]" value="{$vo.id}"/></td>
+			<!-- <td>{$vo.id} </td> -->
+			<td><a href="{:U('Custom/customListDetail?id='.$vo['id'])}">{$vo.customer_name}</td>
+			<td>{$vo.contact_name}</td>
+			<td>{$vo.tel}</td>
+			<td><span>{$vo.customer_type}</span></td>
+			<td>{$vo.customer_source}</td>
+			<td>{$vo.create_people}/{$vo.create_time|date="Y-m-d",###}</td>
+			<td>{$vo.customer_service}</td>
+			<if condition="$vo.last_time eq 0">
+				<td>未联系</td>
+			<else />
+				<td>{$vo.last_time|date="Y-m-d H:i:s",###}</td>
+			</if>
+			<if condition="$vo.appoint_time eq 0">
+				<td>未预约</td>
+			<else />
+				<td>{$vo['appoint_time']|date="Y-m-d H:i:s",###}</td>
+			</if>
+			<td>{$vo.share_name}</td>
+            
+		</tr>
+		</volist>
+		<else/>
+		<td colspan="11" class="text-center"> aOh! 暂时还没有内容! </td>
+		</notempty>
+	</tbody>
+    </table>
+	</div>
+    <div class="page">
+        {$_page}
+    </div>
+</block>
+
+<block name="script">
+	<script src="__STATIC__/thinkbox/jquery.thinkbox.js"></script>
+
+	<script type="text/javascript">
+	//搜索功能
+	$("#search").click(function(){
+		var url = $(this).attr('url');
+        var query  = $('.search-form').find('input').serialize();
+        var squery = $('.search-form').find('select').serialize();
+        query = query.replace(/(&|^)(\w*?\d*?\-*?_*?)*?=?((?=&)|(?=$))/g,'');
+        squery = squery.replace(/(&|^)(\w*?\d*?\-*?_*?)*?=?((?=&)|(?=$))/g,'');
+        query = query.replace(/^&/g,'');
+        squery = squery.replace(/^&/g,'');
+        if( url.indexOf('?')>0 ){
+            url += '&' + query + '&' + squery;
+        }else{
+            url += '?' + query + '&' + squery;
+        }
+		window.location.href = url;
+	});
+	//回车搜索
+	$(".search-input").keyup(function(e){
+		if(e.keyCode === 13){
+			$("#search").click();
+			return false;
+		}
+	});
+
+	function piliang(url) {
+		var quer = document.getElementsByClassName('ids');
+		
+		for(i=0; i<quer.length; i++){
+			if(quer[i].checked){
+				if(url.indexOf('?')>0){
+					url += ',' + quer[i].value ;
+				}else{
+					url += '?id=' + quer[i].value ;
+				}
+			}
+        		}
+		window.location.href = url;
+		
+	}
+	
+	//内部标题高亮
+	var links = document.getElementById('mtitle');
+	var currenturl = document.location.href;
+	var divst = document.getElementsByClassName('main-title');
+	var li = links.getElementsByTagName('a');
+	/* console.log(li.length);  */
+	for(var i=0; i<li.length; i++){
+		var linkurl = li[i].getAttribute('href');
+		/* console.log(linkurl); */
+		if(currenturl.indexOf(linkurl) != -1){
+			last = i;
+		}
+	}
+	divst[last].className = "changebg";
+	
+    //导航高亮
+    highlight_subnav('{:U('Custom/shareCustomList')}');
+    
+    
+	</script>
+</block>

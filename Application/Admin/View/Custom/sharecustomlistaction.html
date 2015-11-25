@@ -1,0 +1,74 @@
+<extend name="Public/base"/>
+
+<block name="body">
+<style>
+	.customdiv{
+		width:128px;
+		height:38px;
+		border:2px solid gray;
+		font-size:20px;
+		font-family:"Microsoft Yahei",Symbol,sans-serif ;
+		text-align: center;
+		float: left;
+		margin-right: 10px; 
+	}
+</style>
+    <div class="main-title">
+        <h2>批量共享客户</h2>
+    </div>
+    <form action="{:U(Custom/shareCustomListAction)}" method="post" class="form-horizontal">
+    	<div >
+	        <volist name="_list" id="vo">
+		        <div class="form-item customdiv" >
+		           {$vo.customer_name} 
+		        </div>
+		        
+	        </volist>
+        </div>
+        <input type="hidden" name="id" value="{$_id}">
+        <div style="clear: both;">
+        	<label class="item-label" style="font-size:16px;">共享给：</label>
+            <foreach name="_user" key="depart" item="vi">
+            <div class="controls" style="font-family:microsoft yahei,Arial,sans-serif;font-size:18px;">
+            	<div style="height:38px;font-weight:bold;">
+            	<input id="{$depart}" type="checkbox" Onclick='checkall("{$depart}");'/>{$depart}</div>
+            	<div style="height:35px;background-color: #FFF;margin-top:5px;line-height:30px;">
+            	<foreach name="vi" key="uid" item="un">
+            		<input class="{$depart}" type="checkbox" name="uid[]" value="{$un}"/>
+            		<span>{$un}</span>&nbsp;&nbsp;
+            	</foreach>
+            	</div>
+            </div>
+            </foreach>
+	    </div>
+	    
+        <div class="form-item" style="margin-top:10px;">
+        <!-- 有ajax     -->
+        	<button class="btn submit-btn ajax-post" id="submit" type="submit" target-form="form-horizontal">确 定</button>
+            <button class="btn btn-return" onclick="javascript:history.back(-1);return false;">返 回</button>
+        </div>
+    </form>
+</block>
+<block name="script">
+    <script type="text/javascript">
+  	//导航高亮
+    highlight_subnav('{:U('Custom/customList')}');
+  	function checkall(m){
+  		var all = document.getElementById(m);
+  		var obj = document.getElementsByClassName(m);
+  		if(all.checked){
+  			for(var i=0; i<obj.length; i++){
+  	  			obj[i].checked = true;
+  	  		}
+  		}else{
+  			for(var i=0; i<obj.length; i++){
+  	  			obj[i].checked = false;
+  	  		}
+  		}
+  		
+  	}
+    </script>
+    
+</block>
+
+

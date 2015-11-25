@@ -1,0 +1,55 @@
+<extend name="Public/base"/>
+
+<block name="body">
+<style>
+	.customdiv{
+		width:128px;
+		height:38px;
+		border:2px solid gray;
+		font-size:20px;
+		font-family:"Microsoft Yahei",Symbol,sans-serif ;
+		text-align: center;
+		float: left;
+		margin-right: 10px; 
+	}
+</style>
+    <div class="main-title">
+        <h2>批量修改客户类型</h2>
+    </div>
+    <form action="{:U(Custom/customListchangeCategory)}" method="post" class="form-horizontal">
+    	<div >
+	        <volist name="_list" id="vo">
+		        <div class="form-item customdiv" >
+		           {$vo.customer_name} 
+		        </div>
+	        </volist>
+	        <input type="hidden" name="id" value="{$_id}">
+        </div>
+        
+        <div style="clear: both;">
+            <label class="item-label">客户类别</label>
+            <div class="controls">
+                <select name="customer_type" style="width:230px;height:29px;" class="text">
+                	<option value="" >--请选择客户类型--</option>
+	                <volist name="_type" id="tpname" >
+	                	<option value="{$tpname.type_name}" >{$tpname.type_name}</option>
+	                </volist>
+                </select>
+            </div>
+	    </div>
+	    
+        <div class="form-item" style="margin-top:10px;">
+        <!-- 有ajax     -->
+        	<button class="btn submit-btn ajax-post" id="submit" type="submit" target-form="form-horizontal">确 定</button>
+            <button class="btn btn-return" onclick="javascript:history.back(-1);return false;">返 回</button>
+        </div>
+    </form>
+</block>
+<block name="script">
+    <script type="text/javascript">
+  	//导航高亮
+    highlight_subnav('{:U('Custom/customList')}');
+    </script>
+</block>
+
+

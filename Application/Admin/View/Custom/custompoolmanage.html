@@ -1,0 +1,147 @@
+<extend name="Public/base" />
+
+<block name="body">
+	<!-- 标题栏 -->
+	<div class="main-title">
+		<h2>公共客户管理</h2>
+	</div>
+	<div class="cf">
+		<div class="fl">
+            <a class="btn" href="javascript:;" id="assignC" url="{:U('Custom/customListOfone')}" >客户指派</a>
+            <button class="btn ajax-post confirm" url="{:U('Custom/customPoolManageUse')}" target-form="ids">领用</button>
+        </div>
+
+
+
+        <!-- 高级搜索 -->
+		<div class="search-form fr cf">
+			<div class="sleft">
+				<input type="text" name="search_content" value="{$sarr['search_content']}" style="width:300px;" class="search-input"  placeholder="请输入客户名称/手机/联系人/地址/客服专员">
+				<select class="search-input"  name="customer_type">
+					<option value="">请选择客户类别</option>
+					<volist name="type" id="ty">
+					<option value="{$ty.type_name}" {$ty['type_name'] == $sarr['customer_type'] ? 'selected':''}>{$ty.type_name}</option>
+					</volist>
+				</select>
+				<select class="search-input" name="customer_source">
+					<option value="">请选择客户来源</option>
+					<volist name="source" id="sc">
+					<option value="{$sc.source_name}" {$sc['source_name'] == $sarr['customer_source'] ? 'selected':''}>{$sc.source_name}</option>
+					</volist>
+				</select>
+				<a class="sch-btn" href="javascript:;" id="search" url="{:U('Custom/customPoolManageSearch')}"><i class="btn-search"></i></a>
+			</div>
+		</div>
+    </div>
+    <!-- 数据列表 -->
+    <div class="data-table table-striped">
+	<table class="">
+    <thead>
+        <tr>
+		<th class="row-selected row-selected"><input class="check-all" type="checkbox"/></th>
+		<!-- <th class="">类别ID</th> -->
+		<th class="">客户名称</th>
+		<th class="">联系人</th>
+		<th class="">联系方式</th>
+		<th class="">客户类别</th>
+		<th class="">建档客服</th>
+		<th class="">建档时间</th>
+		<th class="">操作</th>
+		</tr>
+    </thead>
+    <tbody>
+		<notempty name="_list">
+		<volist name="_list" id="vo">
+		<tr>
+            <td><input class="ids" type="checkbox" name="id[]" value="{$vo.id}"/></td>
+			<!-- <td>{$vo.id} </td> -->
+			<td><a href="{:U('Custom/customListDetail?id='.$vo['id'])}">{$vo.customer_name}</td>
+			<td>{$vo.contact_name}</td>
+			<td><span>{$vo.tel}</span></td>
+			<td>{$vo.customer_type}</td>
+			<td>{$vo.create_people}</td>
+			<td>{$vo.create_time|date="Y-m-d",###}</td>
+			<td>
+				<a href="{:U('Custom/customPoolManageUse?id='.$vo['id'])}" class="ajax-get">领用</a>
+			&nbsp;	
+				</td>
+            
+		</tr>
+		</volist>
+		<else/>
+		<td colspan="10" class="text-center"> aOh! 暂时还没有内容! </td>
+		</notempty>
+	</tbody>
+    </table>
+	</div>
+    <div class="page">
+        {$_page}
+    </div>
+</block>
+
+<block name="script">
+	<script src="__STATIC__/thinkbox/jquery.thinkbox.js"></script>
+
+	<script type="text/javascript">
+	//搜索功能
+	$("#search").click(function(){
+		var url = $(this).attr('url');
+        var query  = $('.search-form').find('input').serialize();
+        var squery = $('.search-form').find('select').serialize();
+        query = query.replace(/(&|^)(\w*?\d*?\-*?_*?)*?=?((?=&)|(?=$))/g,'');
+        squery = squery.replace(/(&|^)(\w*?\d*?\-*?_*?)*?=?((?=&)|(?=$))/g,'');
+        query = query.replace(/^&/g,'');
+        squery = squery.replace(/^&/g,'');
+        if( url.indexOf('?')>0 ){
+            url += '&' + query + '&' + squery;
+        }else{
+            url += '?' + query + '&' + squery;
+        }
+		window.location.href = url;
+	});
+	//回车搜索
+	$(".search-input").keyup(function(e){
+		if(e.keyCode === 13){
+			$("#search").click();
+			return false;
+		}
+	});
+	
+	//批量客户指派
+	$("#assignC").click(function(){
+		var url = $(this).attr('url');
+		piliang(url);
+	});
+	
+	function piliang(url) {
+		var quer = document.getElementsByClassName('ids');
+		
+		for(i=0; i<quer.length; i++){
+			if(quer[i].checked){
+				if(url.indexOf('?')>0){
+					url += ',' + quer[i].value ;
+				}else{
+					url += '?id=' + quer[i].value ;
+				}
+			}
+        		}
+		if($(".ids:checked").length==0) {
+			updateAlert("请选择要修改的数据");
+            setTimeout(function(){
+            	$('#top-alert').find('button').click();
+            },1500);
+			return;
+		}
+		window.location.href = url;
+		
+	}
+	
+	
+	
+    //导航高亮
+    highlight_subnav('{:U('Custom/customPoolManage')}');
+    var target_form = $(this).attr('target-form');
+    
+    
+	</script>
+</block>
