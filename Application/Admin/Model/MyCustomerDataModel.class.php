@@ -35,7 +35,5 @@ class MyCustomerDataModel extends Model{
 	public function setCustomerservice(){
 		return I('create_people');
 	}
-	
-	
 
 }

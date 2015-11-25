@@ -63,9 +63,9 @@
 			    <a href="{:U('User/updatePassword?id='.$vo['uid'])}">修改密码</a>
 			    <a href="{:U('User/edit?id='.$vo['uid'])}">编辑</a>
 			    <eq name="vo.status" value="1">
-				<a href="{:U('User/changeStatus?method=forbidUser&id='.$vo['uid'])}" class="ajax-get">禁用</a>
+					<a href="{:U('User/changeStatus?method=forbidUser&id='.$vo['uid'])}" class="ajax-get">禁用</a>
 				<else/>
-				<a href="{:U('User/changeStatus?method=resumeUser&id='.$vo['uid'])}" class="ajax-get">启用</a>
+					<a href="{:U('User/changeStatus?method=resumeUser&id='.$vo['uid'])}" class="ajax-get">启用</a>
 				</eq>
 				<a href="{:U('User/changeStatus?method=deleteUser&id='.$vo['uid'])}" class="confirm ajax-get">删除</a>
             </td>

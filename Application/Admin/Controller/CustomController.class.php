@@ -488,7 +488,6 @@ class CustomController extends AdminController {
 		$this->editRow('MyCustomerData', $data, $map);
 	}
 	
-	
 	/*我的客户搜索操作*/
 	public function myCustomListSearch(){
 		$where = array('customer_service'=> get_username());
@@ -998,7 +997,6 @@ class CustomController extends AdminController {
 				} else {
 					//$this->success('上传成功！');
 				
-				
 				Vendor("PHPExcel.PHPExcel");
 				Vendor("PHPExcel.PHPExcel.IOFactory");
 				$file_name=$upload->rootPath . $info['import']['savepath'].$info['import']['savename'];
@@ -1172,7 +1170,6 @@ class CustomController extends AdminController {
 			$this->assign('_id',$id);
 			$this->display();
 		}
-		
 		
 	}
 	
