@@ -455,9 +455,16 @@ class CustomController extends AdminController {
 	public function customListDetail($id=0){
 		($id==0) && $this->error('参数错误');
 		$map['id'] = $id;
-		$list = $this->lists('MyCustomerData',$map);
+		$customerData = M('MyCustomerData');
+		$list = $customerData->where($map)->select();
+		$this->meta_title = '客户信息详细|联系记录';
+		$customer_number = $list[0]['customer_number'];
+		$where['customer_number'] = $customer_number;
+		// 		dump($map);
+		$feed = $this->lists('MyCustomerRecord',$where);
+		$this->assign('customer_number',$customer_number);
 		$this->assign('_list',$list);
-		$this->meta_title = '客户信息详细';
+		$this->assign('_feed',$feed);
 		$this->display();
 	}
 	
@@ -800,15 +807,21 @@ class CustomController extends AdminController {
 	}
 	
 	/*合作文档*/
-	public function myCustomDocument(){
-		$customer_number = I('customer_number');
-		$map['customer_number'] = $customer_number;
-		$list = $this->lists('MyContractDocument',$map);
+	public function myCustomDocument($id=0){
+		($id==0) && $this->error('参数错误');
+		$map['id'] = $id;
+		$customerData = M('MyCustomerData');
+		$customer = $customerData->where($map)->select();
+		$this->meta_title = '客户信息详细|合同文档';
+		$customer_number = $customer[0]['customer_number'];
+		$where['customer_number'] = $customer_number;
+		$list = $this->lists('MyContractDocument',$where);
 		foreach ($list as &$value){
 			$value['document_path'] = analysisPath($value['document_path']);
 		}
 // 		dump($list);
 		$this->assign('customer_number',$customer_number);
+		$this->assign('_customer',$customer);
 		$this->assign('_list',$list);
 		$this->display();
 	}
@@ -826,7 +839,7 @@ class CustomController extends AdminController {
 				$this->error($customDocumentContract->getError());
 			}else{
 				if($customDocumentContract->add()){
-					$this->success('合同添加成功',U('customListDetail?id='.$id));
+					$this->success('合同添加成功',U('myCustomDocument?id='.$id));
 				}else{
 					$this->error('合同添加失败');
 				}
@@ -867,7 +880,7 @@ class CustomController extends AdminController {
 				$this->error($contractDocument->getError());
 			}else{
 				if($contractDocument->where($where)->save()){
-					$this->success('合同更新成功',U('customListDetail?id='.$cid));
+					$this->success('合同更新成功',U('myCustomDocument?id='.$cid));
 				}else{
 					$this->error('合同更新失败，请重新操作');
 				}
@@ -911,10 +924,17 @@ class CustomController extends AdminController {
 	}
 	
 	/*联系人*/
-	public function myCustomContactPerson(){
-		$map['customer_number'] = I('customer_number');
-		$list = $this->lists('MyContactPerson',$map);
-		$this->assign('customer_number',I('customer_number'));
+	public function myCustomContactPerson($id=0){
+		($id==0) && $this->error('参数错误');
+		$map['id'] = $id;
+		$customerData = M('MyCustomerData');
+		$customer = $customerData->where($map)->select();
+		$this->meta_title = '客户信息详细|合同文档';
+		$customer_number = $customer[0]['customer_number'];
+		$where['customer_number'] = $customer_number;
+		$list = $this->lists('MyContactPerson',$where);
+		$this->assign('customer_number',$customer_number);
+		$this->assign('_customer',$customer);
 		$this->assign('_list',$list);
 		$this->display();
 	}
@@ -929,7 +949,7 @@ class CustomController extends AdminController {
 				$this->error($contactPerson->getError());
 			}else{
 				if($contactPerson->add()){
-					$this->success('联系人添加成功',U('customListDetail?id='.$id));
+					$this->success('联系人添加成功',U('myCustomContactPerson?id='.$id));
 				}else{
 					$this->error('联系人添加失败，请重新操作!');
 				}
@@ -955,7 +975,7 @@ class CustomController extends AdminController {
 				$this->error($contactPerson->getError());
 			}else{
 				if ($contactPerson->save()){
-					$this->success('联系人更新成功',U('customListDetail?id='.$id));
+					$this->success('联系人更新成功',U('myCustomContactPerson?id='.$id));
 				}else{
 					$this->error('联系人更新失败，请重新操作！');
 				}
@@ -986,7 +1006,7 @@ class CustomController extends AdminController {
 	
 	
 	/*某个客户的联系记录*/
-	public function feedbackListOne($customer_number=null){
+	public function feedbackListOne($id=0){
 		empty($customer_number) && $this->error('客户编码错误');
 // 		dump($customer_number);
 		$map['customer_number'] = $customer_number;
@@ -1302,22 +1322,45 @@ class CustomController extends AdminController {
 	
 	/* 公共客户领用*/
 	public function customPoolManageUse($id=0){
-		$id = $this->filterId($id);
-		$where['id'] = array('in',$id);
+// 		dump($id);die();
+		if(is_array($id)){
+			$id = array_unique($id);
+			foreach ($id as $v){
+				$where['id'] = $v;
+				$this->customPoolManageUseAction($where);
+			}
+		}else{
+			$where['id'] = $id;
+			$this->customPoolManageUseAction($where);
+		}
 		
+	}
+	
+	/*领用操作*/
+	public function customPoolManageUseAction($where){
 		$customerData = M('MyCustomerData');
+		$sql = "select count(*) from ". C('DB_PREFIX'). "my_customer_data where customer_service= '". get_username() ."' and status=0";
+		// 		echo $sql;die();
+		$custom_num = $customerData->query($sql);
+		$num = (int)$custom_num[0]['count(*)'];
+		$data['customer_service'] = get_username();
+		$ulimit = M('Member')->where($data)->getField('custom_limit');
+		$ulimit = (int)$ulimit;
+// 		dump($num);dump($ulimit);die();
+		if($num >= $ulimit){
+			$this->error('你领用的客户已满，不能再领用了！');
+		}
 		$customerReceive = M('MyCustomerReceive');
 		$list = $customerData->where($where)->getField('id,customer_name,contact_name,tel,customer_type,create_people,create_time');
-// 		dump($list);
+		// 		dump($list);
 		foreach ($list as $value){
 			$customerReceive->add($value);
 		}
 		
-		$data['customer_service'] = get_username();
 		$data['last_time'] = time();
 		$this->editRow('MyCustomerData', $data, $where);
-		
 	}
+	
 	
 	/* 公共客户搜索*/
 	public function customPoolManageSearch(){
