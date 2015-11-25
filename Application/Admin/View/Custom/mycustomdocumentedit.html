@@ -59,8 +59,9 @@
     <div class="main-title">
         <h2>新增合同文档</h2>
     </div>
-    <form action="{:U('Custom/myCustomDocumentAdd')}" method="post" class="form-horizontal" enctype="multipart/form-data">
+    <form action="{:U('Custom/myCustomDocumentEdit')}" method="post" class="form-horizontal" enctype="multipart/form-data">
     	<foreach name="_doc" item="dc">
+    	<input type="hidden" name="id" value="{$dc.id}">
     	<div class="form-item">
             <label class="item-label">文档名称</label>
             <div class="controls">
@@ -89,18 +90,19 @@
         <p><span id="spanButtonPlaceholder"></span>&nbsp;|&nbsp;<span id="divStatus">0</span> 个文件已经上传
 
         <foreach name="dc.document_path" item="vi" key="k">
-		<div class="progressContainer blue"><a class="progressCancel" href="#" style="visibility: visible;"> </a>
+        <div id="{$k|subpath=###}">
+		<div class="progressContainer blue"><a class="progressCancel" onclick="cancelItem({$k|subpath=###});" href="#" style="visibility: visible;"> </a>
 		<div class="progressName">{$vi}</div>
 		<div class="progressBarStatus">
 		<span class="completeMsg">上传完成</span></div><div class="progressBarComplete"></div>
 		<input type="hidden" value="{$k}" id="value_SWFUpload_0_0" name="fileUrl"></div>
+		</div>
 		</foreach>
         
         <input id="btnCancel" type="hidden" value="取消所有" disabled="disabled" style="margin-left: 2px; height: 22px; font-size: 8pt;" /></p>
         <div class="flash" id="fsUploadProgress"></div>
         </div>
         <div style="clear:both;"></div>
-        <input type="hidden" name="hfFiles" id="hfFiles" />
         <span id="fileIds" style="display:none"></span>
 		
 		<input type="hidden" name="document_path" id="document_path" value=""/>
@@ -120,16 +122,9 @@
 <block name="script">
 <script src="__STATIC__/select.js"></script>
 <script type="text/javascript" defer>
-    function change(){
-    	var sel = document.getElementById('contact_way');
-    	var way = ['手机','固定电话','QQ','微信'];
-    	var way_name = '手机';
-    	for(var i=0,len=way.length; i<len; i++){
-    		if(way[i] == sel.value){
-    			way_name = way[i];
-    		}
-    	}
-    	document.getElementById('way_name').innerHTML = way_name;
+    function cancelItem(param){
+    	var del = document.getElementById(param);
+    	del.innerHTML = '';
     }
     
     function getValue(){

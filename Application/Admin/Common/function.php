@@ -419,3 +419,10 @@ function getDays($onetime){
 	$day = (time() - $onetime)/(3600*24);
 	return 15-ceil($day);
 }
+
+/*截取路径*/
+function subpath($path){
+	$path = explode('/', $path);
+	$path = end($path);
+	return substr($path, 0, 10);
+}

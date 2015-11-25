@@ -856,15 +856,33 @@ class CustomController extends AdminController {
 	
 	/*编辑文档*/
 	public function myCustomDocumentEdit($id=0){
-		$id = $this->filterId($id);
-		$map['id'] = $id;
-		$doc = $this->lists('MyContractDocument',$map);
-		foreach ($doc as &$value){
-			$value['document_path'] = analysisPath($value['document_path']);
+		if(IS_POST){
+// 			print_r(I('post.'));
+			$where['id']= $id;
+			$map['customer_number'] = I('customer_number');
+			$customer = $this->lists('MyCustomerData',$map);
+			$cid = $customer[0]['id'];
+			$contractDocument = D('MyContractDocument');
+			if(!$contractDocument->create()){
+				$this->error($contractDocument->getError());
+			}else{
+				if($contractDocument->where($where)->save()){
+					$this->success('合同更新成功',U('customListDetail?id='.$cid));
+				}else{
+					$this->error('合同更新失败，请重新操作');
+				}
+			}
+		}else{
+			$id = $this->filterId($id);
+			$map['id'] = $id;
+			$doc = $this->lists('MyContractDocument',$map);
+			foreach ($doc as &$value){
+				$value['document_path'] = analysisPath($value['document_path']);
+			}
+	// 		dump($doc);die();
+			$this->assign('_doc',$doc);
+			$this->display();
 		}
-// 		dump($doc);die();
-		$this->assign('_doc',$doc);
-		$this->display();
 	}
 	
 	/*文档上传*/
