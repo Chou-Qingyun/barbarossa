@@ -16,6 +16,17 @@ class CustomController extends AdminController {
 		return $id;
 	}
 	
+	/*数据库表的查询并返回数值*/
+	public function getData($tableName='',$order=''){
+		$tableData = M($tableName);
+		if(empty($order)){
+			return $tableData->where('status=0')->select();
+		}else{
+			return $tableData->where('status=0')->order('id')->select();
+		}
+		
+	}
+	
 	/* 客户资料管理 */
 	public function customList(){
 		//将联系时间超过客户池周期或者建档后还未联系且建档时间超过客户池周期的客户都设置为公共客户
@@ -45,10 +56,9 @@ class CustomController extends AdminController {
 			$customerData->where($condition)->setField('customer_service','公共客户');
 		}
 		
-		$categoryManage = M('MyCustomerType');
-		$sourceManage = M('MyCustomerSource');
-		$type = $categoryManage->where('status=0')->select();
-		$source = $sourceManage->where('status=0')->select();
+		
+		$type = $this->getData('MyCustomerType');
+		$source = $this->getData('MyCustomerSource');
 		$list = $this->lists('MyCustomerData','','id');
 		$this->assign('_list',$list);
 		$this->assign('type',$type);
@@ -73,10 +83,8 @@ class CustomController extends AdminController {
 				}
 			}
 		}else{
-			$categoryManage = M('MyCustomerType');
-			$sourceManage = M('MyCustomerSource');
-			$type = $categoryManage->where('status=0')->select();
-			$source = $sourceManage->where('status=0')->select();
+			$type = $this->getData('MyCustomerType');
+			$source = $this->getData('MyCustomerSource');
 			$customer_number = 'LS' . date('ymdHis',time()) . mt_rand(10,99);
 			$this->assign('customer_number',$customer_number);
 			$this->assign('type',$type);
@@ -109,11 +117,9 @@ class CustomController extends AdminController {
 		}else{
 			$where = array('id' => $id);
 			$customData = M('MyCustomerData');
-			$categoryManage = M('MyCustomerType');
-			$sourceManage = M('MyCustomerSource');
 			$list = $customData->where($where)->find();
-			$type = $categoryManage->where('status=0')->select();
-			$source = $sourceManage->where('status=0')->select();
+			$type = $this->getData('MyCustomerType');
+			$source = $this->getData('MyCustomerSource');
 			$this->assign('type',$type);
 			$this->assign('source',$source);
 			$this->assign('data',$list);
@@ -144,15 +150,11 @@ class CustomController extends AdminController {
 
 			
 		}else{
-			/* ($id == 0) && $this->error('请选择要修改的数据');
-			$id = array_unique((array)I('id',0));
-			$id = is_array($id) ? implode(',', $id) : $id; */
 			$id = $this->filterId($id);
 			$map['id'] = array('in',$id);
 			$customerData = M('MyCustomerData');
-			$categoryManage = M('MyCustomerType');
 			$list = $customerData->where($map)->select();
-			$type = $categoryManage->where('status=0')->select();
+			$type = $this->getData('MyCustomerType');
 			$this->meta_title = "批量修改客户类型";
 			$this->assign('_type',$type);
 			$this->assign('_list',$list);
@@ -189,9 +191,8 @@ class CustomController extends AdminController {
 			$id = $this->filterId($id);
 			$map['id'] = array('in',$id);
 			$customerData = M('MyCustomerData');
-			$sourceManage = M('MyCustomerSource');
 			$list = $customerData->where($map)->select();
-			$source = $sourceManage->where('status=0')->select();
+			$source = $this->getData('MyCustomerSource');
 			$this->meta_title = "批量修改客户来源";
 			$this->assign('_source',$source);
 			$this->assign('_list',$list);
@@ -436,8 +437,8 @@ class CustomController extends AdminController {
 // 			$customData = M('MyCustomerData');
 //  		dump($where);die();
 			$list = $this->lists('MyCustomerData',$where,'id');
-			$type = $this->lists('MyCustomerType');
-			$source = $this->lists('MyCustomerSource');
+			$type = $this->getData('MyCustomerType');
+			$source = $this->getData('MyCustomerSource');
 // 			echo $customData->getLastSql();
 			/*dump($list);die(); */
 // 			dump($arr);
@@ -466,9 +467,11 @@ class CustomController extends AdminController {
 	public function myCustomList(){
 		$map['customer_service'] = get_username();
 		$list = $this->lists('MyCustomerData',$map,'id');
-		$type = $this->lists('MyCustomerType');
-		$source = $this->lists('MyCustomerSource');
+		$type = $this->getData('MyCustomerType');
+		$source = $this->getData('MyCustomerSource');
 // 		dump($list);die();
+		/* $customerData = M('MyCustomerData');
+		echo $customerData->getLastSql(); */
 		$this->assign('type',$type);
 		$this->assign('source',$source);
 		$this->assign('_list',$list);
@@ -533,7 +536,7 @@ class CustomController extends AdminController {
 		$this->assign('start_time',$start_time);
 		$this->assign('end_time',$end_time);
 		$this->assign('_list',$list);
-		$employee = $this->lists('Member');
+		$employee = $this->getData('Member');
 		$this->assign('employee',$employee);
 // 		dump($list);
 		$this->display();
@@ -574,7 +577,7 @@ class CustomController extends AdminController {
 // 		dump($arr);
 		$this->assign('searched',$arr);
 		$this->assign('_list',$list);
-		$employee = $this->lists('Member');
+		$employee = $this->getData('Member');
 		$this->assign('employee',$employee);
 		$this->display('feedbacklistsearch');
 		
@@ -624,7 +627,7 @@ class CustomController extends AdminController {
 		}else{
 			$map['customer_number'] = I('customer_number');
 			$list = $this->lists('MyCustomerData',$map);
-			$type = $this->lists('MyCustomerType');
+			$type = $this->getData('MyCustomerType');
 			$this->meta_title = '添加联系记录';
 			$this->assign('type',$type);
 			$this->assign('_list',$list);
@@ -663,7 +666,7 @@ class CustomController extends AdminController {
 			$list = $this->lists('MyCustomerRecord',$map);
 			$where['customer_number'] = $list[0]['customer_number'];
 			$customer = $this->lists('MyCustomerData',$where);
-			$type = $customer[0]['customer_type'];
+			$type = $this->getData('MyCustomerType');
 			$this->meta_title = '编辑联系记录';
 			$this->assign('id',$id);
 			$this->assign('type',$type);
@@ -1136,7 +1139,7 @@ class CustomController extends AdminController {
 	public function shareCustomList(){
 		$map['share_to'] = get_username();
 		$list = $this->lists('MyCustomerShare',$map,'sid');
-		$customer_type = $this->lists('MyCustomerType','','id');
+		$customer_type = $this->getData('MyCustomerType','id');
 		$this->assign('type',$customer_type);
 		$this->assign('_list',$list);
 		$this->display();
@@ -1147,7 +1150,7 @@ class CustomController extends AdminController {
 	public function shareCustomListSelf(){
 		$map['share_name'] = get_username();
 		$list = $this->lists('MyCustomerShare',$map,'sid');
-		$customer_type = $this->lists('MyCustomerType','','id');
+		$customer_type = $this->getData('MyCustomerType','id');
 		$this->assign('type',$customer_type);
 		$this->assign('_list',$list);
 		$this->display();
@@ -1189,7 +1192,7 @@ class CustomController extends AdminController {
 			$where['_logic'] = 'AND';
 		}
 // 		dump($where);
-		$mycustomerShare = M('MyCustomerShare');
+// 		$mycustomerShare = M('MyCustomerShare');
 		$list = $this->lists('MyCustomerShare',$where,'sid');
 		$this->assign('_list',$list);
 // 		echo $mycustomerShare->getLastSql();
@@ -1270,8 +1273,8 @@ class CustomController extends AdminController {
 	public function customPoolManage(){
 		$mape['customer_service'] = '公共客户';
 		$list = $this->lists('MyCustomerData',$mape,'id');
-		$type= $this->lists('MyCustomerType');
-		$source = $this->lists('MyCustomerSource');
+		$type= $this->getData('MyCustomerType');
+		$source = $this->getData('MyCustomerSource');
 		$this->assign('type',$type);
 		$this->assign('source',$source);
 // 		dump($list);
