@@ -399,6 +399,7 @@ function J($str){
 
 function myFilename($name){
 	return time() . '_' . substr_replace($name, '', -4);
+	
 }
 
 /*文档显示相关附件*/
@@ -406,7 +407,9 @@ function analysisPath($path){
 	$arr = array();
 	$onepath = explode('|', $path);
 	foreach ($onepath as $value){
-		$arr[$value] = substr($value, strpos($value,'_')+1);
+		if($value != ""){
+			$arr[$value] = substr($value, strpos($value,'_')+1);
+		}
 	}
 	return $arr;
 }
@@ -415,4 +418,11 @@ function analysisPath($path){
 function getDays($onetime){
 	$day = (time() - $onetime)/(3600*24);
 	return 15-ceil($day);
+}
+
+/*截取路径*/
+function subpath($path){
+	$path = explode('/', $path);
+	$path = end($path);
+	return substr($path, 0, 10);
 }

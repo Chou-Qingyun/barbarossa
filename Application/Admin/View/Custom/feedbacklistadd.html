@@ -28,7 +28,15 @@
     		<td>联系人：<input type="text" class="text" name="contact_name" value="{$vo.contact_name}" ></td>
     	</tr>
     	<tr>
-    		<td>客户类别：{$vo.customer_type}</td>
+    		<td>
+    		客户类别：
+    			<select name="customer_type" style="width:230px;height:29px;" class="text">
+		                <volist name="type" id="tpname" >
+		                	<option value="{$tpname.type_name}" {$tpname['type_name'] == $vo.customer_type ? 'selected' : ''}>{$tpname.type_name}</option>
+		                </volist>
+		                
+	            </select>
+    		</td>
     		
     	</tr>
     	<tr>

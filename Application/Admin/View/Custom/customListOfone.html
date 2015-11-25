@@ -1,0 +1,77 @@
+<extend name="Public/base"/>
+
+<block name="body">
+<style>
+	.customdiv{
+		width:128px;
+		height:38px;
+		border:2px solid gray;
+		font-size:20px;
+		font-family:"Microsoft Yahei",Symbol,sans-serif ;
+		text-align: center;
+		float: left;
+		margin-right: 10px; 
+	}
+</style>
+    <div class="main-title">
+        <h2>批量指派客户</h2>
+    </div>
+    <form action="{:U(Custom/customListOfone)}" method="post" class="form-horizontal">
+    	<div >
+	        <volist name="_list" id="vo">
+		        <div class="form-item customdiv" >
+		           {$vo.customer_name} 
+		        </div>
+		        
+	        </volist>
+        </div>
+        <input type="hidden" name="id" value="{$_id}">
+        <div style="clear: both;">
+        	<label class="item-label" style="font-size:16px;">分配给：</label>
+            <div class="controls">
+            	<label style="font-size:16px;font-weight: bold;">新的负责人</label>
+                <select name="department" id="department" style="height:29px;" class="text" onchange="chg();">
+	                <option value="">--请选择部门--</option>
+	                <volist name="_depart" id="depart" >
+	                	<option value="{$depart.id}" >{$depart.department}</option>
+	                </volist>
+                </select>
+                <select name="employee" id="employee" style="height:29px;">
+                	<option value="">--请选择员工--<option>
+                </select>
+            </div>
+	    </div>
+	    
+        <div class="form-item" style="margin-top:10px;">
+        <!-- 有ajax     -->
+        	<button class="btn submit-btn ajax-post" id="submit" type="submit" target-form="form-horizontal">确 定</button>
+            <button class="btn btn-return" onclick="javascript:history.back(-1);return false;">返 回</button>
+        </div>
+    </form>
+</block>
+<block name="script">
+    <script type="text/javascript">
+  	//导航高亮
+    highlight_subnav('{:U('Custom/customList')}');
+  	function chg(){
+	    var departid = document.getElementById('department').value;
+	    var json = eval({$_user});
+		var opt = '';
+	    for(var j in json){
+	    	/* console.log(j); */
+	    	if(departid == j){
+	    		for(var i=0; i<json[j].length; i++){
+	    			opt += '<option value="'+json[j][i]+'">'+json[j][i]+'</option>';
+	    		}
+	    	}
+	    }
+	    if(opt == ''){
+	    	opt += '<option value="">--请选择员工--</option>';
+	    }
+	    document.getElementById('employee').innerHTML = opt;
+  	}
+    </script>
+    
+</block>
+
+

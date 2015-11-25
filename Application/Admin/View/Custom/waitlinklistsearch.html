@@ -10,13 +10,13 @@
         <!-- 高级搜索 -->
         <div class="search-form fr cf">
             <div class="sleft">
-                <input type="text" name="search_content" style="width:300px;" class="search-input"  placeholder="请输入客户名称/手机/联系人/客服专员" >
+                <input type="text" name="search_content" style="width:300px;" class="search-input"  placeholder="请输入客户名称/手机/联系人/客服专员" value="{$searchArr['search_content']}" >
             <div class="search-input" style="width:460px;height:100%" >
-                    预约时间：<input type="text" class="text" name="time_start"  value="{$start_time}"
+                    预约时间：<input type="text" class="text" name="time_start"  value="{$searchArr['time_start']}"
                             style="width:170px;border:none;background-image:url(__STATIC__/js/skins/yahui/icon.png);background-repeat:no-repeat;background-position:right center;" 
                             onClick="laydate({istime: true, format: 'YYYY-MM-DD hh:mm:ss'})" 
                             >
-                    至：<input type="text" class="text" name="time_end" value="{$end_time}"
+                    至：<input type="text" class="text" name="time_end" value="{$searchArr['time_end']}"
                             style="width:170px;border:none;background-image:url(__STATIC__/js/skins/yahui/icon.png);background-repeat:no-repeat;background-position:right center;"
                              onClick="laydate({istime: true, format: 'YYYY-MM-DD hh:mm:ss'})">
                 </div>

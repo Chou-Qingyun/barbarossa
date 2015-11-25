@@ -59,42 +59,57 @@
     <div class="main-title">
         <h2>新增合同文档</h2>
     </div>
-    <form action="{:U('Custom/myCustomDocumentAdd')}" method="post" class="form-horizontal" enctype="multipart/form-data">
+    <form action="{:U('Custom/myCustomDocumentEdit')}" method="post" class="form-horizontal" enctype="multipart/form-data">
+    	<foreach name="_doc" item="dc">
+    	<input type="hidden" name="id" value="{$dc.id}">
     	<div class="form-item">
             <label class="item-label">文档名称</label>
             <div class="controls">
-                <input type="text" class="text" name="document_name" >
+                <input type="text" class="text" name="document_name" value="{$dc.document_name}">
             </div>
         </div>
         <div class="form-item">
             <label class="item-label">文档类别</label>
             <div class="controls">
                 <select name="document_type" style="width:230px;height:29px;" class="text">
-                    <option value="合同文档">合同文档</option>
-                    <option value="其他文档">其他文档</option>
+                    <option value="合同文档" {$dc['document_type'] == '合同文档'? 'selected' : ''}>合同文档</option>
+                    <option value="其他文档" {$dc['document_type'] == '其他文档'? 'selected' : ''}>其他文档</option>
                 </select>
             </div>
         </div>
         <div class="form-item">
             <label class="item-label">文档描述</label>
             <div class="controls">
-                <textarea name="document_explain" rows="4" cols="40"></textarea>
+                <textarea name="document_explain" rows="4" cols="40">{$dc.document_explain}</textarea>
             </div>
         </div>
 		<div style="width: 356px; height: auto; border: 1px solid #e1e1e1; font-size: 12px; padding: 10px;margin: 10px;">
 		<label class="item-label">相关附件：</label>
+		
 		<div id="divFileProgressContainer" style="width:300px">
         <p><span id="spanButtonPlaceholder"></span>&nbsp;|&nbsp;<span id="divStatus">0</span> 个文件已经上传
+
+        <foreach name="dc.document_path" item="vi" key="k">
+        <div id="{$k|subpath=###}">
+		<div class="progressContainer blue"><a class="progressCancel" onclick="cancelItem({$k|subpath=###});" href="#" style="visibility: visible;"> </a>
+		<div class="progressName">{$vi}</div>
+		<div class="progressBarStatus">
+		<span class="completeMsg">上传完成</span></div><div class="progressBarComplete"></div>
+		<input type="hidden" value="{$k}" id="value_SWFUpload_0_0" name="fileUrl"></div>
+		</div>
+		</foreach>
+        
         <input id="btnCancel" type="hidden" value="取消所有" disabled="disabled" style="margin-left: 2px; height: 22px; font-size: 8pt;" /></p>
         <div class="flash" id="fsUploadProgress"></div>
         </div>
         <div style="clear:both;"></div>
-        <input type="hidden" name="hfFiles" id="hfFiles" />
         <span id="fileIds" style="display:none"></span>
+		
 		<input type="hidden" name="document_path" id="document_path" value=""/>
-		<input type="hidden" name="customer_number" value="{$customer_number}" />
-		<input type="hidden" name="customer_name" value="{$customer_name}"/>
+		<input type="hidden" name="customer_number" value="{$dc.customer_number}" />
+		<input type="hidden" name="customer_name" value="{$dc.customer_name}"/>
 		</div>
+		</foreach>
         <div class="form-item">
         <!-- 有ajax     -->
         	
@@ -107,6 +122,10 @@
 <block name="script">
 <script src="__STATIC__/select.js"></script>
 <script type="text/javascript" defer>
+    function cancelItem(param){
+    	var del = document.getElementById(param);
+    	del.innerHTML = '';
+    }
     
     function getValue(){
     	var value = document.getElementsByName('fileUrl');
@@ -117,6 +136,7 @@
 		}
     	$('#document_path').val(path);
     }
+    
   //导航高亮
     highlight_subnav('{:U('Custom/customList')}');
 </script>

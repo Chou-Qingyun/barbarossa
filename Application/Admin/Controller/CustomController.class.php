@@ -16,12 +16,49 @@ class CustomController extends AdminController {
 		return $id;
 	}
 	
+	/*数据库表的查询并返回数值*/
+	public function getData($tableName='',$order=''){
+		$tableData = M($tableName);
+		if(empty($order)){
+			return $tableData->where('status=0')->select();
+		}else{
+			return $tableData->where('status=0')->order('id')->select();
+		}
+		
+	}
+	
 	/* 客户资料管理 */
 	public function customList(){
-		$categoryManage = M('MyCustomerType');
-		$sourceManage = M('MyCustomerSource');
-		$type = $categoryManage->where('status=0')->select();
-		$source = $sourceManage->where('status=0')->select();
+		//将联系时间超过客户池周期或者建档后还未联系且建档时间超过客户池周期的客户都设置为公共客户
+		$customerData = M('MyCustomerData');
+		$customerPoolSet = M('MyCustomerPool');
+		$isOpen = $customerPoolSet->getField('is_open');
+		if($isOpen == '1'){
+			$period = $customerPoolSet->getField('recycle_period');
+			$days = (int)$period;
+			$recycle_scope = $customerPoolSet->getField('recycle_scope');
+			$map['id'] = array('in',$recycle_scope);
+			$customer_type = M('MyCustomerType')->where($map)->getField('type_name',true);
+			$type = implode(',', $customer_type);
+			$where['customer_type'] = array('in',$type);
+			$list = $this->lists('MyCustomerData',$where);
+			// 			dump($list);
+			$arr = array();
+			foreach ($list as $value){
+				$subtime = time() - $value['last_time'];
+				$subcreate =  time() - $value['create_time'];
+				if(($days*24*3600 < $subtime && $value['last_time'] != 0 )||
+						($value['last_time'] == 0 && $subcreate > $days*24*3600)){
+							$arr[] = $value['id'];
+				}
+			}
+			$condition['id'] = array('in',implode(',', $arr));
+			$customerData->where($condition)->setField('customer_service','公共客户');
+		}
+		
+		
+		$type = $this->getData('MyCustomerType');
+		$source = $this->getData('MyCustomerSource');
 		$list = $this->lists('MyCustomerData','','id');
 		$this->assign('_list',$list);
 		$this->assign('type',$type);
@@ -39,17 +76,15 @@ class CustomController extends AdminController {
 			if (!$customData->create()) {
 				$this->error($customData->getError());
 			}else{
-				if ($customData->add($data)) {
-				    $data = I('post.');
+				if ($customData->add()) {
+					$data = I('post.');
 					$contactPerson->add($data);
 					$this->success('客户资料添加成功',U('Custom/customlist'));
 				}
 			}
 		}else{
-			$categoryManage = M('MyCustomerType');
-			$sourceManage = M('MyCustomerSource');
-			$type = $categoryManage->where('status=0')->select();
-			$source = $sourceManage->where('status=0')->select();
+			$type = $this->getData('MyCustomerType');
+			$source = $this->getData('MyCustomerSource');
 			$customer_number = 'LS' . date('ymdHis',time()) . mt_rand(10,99);
 			$this->assign('customer_number',$customer_number);
 			$this->assign('type',$type);
@@ -82,11 +117,9 @@ class CustomController extends AdminController {
 		}else{
 			$where = array('id' => $id);
 			$customData = M('MyCustomerData');
-			$categoryManage = M('MyCustomerType');
-			$sourceManage = M('MyCustomerSource');
 			$list = $customData->where($where)->find();
-			$type = $categoryManage->where('status=0')->select();
-			$source = $sourceManage->where('status=0')->select();
+			$type = $this->getData('MyCustomerType');
+			$source = $this->getData('MyCustomerSource');
 			$this->assign('type',$type);
 			$this->assign('source',$source);
 			$this->assign('data',$list);
@@ -117,15 +150,11 @@ class CustomController extends AdminController {
 
 			
 		}else{
-			/* ($id == 0) && $this->error('请选择要修改的数据');
-			$id = array_unique((array)I('id',0));
-			$id = is_array($id) ? implode(',', $id) : $id; */
 			$id = $this->filterId($id);
 			$map['id'] = array('in',$id);
 			$customerData = M('MyCustomerData');
-			$categoryManage = M('MyCustomerType');
 			$list = $customerData->where($map)->select();
-			$type = $categoryManage->where('status=0')->select();
+			$type = $this->getData('MyCustomerType');
 			$this->meta_title = "批量修改客户类型";
 			$this->assign('_type',$type);
 			$this->assign('_list',$list);
@@ -162,9 +191,8 @@ class CustomController extends AdminController {
 			$id = $this->filterId($id);
 			$map['id'] = array('in',$id);
 			$customerData = M('MyCustomerData');
-			$sourceManage = M('MyCustomerSource');
 			$list = $customerData->where($map)->select();
-			$source = $sourceManage->where('status=0')->select();
+			$source = $this->getData('MyCustomerSource');
 			$this->meta_title = "批量修改客户来源";
 			$this->assign('_source',$source);
 			$this->assign('_list',$list);
@@ -183,7 +211,6 @@ class CustomController extends AdminController {
 // 			dump($id);
 			$map['id'] = array('in',$id);
 			$data['customer_service'] = I('employee');
-			$data['last_time'] = time();
 			$customerData = M('MyCustomerData');
 			if(empty($data['customer_service'])){
 				$this->error('指派失败，请选择指派的对象~！');
@@ -410,8 +437,8 @@ class CustomController extends AdminController {
 // 			$customData = M('MyCustomerData');
 //  		dump($where);die();
 			$list = $this->lists('MyCustomerData',$where,'id');
-			$type = $this->lists('MyCustomerType');
-			$source = $this->lists('MyCustomerSource');
+			$type = $this->getData('MyCustomerType');
+			$source = $this->getData('MyCustomerSource');
 // 			echo $customData->getLastSql();
 			/*dump($list);die(); */
 // 			dump($arr);
@@ -440,9 +467,11 @@ class CustomController extends AdminController {
 	public function myCustomList(){
 		$map['customer_service'] = get_username();
 		$list = $this->lists('MyCustomerData',$map,'id');
-		$type = $this->lists('MyCustomerType');
-		$source = $this->lists('MyCustomerSource');
+		$type = $this->getData('MyCustomerType');
+		$source = $this->getData('MyCustomerSource');
 // 		dump($list);die();
+		/* $customerData = M('MyCustomerData');
+		echo $customerData->getLastSql(); */
 		$this->assign('type',$type);
 		$this->assign('source',$source);
 		$this->assign('_list',$list);
@@ -461,13 +490,14 @@ class CustomController extends AdminController {
 	
 	/*即将回收*/
 	public function myCustomListRec(){
-		$sql = "select id,(". time() ."-last_time) as subtime,(". time() ."-create_time) as subcreate,last_time as ltime from " .C('DB_PREFIX'). "my_customer_data group by id having (subtime>3600*7*30 and subtime<".time().") or (subcreate>3600*7*30 and ltime=0)";
+		$sql = "select id,(". time() ."-last_time) as subtime,(". time() ."-create_time) as subcreate,last_time as ltime from " .C('DB_PREFIX'). "my_customer_data group by id having (subtime>3600*6*30 and subtime<".time().") or (subcreate>3600*6*30 and ltime=0)";
+// 		echo $sql;
 		$customerData = M('MyCustomerData');
 		$item = $customerData->query($sql);
-		// 		dump($item);
 		foreach ($item as $vo){
 			$arr[] = $vo['id'];
 		}
+// 		dump($arr);
 		$where['id'] = array('in',implode(',', $arr));
 		$where['customer_service'] = get_username();
 		$list = $this->lists('MyCustomerData',$where,'id');
@@ -505,7 +535,7 @@ class CustomController extends AdminController {
 		$this->assign('start_time',$start_time);
 		$this->assign('end_time',$end_time);
 		$this->assign('_list',$list);
-		$employee = $this->lists('Member');
+		$employee = $this->getData('Member');
 		$this->assign('employee',$employee);
 // 		dump($list);
 		$this->display();
@@ -546,7 +576,7 @@ class CustomController extends AdminController {
 // 		dump($arr);
 		$this->assign('searched',$arr);
 		$this->assign('_list',$list);
-		$employee = $this->lists('Member');
+		$employee = $this->getData('Member');
 		$this->assign('employee',$employee);
 		$this->display('feedbacklistsearch');
 		
@@ -596,7 +626,7 @@ class CustomController extends AdminController {
 		}else{
 			$map['customer_number'] = I('customer_number');
 			$list = $this->lists('MyCustomerData',$map);
-			$type = $this->lists('MyCustomerType');
+			$type = $this->getData('MyCustomerType');
 			$this->meta_title = '添加联系记录';
 			$this->assign('type',$type);
 			$this->assign('_list',$list);
@@ -635,7 +665,7 @@ class CustomController extends AdminController {
 			$list = $this->lists('MyCustomerRecord',$map);
 			$where['customer_number'] = $list[0]['customer_number'];
 			$customer = $this->lists('MyCustomerData',$where);
-			$type = $customer[0]['customer_type'];
+			$type = $this->getData('MyCustomerType');
 			$this->meta_title = '编辑联系记录';
 			$this->assign('id',$id);
 			$this->assign('type',$type);
@@ -786,7 +816,7 @@ class CustomController extends AdminController {
 	/*添加文档*/
 	public function myCustomDocumentAdd(){
 		if(IS_POST){
-// 			dump(I('post.'));
+// 			dump(I('post.'));die();
 		$map['customer_number'] = I('customer_number');
 		$customer = $this->lists('MyCustomerData',$map);
 		$id = $customer[0]['id'];
@@ -824,8 +854,34 @@ class CustomController extends AdminController {
 	}
 	
 	/*编辑文档*/
-	public function myCustomDocumentEdit(){
-		
+	public function myCustomDocumentEdit($id=0){
+		if(IS_POST){
+// 			print_r(I('post.'));
+			$where['id']= $id;
+			$map['customer_number'] = I('customer_number');
+			$customer = $this->lists('MyCustomerData',$map);
+			$cid = $customer[0]['id'];
+			$contractDocument = D('MyContractDocument');
+			if(!$contractDocument->create()){
+				$this->error($contractDocument->getError());
+			}else{
+				if($contractDocument->where($where)->save()){
+					$this->success('合同更新成功',U('customListDetail?id='.$cid));
+				}else{
+					$this->error('合同更新失败，请重新操作');
+				}
+			}
+		}else{
+			$id = $this->filterId($id);
+			$map['id'] = $id;
+			$doc = $this->lists('MyContractDocument',$map);
+			foreach ($doc as &$value){
+				$value['document_path'] = analysisPath($value['document_path']);
+			}
+	// 		dump($doc);die();
+			$this->assign('_doc',$doc);
+			$this->display();
+		}
 	}
 	
 	/*文档上传*/
@@ -840,6 +896,7 @@ class CustomController extends AdminController {
 		}
 		$upload->savePath =  $savepath;// 设置附件上传目录
 		$info = $upload->upload();
+// 		dump($info);die();
 		if(!$info) {// 上传错误提示错误信息		
 			$this->error($upload->getErrorMsg());
 		}else{// 上传成功 获取上传文件信息
@@ -848,17 +905,8 @@ class CustomController extends AdminController {
 				$spath = $file['savepath'].'/'.$file['savename'];
 			}
 		}
+// 		dump($spath);
 		print_r(J(__ROOT__.'/Uploads/'. $spath));
-	}
-
-	/*页面上删除展示文档*/
-	public function myCustomDocumentUploadDelete(){
-		$src=str_replace(__ROOT__.'/', '', str_replace('//', '/', $_GET['src']));
-		if (file_exists($src)){
-			unlink($src);
-		}
-		print_r($_GET['src']);
-		exit();
 	}
 	
 	/*联系人*/
@@ -900,12 +948,12 @@ class CustomController extends AdminController {
 		if(IS_POST){
 			$map['id'] = I('id');
 			$contactPerson = D('MyContactPerson');
-			$where['customer_number'] = I('customer_number');
-			$id = M('MyCustomerData')->where($where)->getField('id');
+			$map['customer_number'] = I('customer_number');
+			$id = M('MyCustomerData')->where($map)->getField('id');
 			if(!$contactPerson->create()){
 				$this->error($contactPerson->getError());
 			}else{
-				if ($contactPerson->where($map)->save()){
+				if ($contactPerson->save()){
 					$this->success('联系人更新成功',U('customListDetail?id='.$id));
 				}else{
 					$this->error('联系人更新失败，请重新操作！');
@@ -951,8 +999,8 @@ class CustomController extends AdminController {
 		
 	}
 	
-	/* 等待回访客户列表 */
-	public function waitLinkList(){
+	/* 等待回访客户操作 */
+	public function waitLinkListAction(){
 		$map['customer_service'] = get_username();
 // 		dump($user);
 		$list_record = array();
@@ -975,9 +1023,64 @@ class CustomController extends AdminController {
 			array_unshift($list_record, $listre[0]);
 		}
 // 		dump($list_record);
-		$this->assign('_list',$list_record);
-		$this->display(); 
+		return $list_record;
 		
+	}
+	
+	/* 等待回访客户列表 */
+	public function waitLinkList(){
+		$list = $this->waitLinkListAction();
+		$this->assign('_list',$list);
+		$this->display();
+	}
+	
+	/*等待回访客户列表搜索*/
+	public function waitLinkListSearch(){
+// 		dump(I('get.'));
+		$searchArr = I('get.');
+		$arr = array();
+		$list_record = $this->waitLinkListAction();
+		if(array_key_exists('search_content', $searchArr)){
+			$pattern = '/\S*'.$searchArr['search_content'].'\S*/';
+			foreach ($list_record as $value){
+				if(preg_match($pattern, $value['customer_name'])||preg_match($pattern, $value['tel'])
+						||preg_match($pattern, $value['contact_name'])||preg_match($pattern, $value['customer_service'])){
+						
+							$arr[] = $value;
+				}
+					
+			}
+			
+		}
+// 		dump($arr);
+		if(array_key_exists('time_start', $searchArr)){
+			if(empty($arr)){
+				foreach ($list_record as $value){
+					if(strtotime($searchArr['time_start'])< $value['appoint_time'] && strtotime($searchArr['time_end']) > $value['appoint_time']){
+						$arr[] = $value;
+					}
+				}
+			}else{
+				$arrs = array();
+				foreach ($arr as $value){
+					if(strtotime($searchArr['time_start'])< $value['appoint_time'] && strtotime($searchArr['time_end']) > $value['appoint_time']){
+						$arrs[] = $value;
+					}
+					
+				}
+			}
+		}
+// 		dump($arrs);
+		if(isset($arrs)){
+			$this->assign('_list',$arrs);
+		}elseif(!empty($arr)){
+			$this->assign('_list',$arr);
+		}else{
+			$this->assign('_list',$list_record);
+		}
+		$this->assign('searchArr',$searchArr);
+		$this->display();
+
 	}
 	
 	/*客户资料EXCEL导入*/
@@ -1052,7 +1155,7 @@ class CustomController extends AdminController {
 	public function shareCustomList(){
 		$map['share_to'] = get_username();
 		$list = $this->lists('MyCustomerShare',$map,'sid');
-		$customer_type = $this->lists('MyCustomerType','','id');
+		$customer_type = $this->getData('MyCustomerType','id');
 		$this->assign('type',$customer_type);
 		$this->assign('_list',$list);
 		$this->display();
@@ -1063,7 +1166,7 @@ class CustomController extends AdminController {
 	public function shareCustomListSelf(){
 		$map['share_name'] = get_username();
 		$list = $this->lists('MyCustomerShare',$map,'sid');
-		$customer_type = $this->lists('MyCustomerType','','id');
+		$customer_type = $this->getData('MyCustomerType','id');
 		$this->assign('type',$customer_type);
 		$this->assign('_list',$list);
 		$this->display();
@@ -1105,7 +1208,7 @@ class CustomController extends AdminController {
 			$where['_logic'] = 'AND';
 		}
 // 		dump($where);
-		$mycustomerShare = M('MyCustomerShare');
+// 		$mycustomerShare = M('MyCustomerShare');
 		$list = $this->lists('MyCustomerShare',$where,'sid');
 		$this->assign('_list',$list);
 // 		echo $mycustomerShare->getLastSql();
@@ -1134,17 +1237,25 @@ class CustomController extends AdminController {
 				foreach ($customer as $cvalue){
 					$data = $cvalue;
 					$data['share_to'] = $svalue;
-					$data['share_time'] = time();
 					$data['share_name'] = get_username();
 // 					print_r($data);
-					if(!$shareData->add($data)){
+					$isExsist = $this->lists('MyCustomerShare',$data);
+// 					echo $shareData->getLastSql();
+					//判断是否已经共享
+					if(empty($isExsist)){
+						$data['share_time'] = time();
+						if(!$shareData->add($data)){
+							$result = false;
+						}
+					}else{
 						$result = false;
 					}
+					
 				}
 				
 			}
 			if(isset($result)){
-				$this->error('共享失败，请重新操作~');
+				$this->error('共享失败，该客户已经共享给当前的员工！');
 			}else{
 				$this->success('共享成功！',U('Custom/myCustomList'));
 			}
@@ -1171,51 +1282,15 @@ class CustomController extends AdminController {
 			$this->display();
 		}
 		
+		
 	}
 	
 	/* 公共客户管理 */
 	public function customPoolManage(){
-		//将联系时间超过30天或者建档后还未联系且建档时间超过30天的客户都设置为公共客户
-		/*$list = $this->lists('MyCustomerData');
-		 $no = array();
-		foreach ($list as $key => $value){
-			$subtime = time() - $value['last_time'];
-			$subcreate =  time() - $value['create_time'];
-			$day = time();
-			if((30*24*3600 < $subtime && $subtime <$day )||($value['last_time'] == 0 && $subcreate > 30*24*3600)){
-				$no[] = $value['id'];
-				dump($value['last_time'] == 0);
-				dump($subtime > 30*24*3600);
-				dump($subcreate > 30*24*3600);
-				echo '<br>';
-			}
-		}
-		dump($no); 
-		$where['id'] = array('in',implode(',',$no));
-		dump($where);*/
-		$customerData = M('MyCustomerData');
-		$customerPoolSet = M('MyCustomerPool');
-		$isOpen = $customerPoolSet->getField('is_open');
-		if($isOpen == '1'){
-			$period = $customerPoolSet->getField('recycle_period');
-			$days = (int)$period;
-			// 		dump($period);die();
-			$sql = "select id,(". time() ."-last_time) as subtime,(". time() ."-create_time) as subcreate,last_time as ltime from " .C('DB_PREFIX'). "my_customer_data group by id having (subtime>3600*24*".$days." and subtime<".time().") or (subcreate>3600*24*".$days." and ltime=0)";
-// 					echo $sql;
-			$item = $customerData->query($sql);
-			// 		dump($item);
-			foreach ($item as $vo){
-				$arr[] = $vo['id'];
-			}
-			$where['id'] = array('in',implode(',', $arr));
-			// 		dump($where);
-			
-			$customerData->where($where)->setField('customer_service','公共客户');;
-		}
-		$map['customer_service'] = '公共客户';
-		$list = $this->lists('MyCustomerData',$map,'id');
-		$type= $this->lists('MyCustomerType');
-		$source = $this->lists('MyCustomerSource');
+		$mape['customer_service'] = '公共客户';
+		$list = $this->lists('MyCustomerData',$mape,'id');
+		$type= $this->getData('MyCustomerType');
+		$source = $this->getData('MyCustomerSource');
 		$this->assign('type',$type);
 		$this->assign('source',$source);
 // 		dump($list);

@@ -97,7 +97,7 @@
 			&nbsp;	
 				<a href="{:U('Custom/customListDelete?id='.$vo['id'])}" class="confirm ajax-get">删除</a>
 			&nbsp;
-				<a href="{:U('Custom/shareCustomListAction?id='.$vo['id'])}">共享</a>
+				<a href="{:U('Custom/mycustomListShare?id='.$vo['id'])}" class="confirm ajax-get">共享</a>
 			&nbsp;
 				<a href="{:U('Custom/mycustomListGiveup?id='.$vo['id'])}" class="confirm ajax-get">放弃</a>	
 			</td>
@@ -166,7 +166,6 @@
 		var url = $(this).attr('url');
 		piliang(url);
 	});
-
 
 	function piliang(url) {
 		var quer = document.getElementsByClassName('ids');
